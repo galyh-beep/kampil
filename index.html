@@ -165,6 +165,39 @@ if("serviceWorker" in navigator){
   .empty{text-align:center;color:var(--muted);padding:2.4rem 1rem;border:1px dashed var(--line);border-radius:var(--radius);background:var(--surface)}
   .fab{position:fixed;right:1rem;bottom:calc(1rem + env(safe-area-inset-bottom));z-index:30;background:var(--accent);color:var(--accent-ink);border:none;border-radius:999px;padding:.85rem 1.4rem;font-size:1rem;box-shadow:var(--shadow);min-height:3.2rem}
 
+  /* Tombol menu (hamburger) */
+  .menubtn{width:2.6rem;height:2.6rem;min-height:2.6rem;padding:0;display:flex;align-items:center;justify-content:center;border-radius:10px;flex:0 0 auto}
+  .menubtn svg{width:22px;height:22px;stroke:var(--ink)}
+
+  /* Tombol tutup X — sticky, selalu terlihat di bagian atas panel */
+  .xwrap{position:sticky;top:.55rem;z-index:8;height:0;display:flex;justify-content:flex-end;pointer-events:none}
+  .xbtn{pointer-events:auto;width:2.6rem;height:2.6rem;min-height:2.6rem;border-radius:50%;padding:0;display:flex;align-items:center;justify-content:center;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow)}
+  .xbtn svg{width:20px;height:20px;stroke:var(--ink)}
+  .xbtn:hover{border-color:var(--danger);background:var(--danger-soft)}
+  .xbtn:hover svg{stroke:var(--danger)}
+  .sheet h2{padding-right:2.9rem}
+
+  /* Menu samping (drawer geser yang bisa dibuka-tutup) */
+  .scrim{position:fixed;inset:0;background:rgba(5,15,12,.5);z-index:44;opacity:0;pointer-events:none;transition:opacity .25s ease}
+  .scrim.open{opacity:1;pointer-events:auto}
+  .drawer{position:fixed;top:0;left:0;bottom:0;width:min(302px,85vw);background:var(--surface);z-index:45;transform:translateX(-106%);visibility:hidden;transition:transform .28s ease,visibility 0s linear .28s;box-shadow:var(--shadow);display:flex;flex-direction:column;padding:1rem .9rem calc(1rem + env(safe-area-inset-bottom));overflow-y:auto}
+  .drawer.open{transform:translateX(0);visibility:visible;transition:transform .28s ease}
+  .drawer .dhead{display:flex;align-items:center;gap:.6rem}
+  .drawer .dhead .shieldmini{width:38px;height:38px;border-radius:11px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+  .drawer .dhead .shieldmini svg{width:22px;height:22px;stroke:var(--accent)}
+  .drawer .dhead .dtitle{font-weight:800;font-size:1.05rem;flex:1;line-height:1.25}
+  .drawer .dhead .dtitle small{display:block;font-weight:600;font-size:.78rem;color:var(--muted)}
+  .drawer .dsec{font-size:.76rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin:1rem .25rem .35rem}
+  .dnav{display:flex;flex-direction:column;gap:.2rem}
+  .dnav button{display:flex;align-items:center;gap:.65rem;width:100%;text-align:left;border-color:transparent;background:transparent;padding:.5rem .6rem;border-radius:10px;font-weight:600;min-height:2.75rem}
+  .dnav button:hover{background:var(--surface2);border-color:transparent}
+  .dnav button.active{background:var(--accent-soft);color:var(--accent)}
+  .dnav button svg{width:20px;height:20px;stroke:var(--accent);flex:0 0 auto}
+  .dnav button .cnt{margin-left:auto;font-size:.82rem;color:var(--muted);font-weight:700;background:var(--surface2);border-radius:999px;padding:.05rem .55rem}
+  .dnav button.active .cnt{color:var(--accent);background:var(--surface)}
+  .drawer .dfoot{margin-top:auto;padding-top:1.1rem}
+  @media (prefers-reduced-motion: reduce){.drawer,.scrim{transition:none}}
+
   /* Modal */
   .overlay{position:fixed;inset:0;background:rgba(5,15,12,.55);z-index:40;display:flex;align-items:flex-end;justify-content:center;padding:0}
   @media(min-width:640px){.overlay{align-items:center;padding:1rem}}
@@ -304,6 +337,7 @@ if("serviceWorker" in navigator){
 <!-- ============ APP ============ -->
 <div id="appScreen" class="wrap hidden">
   <div class="topbar">
+    <button class="menubtn" id="btnMenu" type="button" aria-label="Buka menu navigasi"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     <h1>Kampil saya</h1>
     <span class="pill ok" id="pillBackup"><span class="dot"></span><span id="pillBackupText">Backup: —</span></span>
     <span class="pill warn hidden" id="pillSync"><span class="dot"></span><span id="pillSyncText">Sinkron: —</span></span>
@@ -350,9 +384,33 @@ if("serviceWorker" in navigator){
 
 <button class="fab hidden" id="fabAdd">+ Tambah isi</button>
 
+<!-- ============ MENU SAMPING (DRAWER) ============ -->
+<div class="scrim" id="drawerScrim"></div>
+<nav class="drawer" id="drawer" aria-label="Menu navigasi" aria-hidden="true">
+  <div class="dhead">
+    <span class="shieldmini" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.6-3 7.7-7 9-4-1.3-7-4.4-7-9V6l7-3z"/><rect x="9" y="10.5" width="6" height="5" rx="1"/><path d="M10.5 10.5V9a1.5 1.5 0 0 1 3 0v1.5"/></svg></span>
+    <span class="dtitle">Menu Kampil<small>Navigasi cepat brankas</small></span>
+    <button class="xbtn" id="btnDrawerClose" type="button" aria-label="Tutup menu"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
+  </div>
+  <div class="dsec">Kategori</div>
+  <div class="dnav" id="drawerCats"></div>
+  <div class="dsec">Folder</div>
+  <div class="dnav" id="drawerFolders"></div>
+  <div class="dsec">Panel &amp; tindakan</div>
+  <div class="dnav">
+    <button type="button" data-dnav="backup"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.6-6.3"/><path d="M21 3v6h-6"/></svg>Backup &amp; Drive</button>
+    <button type="button" data-dnav="settings"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 13.5a7.2 7.2 0 0 0 0-3l2-1.6-2-3.4-2.4 1a7.2 7.2 0 0 0-2.6-1.5L14 2.5h-4L9.6 5a7.2 7.2 0 0 0-2.6 1.5l-2.4-1-2 3.4 2 1.6a7.2 7.2 0 0 0 0 3l-2 1.6 2 3.4 2.4-1a7.2 7.2 0 0 0 2.6 1.5l.4 2.5h4l.4-2.5a7.2 7.2 0 0 0 2.6-1.5l2.4 1 2-3.4-2-1.6z"/></svg>Pengaturan</button>
+    <button type="button" data-dnav="add"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Tambah isi baru</button>
+    <button type="button" data-dnav="lock"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Kunci sekarang</button>
+  </div>
+  <p class="hint dfoot">Geser menu ke kiri, ketuk area gelap di luar menu, atau tekan tombol X untuk menutup.</p>
+</nav>
+
+
 <!-- ============ ITEM EDITOR ============ -->
 <div id="editorOverlay" class="overlay hidden">
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="editorTitle">
+    <div class="xwrap"><button type="button" class="xbtn" data-xclose="editorOverlay" aria-label="Tutup editor"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg></button></div>
     <h2 id="editorTitle">Tambah isi</h2>
     <label for="fCategory">Kategori</label>
     <select id="fCategory">
@@ -378,6 +436,7 @@ if("serviceWorker" in navigator){
 <!-- ============ BACKUP PANEL ============ -->
 <div id="backupOverlay" class="overlay hidden">
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="backupTitle" style="max-width:640px">
+    <div class="xwrap"><button type="button" class="xbtn" data-xclose="backupOverlay" aria-label="Tutup panel Backup & Drive"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg></button></div>
     <h2 id="backupTitle">Backup &amp; Google Drive</h2>
 
     <div class="privbox">
@@ -479,6 +538,7 @@ if("serviceWorker" in navigator){
 <!-- ============ RECOVERY (LUPA PASSWORD) ============ -->
 <div id="recoveryOverlay" class="overlay hidden">
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="recoveryTitle" style="max-width:480px">
+    <div class="xwrap"><button type="button" class="xbtn" data-xclose="recoveryOverlay" aria-label="Tutup panel pemulihan"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg></button></div>
     <h2 id="recoveryTitle">Pulihkan akses brankas</h2>
 
     <div id="recNone" class="hidden">
@@ -536,6 +596,7 @@ if("serviceWorker" in navigator){
 <!-- ============ SETTINGS ============ -->
 <div id="settingsOverlay" class="overlay hidden">
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="settingsTitle" style="max-width:560px">
+    <div class="xwrap"><button type="button" class="xbtn" data-xclose="settingsOverlay" aria-label="Tutup pengaturan"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg></button></div>
     <h2 id="settingsTitle">Pengaturan</h2>
 
     <label>Kode pemulihan</label>
@@ -890,6 +951,7 @@ function lockVault(){
   masterPw = null;
   $("appScreen").classList.add("hidden");
   $("fabAdd").classList.add("hidden");
+  closeDrawer();
   $("backupOverlay").classList.add("hidden");
   $("editorOverlay").classList.add("hidden");
   $("settingsOverlay").classList.add("hidden");
@@ -1188,11 +1250,93 @@ function onItemAction(act, id, k){
   else if(act === "copy"){ copyText(it.fields[k] || "", "Tersalin"); }
   else if(act === "copybody"){ copyText(it.fields.code || it.fields.body || "", "Isi tersalin"); }
 }
-function renderAll(){ renderTabs(); renderFolders(); renderSortBar(); renderList(); renderBackupStatus(); renderRecoveryBanner(); }
+function renderAll(){ renderTabs(); renderFolders(); renderSortBar(); renderList(); renderBackupStatus(); renderRecoveryBanner(); renderDrawer(); }
 function renderRecoveryBanner(){
   if(!vault) return;
   $("recoveryBanner").classList.toggle("hidden", !!vault.settings.recoverySetAt);
 }
+
+/* ================= Menu samping (drawer) & tombol tutup X ================= */
+var CAT_ICONS = {
+  semua: '<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/></svg>',
+  kontak: '<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c1.4-3.4 4.2-5 7.5-5s6.1 1.6 7.5 5"/></svg>',
+  rekening: '<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10.5h18"/><path d="M7 15.5h4"/></svg>',
+  login: '<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="12" r="4.5"/><path d="M13 12h8M18.5 12v3.5M21 12v2.5"/></svg>',
+  kode: '<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 8L4 12l4.5 4M15.5 8L20 12l-4.5 4"/></svg>',
+  catatan: '<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h9L19.5 8v12.5H6z"/><path d="M14.5 3.5v5h5M9 13h6M9 16.5h6"/></svg>'
+};
+function drawerIsOpen(){ var d = $("drawer"); return !!(d && d.classList.contains("open")); }
+function openDrawer(){
+  renderDrawer();
+  $("drawer").classList.add("open");
+  $("drawer").setAttribute("aria-hidden", "false");
+  $("drawerScrim").classList.add("open");
+}
+function closeDrawer(){
+  var d = $("drawer"); if(!d) return;
+  d.classList.remove("open");
+  d.setAttribute("aria-hidden", "true");
+  $("drawerScrim").classList.remove("open");
+}
+function renderDrawer(){
+  var box = $("drawerCats"); if(!box || !vault) return;
+  var counts = { semua: vault.items.length };
+  Object.keys(CATS).forEach(function(c){ counts[c] = vault.items.filter(function(i){ return i.cat === c; }).length; });
+  var html = '<button type="button" data-dcat="semua" class="' + (activeCat === "semua" ? "active" : "") + '">' + CAT_ICONS.semua + 'Semua kategori<span class="cnt">' + counts.semua + '</span></button>';
+  Object.keys(CATS).forEach(function(c){
+    html += '<button type="button" data-dcat="' + c + '" class="' + (activeCat === c ? "active" : "") + '">' + CAT_ICONS[c] + esc(CATS[c].label) + '<span class="cnt">' + counts[c] + '</span></button>';
+  });
+  box.innerHTML = html;
+  Array.prototype.forEach.call(box.querySelectorAll("button[data-dcat]"), function(b){
+    b.addEventListener("click", function(){
+      activeCat = b.getAttribute("data-dcat"); activeFolder = "all"; clearSelection();
+      closeDrawer(); renderAll(); window.scrollTo(0, 0);
+    });
+  });
+  var fc = folderCounts();
+  var fhtml = '<button type="button" data-dfolder="all" class="' + (activeFolder === "all" ? "active" : "") + '">' + FOLDER_SVG + 'Semua folder<span class="cnt">' + fc.all + '</span></button>';
+  fhtml += '<button type="button" data-dfolder="none" class="' + (activeFolder === "none" ? "active" : "") + '">' + FOLDER_SVG + 'Tanpa folder<span class="cnt">' + fc.none + '</span></button>';
+  visibleFolders().forEach(function(f){
+    var label = esc(f.name) + (activeCat === "semua" ? ' <span style="font-weight:400;color:var(--muted);font-size:.82rem">' + esc(CATS[f.cat].label) + '</span>' : '');
+    fhtml += '<button type="button" data-dfolder="' + f.id + '" data-dfcat="' + f.cat + '" class="' + (activeFolder === f.id ? "active" : "") + '">' + FOLDER_SVG + label + '<span class="cnt">' + (fc.byId[f.id] || 0) + '</span></button>';
+  });
+  var fbox = $("drawerFolders");
+  fbox.innerHTML = fhtml;
+  Array.prototype.forEach.call(fbox.querySelectorAll("button[data-dfolder]"), function(b){
+    b.addEventListener("click", function(){
+      var fid = b.getAttribute("data-dfolder");
+      var fcat = b.getAttribute("data-dfcat");
+      if(fid !== "all" && fid !== "none" && fcat && activeCat !== "semua" && activeCat !== fcat) activeCat = fcat;
+      activeFolder = fid; clearSelection();
+      closeDrawer(); renderAll(); window.scrollTo(0, 0);
+    });
+  });
+}
+$("btnMenu").addEventListener("click", openDrawer);
+$("btnDrawerClose").addEventListener("click", closeDrawer);
+$("drawerScrim").addEventListener("click", closeDrawer);
+(function(){
+  var startX = null;
+  var dr = $("drawer");
+  dr.addEventListener("touchstart", function(e){ startX = e.changedTouches[0].clientX; }, { passive: true });
+  dr.addEventListener("touchend", function(e){
+    if(startX === null) return;
+    var dx = e.changedTouches[0].clientX - startX; startX = null;
+    if(dx < -60) closeDrawer();
+  }, { passive: true });
+})();
+Array.prototype.forEach.call(document.querySelectorAll("[data-xclose]"), function(b){
+  b.addEventListener("click", function(){ var t = $(b.getAttribute("data-xclose")); if(t) t.classList.add("hidden"); });
+});
+document.addEventListener("keydown", function(e){
+  if(e.key !== "Escape") return;
+  if(drawerIsOpen()){ closeDrawer(); return; }
+  if(!$("confirmOverlay").classList.contains("hidden")){ $("btnConfirmNo").click(); return; }
+  ["backupOverlay", "settingsOverlay", "editorOverlay", "recoveryOverlay"].forEach(function(id){
+    var el = $(id); if(el && !el.classList.contains("hidden")) el.classList.add("hidden");
+  });
+});
+
 </script>
 <script>
 "use strict";
@@ -1219,17 +1363,19 @@ $("btnConfirmYes").addEventListener("click", function(){
   var cb = confirmCb; confirmCb = null;
   if(cb) cb();
 });
+var XWRAP_HTML = '<div class="xwrap"><button type="button" class="xbtn" aria-label="Tutup dialog"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg></button></div>';
 function promptPassword(title, hint){
   return new Promise(function(resolve){
     var ov = document.createElement("div");
     ov.className = "overlay";
-    ov.innerHTML = '<div class="sheet" style="max-width:420px"><h2>'+esc(title)+'</h2>'
+    ov.innerHTML = '<div class="sheet" style="max-width:420px">' + XWRAP_HTML + '<h2>'+esc(title)+'</h2>'
       + (hint ? '<p class="hint">'+esc(hint)+'</p>' : '')
       + '<label>Password file backup</label><input type="password" class="pp-input" autocomplete="off" placeholder="Master password file ini" />'
       + '<div class="foot"><span class="spacer"></span><button class="pp-cancel">Batal</button><button class="primary pp-ok">Buka file</button></div></div>';
     document.body.appendChild(ov);
     var input = ov.querySelector(".pp-input");
     input.focus();
+    ov.querySelector(".xbtn").addEventListener("click", function(){ close(null); });
     function close(val){ ov.remove(); resolve(val); }
     ov.querySelector(".pp-cancel").addEventListener("click", function(){ close(null); });
     ov.querySelector(".pp-ok").addEventListener("click", function(){ close(input.value); });
@@ -1294,7 +1440,7 @@ function openFolderDialog(opts){
   var ov = document.createElement("div");
   ov.className = "overlay";
   var catOpts = Object.keys(CATS).map(function(c){ return '<option value="' + c + '"' + (c === opts.cat ? " selected" : "") + '>' + CATS[c].label + '</option>'; }).join("");
-  ov.innerHTML = '<div class="sheet" style="max-width:440px"><h2>' + (folder ? "Ubah folder" : "Folder baru") + '</h2>'
+  ov.innerHTML = '<div class="sheet" style="max-width:440px">' + XWRAP_HTML + '<h2>' + (folder ? "Ubah folder" : "Folder baru") + '</h2>'
     + '<label>Nama folder</label><input type="text" class="fd-name" maxlength="40" placeholder="mis. Sosmed, Kerja, Bank…" value="' + (folder ? esc(folder.name) : "") + '" />'
     + '<label>Kategori folder</label><select class="fd-cat"' + (folder ? " disabled" : "") + '>' + catOpts + '</select>'
     + (folder ? '<p class="hint">Kategori folder tidak bisa diubah. Menghapus folder tidak menghapus item di dalamnya — item hanya keluar dari folder.</p>' : '<p class="hint">Folder mengelompokkan item di dalam satu kategori. Satu item hanya bisa masuk ke satu folder.</p>')
@@ -1307,6 +1453,7 @@ function openFolderDialog(opts){
   nameInp.focus();
   function close(){ ov.remove(); }
   ov.querySelector(".fd-cancel").addEventListener("click", close);
+  ov.querySelector(".xbtn").addEventListener("click", close);
   ov.querySelector(".fd-save").addEventListener("click", function(){
     var name = nameInp.value.trim();
     var cat = ov.querySelector(".fd-cat").value;
@@ -2251,6 +2398,16 @@ $("btnBulkDone").addEventListener("click", function(){
   selectMode = false; clearSelection(); renderSortBar(); renderList();
 });
 $("btnLockNow").addEventListener("click", function(){ lockVault(); toast("Kampil terkunci"); });
+Array.prototype.forEach.call(document.querySelectorAll("[data-dnav]"), function(b){
+  b.addEventListener("click", function(){
+    var act = b.getAttribute("data-dnav");
+    closeDrawer();
+    if(act === "backup"){ renderBackupStatus(); $("backupOverlay").classList.remove("hidden"); }
+    else if(act === "settings"){ openSettings(); }
+    else if(act === "add"){ openEditor(null); }
+    else if(act === "lock"){ lockVault(); toast("Kampil terkunci"); }
+  });
+});
 $("btnBackupPanel").addEventListener("click", function(){ renderBackupStatus(); $("backupOverlay").classList.remove("hidden"); });
 $("btnCloseBackup").addEventListener("click", function(){ $("backupOverlay").classList.add("hidden"); });
 $("btnBannerConnect").addEventListener("click", function(){ renderBackupStatus(); $("backupOverlay").classList.remove("hidden"); connectDrive(); });
@@ -2552,6 +2709,39 @@ if("serviceWorker" in navigator){
   .empty{text-align:center;color:var(--muted);padding:2.4rem 1rem;border:1px dashed var(--line);border-radius:var(--radius);background:var(--surface)}
   .fab{position:fixed;right:1rem;bottom:calc(1rem + env(safe-area-inset-bottom));z-index:30;background:var(--accent);color:var(--accent-ink);border:none;border-radius:999px;padding:.85rem 1.4rem;font-size:1rem;box-shadow:var(--shadow);min-height:3.2rem}
 
+  /* Tombol menu (hamburger) */
+  .menubtn{width:2.6rem;height:2.6rem;min-height:2.6rem;padding:0;display:flex;align-items:center;justify-content:center;border-radius:10px;flex:0 0 auto}
+  .menubtn svg{width:22px;height:22px;stroke:var(--ink)}
+
+  /* Tombol tutup X — sticky, selalu terlihat di bagian atas panel */
+  .xwrap{position:sticky;top:.55rem;z-index:8;height:0;display:flex;justify-content:flex-end;pointer-events:none}
+  .xbtn{pointer-events:auto;width:2.6rem;height:2.6rem;min-height:2.6rem;border-radius:50%;padding:0;display:flex;align-items:center;justify-content:center;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow)}
+  .xbtn svg{width:20px;height:20px;stroke:var(--ink)}
+  .xbtn:hover{border-color:var(--danger);background:var(--danger-soft)}
+  .xbtn:hover svg{stroke:var(--danger)}
+  .sheet h2{padding-right:2.9rem}
+
+  /* Menu samping (drawer geser yang bisa dibuka-tutup) */
+  .scrim{position:fixed;inset:0;background:rgba(5,15,12,.5);z-index:44;opacity:0;pointer-events:none;transition:opacity .25s ease}
+  .scrim.open{opacity:1;pointer-events:auto}
+  .drawer{position:fixed;top:0;left:0;bottom:0;width:min(302px,85vw);background:var(--surface);z-index:45;transform:translateX(-106%);visibility:hidden;transition:transform .28s ease,visibility 0s linear .28s;box-shadow:var(--shadow);display:flex;flex-direction:column;padding:1rem .9rem calc(1rem + env(safe-area-inset-bottom));overflow-y:auto}
+  .drawer.open{transform:translateX(0);visibility:visible;transition:transform .28s ease}
+  .drawer .dhead{display:flex;align-items:center;gap:.6rem}
+  .drawer .dhead .shieldmini{width:38px;height:38px;border-radius:11px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+  .drawer .dhead .shieldmini svg{width:22px;height:22px;stroke:var(--accent)}
+  .drawer .dhead .dtitle{font-weight:800;font-size:1.05rem;flex:1;line-height:1.25}
+  .drawer .dhead .dtitle small{display:block;font-weight:600;font-size:.78rem;color:var(--muted)}
+  .drawer .dsec{font-size:.76rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin:1rem .25rem .35rem}
+  .dnav{display:flex;flex-direction:column;gap:.2rem}
+  .dnav button{display:flex;align-items:center;gap:.65rem;width:100%;text-align:left;border-color:transparent;background:transparent;padding:.5rem .6rem;border-radius:10px;font-weight:600;min-height:2.75rem}
+  .dnav button:hover{background:var(--surface2);border-color:transparent}
+  .dnav button.active{background:var(--accent-soft);color:var(--accent)}
+  .dnav button svg{width:20px;height:20px;stroke:var(--accent);flex:0 0 auto}
+  .dnav button .cnt{margin-left:auto;font-size:.82rem;color:var(--muted);font-weight:700;background:var(--surface2);border-radius:999px;padding:.05rem .55rem}
+  .dnav button.active .cnt{color:var(--accent);background:var(--surface)}
+  .drawer .dfoot{margin-top:auto;padding-top:1.1rem}
+  @media (prefers-reduced-motion: reduce){.drawer,.scrim{transition:none}}
+
   /* Modal */
   .overlay{position:fixed;inset:0;background:rgba(5,15,12,.55);z-index:40;display:flex;align-items:flex-end;justify-content:center;padding:0}
   @media(min-width:640px){.overlay{align-items:center;padding:1rem}}
@@ -2691,6 +2881,7 @@ if("serviceWorker" in navigator){
 <\!-- ============ APP ============ -->
 <div id="appScreen" class="wrap hidden">
   <div class="topbar">
+    <button class="menubtn" id="btnMenu" type="button" aria-label="Buka menu navigasi"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     <h1>Kampil saya</h1>
     <span class="pill ok" id="pillBackup"><span class="dot"></span><span id="pillBackupText">Backup: —</span></span>
     <span class="pill warn hidden" id="pillSync"><span class="dot"></span><span id="pillSyncText">Sinkron: —</span></span>
@@ -2737,9 +2928,33 @@ if("serviceWorker" in navigator){
 
 <button class="fab hidden" id="fabAdd">+ Tambah isi</button>
 
+<\!-- ============ MENU SAMPING (DRAWER) ============ -->
+<div class="scrim" id="drawerScrim"></div>
+<nav class="drawer" id="drawer" aria-label="Menu navigasi" aria-hidden="true">
+  <div class="dhead">
+    <span class="shieldmini" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.6-3 7.7-7 9-4-1.3-7-4.4-7-9V6l7-3z"/><rect x="9" y="10.5" width="6" height="5" rx="1"/><path d="M10.5 10.5V9a1.5 1.5 0 0 1 3 0v1.5"/></svg></span>
+    <span class="dtitle">Menu Kampil<small>Navigasi cepat brankas</small></span>
+    <button class="xbtn" id="btnDrawerClose" type="button" aria-label="Tutup menu"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
+  </div>
+  <div class="dsec">Kategori</div>
+  <div class="dnav" id="drawerCats"></div>
+  <div class="dsec">Folder</div>
+  <div class="dnav" id="drawerFolders"></div>
+  <div class="dsec">Panel &amp; tindakan</div>
+  <div class="dnav">
+    <button type="button" data-dnav="backup"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.6-6.3"/><path d="M21 3v6h-6"/></svg>Backup &amp; Drive</button>
+    <button type="button" data-dnav="settings"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 13.5a7.2 7.2 0 0 0 0-3l2-1.6-2-3.4-2.4 1a7.2 7.2 0 0 0-2.6-1.5L14 2.5h-4L9.6 5a7.2 7.2 0 0 0-2.6 1.5l-2.4-1-2 3.4 2 1.6a7.2 7.2 0 0 0 0 3l-2 1.6 2 3.4 2.4-1a7.2 7.2 0 0 0 2.6 1.5l.4 2.5h4l.4-2.5a7.2 7.2 0 0 0 2.6-1.5l2.4 1 2-3.4-2-1.6z"/></svg>Pengaturan</button>
+    <button type="button" data-dnav="add"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Tambah isi baru</button>
+    <button type="button" data-dnav="lock"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Kunci sekarang</button>
+  </div>
+  <p class="hint dfoot">Geser menu ke kiri, ketuk area gelap di luar menu, atau tekan tombol X untuk menutup.</p>
+</nav>
+
+
 <\!-- ============ ITEM EDITOR ============ -->
 <div id="editorOverlay" class="overlay hidden">
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="editorTitle">
+    <div class="xwrap"><button type="button" class="xbtn" data-xclose="editorOverlay" aria-label="Tutup editor"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg></button></div>
     <h2 id="editorTitle">Tambah isi</h2>
     <label for="fCategory">Kategori</label>
     <select id="fCategory">
@@ -2765,6 +2980,7 @@ if("serviceWorker" in navigator){
 <\!-- ============ BACKUP PANEL ============ -->
 <div id="backupOverlay" class="overlay hidden">
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="backupTitle" style="max-width:640px">
+    <div class="xwrap"><button type="button" class="xbtn" data-xclose="backupOverlay" aria-label="Tutup panel Backup & Drive"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg></button></div>
     <h2 id="backupTitle">Backup &amp; Google Drive</h2>
 
     <div class="privbox">
@@ -2866,6 +3082,7 @@ if("serviceWorker" in navigator){
 <\!-- ============ RECOVERY (LUPA PASSWORD) ============ -->
 <div id="recoveryOverlay" class="overlay hidden">
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="recoveryTitle" style="max-width:480px">
+    <div class="xwrap"><button type="button" class="xbtn" data-xclose="recoveryOverlay" aria-label="Tutup panel pemulihan"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg></button></div>
     <h2 id="recoveryTitle">Pulihkan akses brankas</h2>
 
     <div id="recNone" class="hidden">
@@ -2923,6 +3140,7 @@ if("serviceWorker" in navigator){
 <\!-- ============ SETTINGS ============ -->
 <div id="settingsOverlay" class="overlay hidden">
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="settingsTitle" style="max-width:560px">
+    <div class="xwrap"><button type="button" class="xbtn" data-xclose="settingsOverlay" aria-label="Tutup pengaturan"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg></button></div>
     <h2 id="settingsTitle">Pengaturan</h2>
 
     <label>Kode pemulihan</label>
@@ -3277,6 +3495,7 @@ function lockVault(){
   masterPw = null;
   $("appScreen").classList.add("hidden");
   $("fabAdd").classList.add("hidden");
+  closeDrawer();
   $("backupOverlay").classList.add("hidden");
   $("editorOverlay").classList.add("hidden");
   $("settingsOverlay").classList.add("hidden");
@@ -3575,11 +3794,93 @@ function onItemAction(act, id, k){
   else if(act === "copy"){ copyText(it.fields[k] || "", "Tersalin"); }
   else if(act === "copybody"){ copyText(it.fields.code || it.fields.body || "", "Isi tersalin"); }
 }
-function renderAll(){ renderTabs(); renderFolders(); renderSortBar(); renderList(); renderBackupStatus(); renderRecoveryBanner(); }
+function renderAll(){ renderTabs(); renderFolders(); renderSortBar(); renderList(); renderBackupStatus(); renderRecoveryBanner(); renderDrawer(); }
 function renderRecoveryBanner(){
   if(!vault) return;
   $("recoveryBanner").classList.toggle("hidden", !!vault.settings.recoverySetAt);
 }
+
+/* ================= Menu samping (drawer) & tombol tutup X ================= */
+var CAT_ICONS = {
+  semua: '<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/></svg>',
+  kontak: '<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c1.4-3.4 4.2-5 7.5-5s6.1 1.6 7.5 5"/></svg>',
+  rekening: '<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10.5h18"/><path d="M7 15.5h4"/></svg>',
+  login: '<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="12" r="4.5"/><path d="M13 12h8M18.5 12v3.5M21 12v2.5"/></svg>',
+  kode: '<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 8L4 12l4.5 4M15.5 8L20 12l-4.5 4"/></svg>',
+  catatan: '<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h9L19.5 8v12.5H6z"/><path d="M14.5 3.5v5h5M9 13h6M9 16.5h6"/></svg>'
+};
+function drawerIsOpen(){ var d = $("drawer"); return !!(d && d.classList.contains("open")); }
+function openDrawer(){
+  renderDrawer();
+  $("drawer").classList.add("open");
+  $("drawer").setAttribute("aria-hidden", "false");
+  $("drawerScrim").classList.add("open");
+}
+function closeDrawer(){
+  var d = $("drawer"); if(!d) return;
+  d.classList.remove("open");
+  d.setAttribute("aria-hidden", "true");
+  $("drawerScrim").classList.remove("open");
+}
+function renderDrawer(){
+  var box = $("drawerCats"); if(!box || !vault) return;
+  var counts = { semua: vault.items.length };
+  Object.keys(CATS).forEach(function(c){ counts[c] = vault.items.filter(function(i){ return i.cat === c; }).length; });
+  var html = '<button type="button" data-dcat="semua" class="' + (activeCat === "semua" ? "active" : "") + '">' + CAT_ICONS.semua + 'Semua kategori<span class="cnt">' + counts.semua + '</span></button>';
+  Object.keys(CATS).forEach(function(c){
+    html += '<button type="button" data-dcat="' + c + '" class="' + (activeCat === c ? "active" : "") + '">' + CAT_ICONS[c] + esc(CATS[c].label) + '<span class="cnt">' + counts[c] + '</span></button>';
+  });
+  box.innerHTML = html;
+  Array.prototype.forEach.call(box.querySelectorAll("button[data-dcat]"), function(b){
+    b.addEventListener("click", function(){
+      activeCat = b.getAttribute("data-dcat"); activeFolder = "all"; clearSelection();
+      closeDrawer(); renderAll(); window.scrollTo(0, 0);
+    });
+  });
+  var fc = folderCounts();
+  var fhtml = '<button type="button" data-dfolder="all" class="' + (activeFolder === "all" ? "active" : "") + '">' + FOLDER_SVG + 'Semua folder<span class="cnt">' + fc.all + '</span></button>';
+  fhtml += '<button type="button" data-dfolder="none" class="' + (activeFolder === "none" ? "active" : "") + '">' + FOLDER_SVG + 'Tanpa folder<span class="cnt">' + fc.none + '</span></button>';
+  visibleFolders().forEach(function(f){
+    var label = esc(f.name) + (activeCat === "semua" ? ' <span style="font-weight:400;color:var(--muted);font-size:.82rem">' + esc(CATS[f.cat].label) + '</span>' : '');
+    fhtml += '<button type="button" data-dfolder="' + f.id + '" data-dfcat="' + f.cat + '" class="' + (activeFolder === f.id ? "active" : "") + '">' + FOLDER_SVG + label + '<span class="cnt">' + (fc.byId[f.id] || 0) + '</span></button>';
+  });
+  var fbox = $("drawerFolders");
+  fbox.innerHTML = fhtml;
+  Array.prototype.forEach.call(fbox.querySelectorAll("button[data-dfolder]"), function(b){
+    b.addEventListener("click", function(){
+      var fid = b.getAttribute("data-dfolder");
+      var fcat = b.getAttribute("data-dfcat");
+      if(fid !== "all" && fid !== "none" && fcat && activeCat !== "semua" && activeCat !== fcat) activeCat = fcat;
+      activeFolder = fid; clearSelection();
+      closeDrawer(); renderAll(); window.scrollTo(0, 0);
+    });
+  });
+}
+$("btnMenu").addEventListener("click", openDrawer);
+$("btnDrawerClose").addEventListener("click", closeDrawer);
+$("drawerScrim").addEventListener("click", closeDrawer);
+(function(){
+  var startX = null;
+  var dr = $("drawer");
+  dr.addEventListener("touchstart", function(e){ startX = e.changedTouches[0].clientX; }, { passive: true });
+  dr.addEventListener("touchend", function(e){
+    if(startX === null) return;
+    var dx = e.changedTouches[0].clientX - startX; startX = null;
+    if(dx < -60) closeDrawer();
+  }, { passive: true });
+})();
+Array.prototype.forEach.call(document.querySelectorAll("[data-xclose]"), function(b){
+  b.addEventListener("click", function(){ var t = $(b.getAttribute("data-xclose")); if(t) t.classList.add("hidden"); });
+});
+document.addEventListener("keydown", function(e){
+  if(e.key !== "Escape") return;
+  if(drawerIsOpen()){ closeDrawer(); return; }
+  if(!$("confirmOverlay").classList.contains("hidden")){ $("btnConfirmNo").click(); return; }
+  ["backupOverlay", "settingsOverlay", "editorOverlay", "recoveryOverlay"].forEach(function(id){
+    var el = $(id); if(el && !el.classList.contains("hidden")) el.classList.add("hidden");
+  });
+});
+
 <\/script>
 <\script>
 "use strict";
@@ -3606,17 +3907,19 @@ $("btnConfirmYes").addEventListener("click", function(){
   var cb = confirmCb; confirmCb = null;
   if(cb) cb();
 });
+var XWRAP_HTML = '<div class="xwrap"><button type="button" class="xbtn" aria-label="Tutup dialog"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg></button></div>';
 function promptPassword(title, hint){
   return new Promise(function(resolve){
     var ov = document.createElement("div");
     ov.className = "overlay";
-    ov.innerHTML = '<div class="sheet" style="max-width:420px"><h2>'+esc(title)+'</h2>'
+    ov.innerHTML = '<div class="sheet" style="max-width:420px">' + XWRAP_HTML + '<h2>'+esc(title)+'</h2>'
       + (hint ? '<p class="hint">'+esc(hint)+'</p>' : '')
       + '<label>Password file backup</label><input type="password" class="pp-input" autocomplete="off" placeholder="Master password file ini" />'
       + '<div class="foot"><span class="spacer"></span><button class="pp-cancel">Batal</button><button class="primary pp-ok">Buka file</button></div></div>';
     document.body.appendChild(ov);
     var input = ov.querySelector(".pp-input");
     input.focus();
+    ov.querySelector(".xbtn").addEventListener("click", function(){ close(null); });
     function close(val){ ov.remove(); resolve(val); }
     ov.querySelector(".pp-cancel").addEventListener("click", function(){ close(null); });
     ov.querySelector(".pp-ok").addEventListener("click", function(){ close(input.value); });
@@ -3681,7 +3984,7 @@ function openFolderDialog(opts){
   var ov = document.createElement("div");
   ov.className = "overlay";
   var catOpts = Object.keys(CATS).map(function(c){ return '<option value="' + c + '"' + (c === opts.cat ? " selected" : "") + '>' + CATS[c].label + '</option>'; }).join("");
-  ov.innerHTML = '<div class="sheet" style="max-width:440px"><h2>' + (folder ? "Ubah folder" : "Folder baru") + '</h2>'
+  ov.innerHTML = '<div class="sheet" style="max-width:440px">' + XWRAP_HTML + '<h2>' + (folder ? "Ubah folder" : "Folder baru") + '</h2>'
     + '<label>Nama folder</label><input type="text" class="fd-name" maxlength="40" placeholder="mis. Sosmed, Kerja, Bank…" value="' + (folder ? esc(folder.name) : "") + '" />'
     + '<label>Kategori folder</label><select class="fd-cat"' + (folder ? " disabled" : "") + '>' + catOpts + '</select>'
     + (folder ? '<p class="hint">Kategori folder tidak bisa diubah. Menghapus folder tidak menghapus item di dalamnya — item hanya keluar dari folder.</p>' : '<p class="hint">Folder mengelompokkan item di dalam satu kategori. Satu item hanya bisa masuk ke satu folder.</p>')
@@ -3694,6 +3997,7 @@ function openFolderDialog(opts){
   nameInp.focus();
   function close(){ ov.remove(); }
   ov.querySelector(".fd-cancel").addEventListener("click", close);
+  ov.querySelector(".xbtn").addEventListener("click", close);
   ov.querySelector(".fd-save").addEventListener("click", function(){
     var name = nameInp.value.trim();
     var cat = ov.querySelector(".fd-cat").value;
@@ -4638,6 +4942,16 @@ $("btnBulkDone").addEventListener("click", function(){
   selectMode = false; clearSelection(); renderSortBar(); renderList();
 });
 $("btnLockNow").addEventListener("click", function(){ lockVault(); toast("Kampil terkunci"); });
+Array.prototype.forEach.call(document.querySelectorAll("[data-dnav]"), function(b){
+  b.addEventListener("click", function(){
+    var act = b.getAttribute("data-dnav");
+    closeDrawer();
+    if(act === "backup"){ renderBackupStatus(); $("backupOverlay").classList.remove("hidden"); }
+    else if(act === "settings"){ openSettings(); }
+    else if(act === "add"){ openEditor(null); }
+    else if(act === "lock"){ lockVault(); toast("Kampil terkunci"); }
+  });
+});
 $("btnBackupPanel").addEventListener("click", function(){ renderBackupStatus(); $("backupOverlay").classList.remove("hidden"); });
 $("btnCloseBackup").addEventListener("click", function(){ $("backupOverlay").classList.add("hidden"); });
 $("btnBannerConnect").addEventListener("click", function(){ renderBackupStatus(); $("backupOverlay").classList.remove("hidden"); connectDrive(); });
