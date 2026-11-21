@@ -20,6 +20,7 @@ Kampil bukan aplikasi cloud. Tidak ada server Kampil yang menyimpan password, no
 - [Lupa master password](#lupa-master-password)
 - [Cara memakai per kategori](#cara-memakai-per-kategori)
 - [Folder dan sortir](#folder-dan-sortir)
+- [Label (lintas kategori)](#label-lintas-kategori)
 - [Backup dan pemulihan](#backup-dan-pemulihan)
 - [Backup otomatis ke Google Drive](#backup-otomatis-ke-google-drive)
 - [Pindah perangkat dan pemulihan data](#pindah-perangkat-dan-pemulihan-data)
@@ -61,6 +62,7 @@ Kampil ditujukan untuk pemakaian pribadi, bukan untuk berbagi akses dengan tim. 
 - **Kunci otomatis setelah 5 menit** tidak dipakai, sehingga brankas tidak tertinggal dalam keadaan terbuka.
 - **Generator password** di kategori Akun Login, untuk membuat password baru yang kuat langsung di dalam aplikasi.
 - **Folder di dalam tiap kategori** — kelompokkan item di Kontak, Rekening, Akun Login, Kode/Skrip, dan Catatan ke dalam folder buatanmu sendiri.
+- **Label lintas kategori dengan warna custom** — tandai item dari kategori berbeda dengan satu label yang sama, misalnya label untuk akun medsos, rekening bank, dan kode sekaligus. Label juga bisa ditempel ke folder.
 - **Sortir daftar yang fleksibel** — urutkan item berdasarkan Judul (A–Z / Z–A) atau Waktu diubah (Terbaru / Terlama), dengan arah urutan yang bisa dibalik.
 - **Penyimpanan lokal saja** — data berada di perangkatmu, bukan di server pihak ketiga.
 - **Backup file terenkripsi `.kampil`** yang bisa diunduh, disimpan, dan diimpor kembali.
@@ -301,6 +303,44 @@ Arah urutannya bisa dibalik kapan saja (misalnya dari A–Z menjadi Z–A, atau 
 ### Penyimpanan folder dan sortir
 
 Folder dan pilihan sortir tersimpan **terenkripsi** bersama isi brankasmu di perangkat, sama seperti item-itemnya. Keduanya juga **ikut tersinkron lewat Google Drive** melalui file sinkron terenkripsi Kampil, sehingga pengelompokan dan urutan yang kamu atur di satu perangkat tampil sama di perangkat lain yang membuka brankas yang sama dengan master password yang sama.
+
+---
+
+## Label (lintas kategori)
+
+Folder mengelompokkan item di dalam satu kategori. Label berbeda: label dipakai untuk menandai item yang tersebar di kategori yang berbeda-beda, tetapi masih berkaitan untukmu.
+
+### Apa itu label
+
+- Satu label bisa berisi item dari kategori mana saja sekaligus. Contohnya, satu label `Penting` bisa menandai akun login media sosial dari **Akun Login**, nomor rekening utama dari **Rekening**, dan potongan kode cadangan dari **Kode/Skrip** — semuanya terkumpul dalam satu label yang sama.
+- Satu item bisa punya **beberapa label** sekaligus, misalnya `Penting` dan `Kerja`.
+- Label tidak memindahkan atau mengubah kategori item. Item tetap berada di kategorinya, label hanya menjadi penanda tambahan untuk memudahkan pencarian dan pengelompokan lintas kategori.
+
+### Label pada folder
+
+Label juga bisa ditempel ke **folder**, bukan hanya ke item:
+
+- Jika sebuah folder diberi label, **semua item di dalam folder itu ikut terhitung berlabel tersebut**, tanpa perlu menandai itemnya satu per satu.
+- Cara ini praktis bila satu folder memang berisi hal yang berkaitan — misalnya folder `Bank` di Akun Login diberi label yang sama dengan folder rekening utama, sehingga keduanya tampil bersama saat label tersebut dibuka.
+- Melepas label dari folder tidak mengubah isi folder dan tidak menghapus item di dalamnya.
+
+### Membuat dan mengelola label
+
+- Label dibuat dengan **nama dan warna custom**. Saat membuat label, kamu bisa memilih warna dari pilihan warna cepat yang tersedia atau menentukan warna sendiri lewat color picker.
+- Nama dan warna label bisa **diubah** kapan pun.
+- Label bisa **dihapus** tanpa menghapus item atau folder yang ditandainya — item dan foldernya tetap ada, hanya tanda labelnya yang hilang.
+
+### Cara memberikan label
+
+Label bisa diberikan dengan tiga cara:
+
+1. **Lewat editor item** — saat menambah atau menyunting item, pilih label yang ingin ditempelkan ke item tersebut.
+2. **Lewat editor folder** — saat membuat atau menyunting folder, pilih label untuk folder itu; semua item di dalamnya otomatis ikut terhitung.
+3. **Massal lewat Tandai beberapa** — tandai beberapa item sekaligus, lalu tempelkan label yang sama ke semuanya dalam sekali tindakan.
+
+### Penyimpanan label
+
+Label dan warnanya tersimpan **terenkripsi** bersama isi brankasmu di perangkat, sama seperti item dan folder. Label juga **ikut terbawa di dalam file backup `.kampil`** dan **ikut tersinkron lewat Google Drive** melalui file sinkron terenkripsi Kampil, sehingga label yang kamu buat di satu perangkat tampil sama di perangkat lain yang membuka brankas yang sama.
 
 ---
 
