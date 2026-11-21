@@ -1,0 +1,1097 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Kampil Info Akses</title>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<style>
+  :root{
+    --bg:#F2F5F4; --surface:#FFFFFF; --surface2:#EAF0EE; --ink:#14201D; --muted:#5A6B66;
+    --line:#D8E1DE; --accent:#0F766E; --accent-ink:#FFFFFF; --accent-soft:#D9EDE9;
+    --danger:#B3261E; --danger-soft:#F9E3E1; --warn:#8A5A00; --warn-soft:#F7ECD2;
+    --ok:#177245; --ok-soft:#DCF0E4; --code-bg:#0E1B18; --code-ink:#D7F0E6;
+    --radius:14px; --shadow:0 6px 24px rgba(16,42,36,.10);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0C1210; --surface:#151D1A; --surface2:#1C2622; --ink:#E7EFEC; --muted:#9DB0A8;
+      --line:#2A3833; --accent:#2DBFA8; --accent-ink:#06231D; --accent-soft:#173B34;
+      --danger:#F08A84; --danger-soft:#3B201E; --warn:#E8BC63; --warn-soft:#38300F;
+      --ok:#6FD598; --ok-soft:#173527; --code-bg:#08100D; --code-ink:#CDEEDF;
+      --shadow:0 6px 24px rgba(0,0,0,.45);
+    }
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:"Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif;line-height:1.5;-webkit-text-size-adjust:100%}
+  button,[role="button"],select,summary,input:not([type="checkbox"]),textarea{min-height:2.25rem}
+  button{font:inherit;cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;padding:.45rem .9rem;font-weight:600}
+  button:hover{border-color:var(--accent)}
+  button.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+  button.danger{background:var(--danger-soft);color:var(--danger);border-color:transparent}
+  button.ghost{border-color:transparent;background:transparent}
+  button.small{padding:.3rem .7rem;font-size:.88rem;min-height:2.25rem}
+  button:disabled{opacity:.55;cursor:not-allowed}
+  input,select,textarea{font:inherit;width:100%;padding:.55rem .7rem;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink)}
+  textarea{resize:vertical}
+  textarea.code,code,pre{font-family:ui-monospace,"Cascadia Code",Consolas,Menlo,monospace}
+  label{display:block;font-weight:600;font-size:.9rem;margin:.8rem 0 .3rem}
+  label:first-child{margin-top:0}
+  .hint{font-size:.85rem;color:var(--muted);font-weight:400}
+  .wrap{max-width:880px;margin:0 auto;padding:1rem 1rem 6.5rem}
+  .hidden{display:none !important}
+
+  /* Lock screen */
+  .lockwrap{max-width:460px;margin:0 auto;padding:2.2rem 1rem 3rem}
+  .shield{width:74px;height:74px;border-radius:20px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem}
+  .shield svg{width:40px;height:40px;stroke:var(--accent)}
+  .lockwrap h1{text-align:center;font-size:1.65rem;margin:.2rem 0 .4rem;letter-spacing:-.01em}
+  .lockwrap .sub{text-align:center;color:var(--muted);margin:0 0 1.4rem}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:1.1rem;box-shadow:var(--shadow)}
+  .card + .card{margin-top:1rem}
+  .card h2{font-size:1.05rem;margin:.1rem 0 .6rem}
+  .err{background:var(--danger-soft);color:var(--danger);border-radius:10px;padding:.6rem .8rem;font-size:.9rem;margin-top:.7rem}
+  .okbox{background:var(--ok-soft);color:var(--ok);border-radius:10px;padding:.6rem .8rem;font-size:.9rem;margin-top:.7rem}
+  .secnotes{margin:1.2rem 0 0;padding:0;list-style:none;color:var(--muted);font-size:.88rem}
+  .secnotes li{display:flex;gap:.55rem;margin:.45rem 0}
+  .secnotes svg{flex:0 0 auto;width:18px;height:18px;stroke:var(--accent);margin-top:.15rem}
+
+  /* App header */
+  .topbar{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:.4rem}
+  .topbar h1{font-size:1.3rem;margin:0;letter-spacing:-.01em}
+  .topbar .spacer{flex:1}
+  .pill{display:inline-flex;align-items:center;gap:.4rem;border-radius:999px;padding:.28rem .75rem;font-size:.82rem;font-weight:700;border:1px solid var(--line);background:var(--surface)}
+  .pill .dot{width:9px;height:9px;border-radius:50%;background:var(--muted)}
+  .pill.ok{color:var(--ok)} .pill.ok .dot{background:var(--ok)}
+  .pill.warn{color:var(--warn)} .pill.warn .dot{background:var(--warn)}
+  .pill.bad{color:var(--danger)} .pill.bad .dot{background:var(--danger)}
+  .toolbar{display:flex;gap:.5rem;flex-wrap:wrap;margin:.7rem 0}
+  .toolbar .search{flex:1 1 200px}
+  .tabs{display:flex;gap:.45rem;flex-wrap:wrap;margin:.4rem 0 1rem}
+  .tabs button{border-radius:999px;padding:.4rem .95rem}
+  .tabs button.active{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+  .tabs .cnt{opacity:.75;font-weight:600;font-size:.85em}
+
+  /* Items */
+  .item{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:1rem 1.05rem;margin-bottom:.7rem}
+  .item h3{margin:0;font-size:1.05rem;display:flex;align-items:center;gap:.55rem;flex-wrap:wrap}
+  .tag{font-size:.72rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;background:var(--accent-soft);color:var(--accent);border-radius:6px;padding:.15rem .5rem}
+  .rows{margin:.55rem 0 0;font-size:.94rem}
+  .rows .r{display:flex;gap:.6rem;padding:.28rem 0;border-top:1px dashed var(--line)}
+  .rows .r:first-child{border-top:none}
+  .rows .k{flex:0 0 108px;color:var(--muted);font-size:.85rem;padding-top:.1rem}
+  .rows .v{flex:1;word-break:break-word;min-width:0}
+  .rows .acts{flex:0 0 auto;display:flex;gap:.3rem}
+  .iconbtn{min-height:2.25rem;min-width:2.25rem;padding:.3rem .5rem;font-size:.85rem}
+  pre.codeview{background:var(--code-bg);color:var(--code-ink);border-radius:10px;padding:.8rem;overflow-x:auto;font-size:.85rem;margin:.5rem 0 0;white-space:pre-wrap;word-break:break-word}
+  .item .foot{display:flex;gap:.45rem;flex-wrap:wrap;margin-top:.7rem}
+  .empty{text-align:center;color:var(--muted);padding:2.4rem 1rem;border:1px dashed var(--line);border-radius:var(--radius);background:var(--surface)}
+  .fab{position:fixed;right:1rem;bottom:calc(1rem + env(safe-area-inset-bottom));z-index:30;background:var(--accent);color:var(--accent-ink);border:none;border-radius:999px;padding:.85rem 1.4rem;font-size:1rem;box-shadow:var(--shadow);min-height:3.2rem}
+
+  /* Modal */
+  .overlay{position:fixed;inset:0;background:rgba(5,15,12,.55);z-index:40;display:flex;align-items:flex-end;justify-content:center;padding:0}
+  @media(min-width:640px){.overlay{align-items:center;padding:1rem}}
+  .sheet{background:var(--surface);width:100%;max-width:560px;max-height:92vh;overflow-y:auto;border-radius:18px 18px 0 0;padding:1.2rem}
+  @media(min-width:640px){.sheet{border-radius:18px}}
+  .sheet h2{margin:.1rem 0 1rem;font-size:1.2rem}
+  .sheet .foot{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1.2rem}
+  .sheet .foot .spacer{flex:1}
+
+  /* Backup panel */
+  .statusgrid{display:grid;grid-template-columns:1fr;gap:.6rem;margin:.6rem 0}
+  @media(min-width:640px){.statusgrid{grid-template-columns:1fr 1fr}}
+  .stat{background:var(--surface2);border-radius:10px;padding:.7rem .85rem;font-size:.9rem}
+  .stat b{display:block;font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:.15rem}
+  .privbox{display:flex;gap:.6rem;align-items:flex-start;background:var(--ok-soft);border-radius:10px;padding:.75rem .85rem;margin:.6rem 0;font-size:.92rem}
+  .privbox svg{flex:0 0 auto;width:22px;height:22px;stroke:var(--ok);margin-top:.1rem}
+  ol.steps{margin:.4rem 0 .4rem 1.2rem;padding:0;font-size:.92rem}
+  ol.steps li{margin:.35rem 0}
+  .loglist{margin:.5rem 0 0;padding:0;list-style:none;font-size:.88rem}
+  .loglist li{padding:.5rem 0;border-top:1px dashed var(--line);display:flex;gap:.5rem;flex-wrap:wrap}
+  .loglist .st{font-weight:700}
+  .loglist .st.ok{color:var(--ok)} .loglist .st.wait{color:var(--warn)} .loglist .st.fail{color:var(--danger)}
+  .banner{border-radius:12px;padding:.8rem 1rem;margin:.8rem 0;font-size:.93rem;display:flex;gap:.6rem;align-items:flex-start;flex-wrap:wrap}
+  .banner.warn{background:var(--warn-soft);color:var(--warn)}
+  .banner button{margin-left:auto}
+  .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(5.2rem + env(safe-area-inset-bottom));z-index:60;background:var(--ink);color:var(--bg);padding:.65rem 1.1rem;border-radius:999px;font-size:.92rem;font-weight:600;box-shadow:var(--shadow);max-width:92vw;text-align:center}
+  .seg{display:flex;gap:.45rem;flex-wrap:wrap}
+  .seg button{border-radius:999px}
+  .seg button.active{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+  a{color:var(--accent)}
+</style>
+</head>
+<body>
+
+<!-- ============ LOCK SCREEN ============ -->
+<div id="lockScreen" class="lockwrap">
+  <div class="shield" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.6-3 7.7-7 9-4-1.3-7-4.4-7-9V6l7-3z"/><rect x="9" y="10.5" width="6" height="5" rx="1"/><path d="M10.5 10.5V9a1.5 1.5 0 0 1 3 0v1.5"/></svg>
+  </div>
+  <h1>Kampil Info Akses</h1>
+  <p class="sub">Kontak, rekening, akun login, kode, dan catatan — terkunci dengan enkripsi di perangkat ini.</p>
+
+  <div id="setupCard" class="card hidden">
+    <h2>Buat kampil baru</h2>
+    <p class="hint">Master password adalah satu-satunya kunci. Tidak disimpan di mana pun dan tidak bisa direset — kalau lupa, isi kampil tidak bisa dibuka lagi.</p>
+    <label for="newPass">Master password (min. 8 karakter)</label>
+    <input id="newPass" type="password" autocomplete="new-password" placeholder="Buat password yang kuat" />
+    <label for="newPass2">Ulangi master password</label>
+    <input id="newPass2" type="password" autocomplete="new-password" placeholder="Ketik ulang" />
+    <div id="setupErr" class="err hidden"></div>
+    <p style="margin-top:1rem"><button class="primary" id="btnCreate" style="width:100%">Buat kampil &amp; kunci</button></p>
+    <p class="hint">Sudah punya file backup <b>.kampil</b>? <a href="#" id="linkImportFirst">Pulihkan dari file backup</a></p>
+  </div>
+
+  <div id="unlockCard" class="card hidden">
+    <h2>Buka kampil</h2>
+    <label for="unlockPass">Master password</label>
+    <input id="unlockPass" type="password" autocomplete="current-password" placeholder="Masukkan master password" />
+    <div id="unlockErr" class="err hidden"></div>
+    <p style="margin-top:1rem"><button class="primary" id="btnUnlock" style="width:100%">Buka kampil</button></p>
+    <p class="hint">Lupa password? Isi kampil tidak bisa dipulihkan tanpa password. Kamu bisa <a href="#" id="linkWipe">hapus kampil ini dan mulai dari awal</a>, atau <a href="#" id="linkImportFirst2">pulihkan dari file backup</a>.</p>
+  </div>
+
+  <ul class="secnotes">
+    <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>Enkripsi AES-256-GCM (Web Crypto) dengan kunci turunan PBKDF2 250.000 putaran. Isi Kampil tidak pernah dikirim dalam bentuk teks biasa ke server mana pun — yang diunggah ke Google Drive hanyalah file .kampil terenkripsi, dan hanya bila backup Drive tersambung.</span></li>
+    <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Terkunci otomatis setelah 5 menit tanpa aktivitas. Password yang disalin terhapus sendiri dari clipboard setelah 20 detik.</span></li>
+    <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 21h16"/></svg><span>Backup berupa file <b>.kampil</b> terenkripsi — aman disimpan di mana saja, termasuk Google Drive, karena tanpa master password isinya tidak terbaca.</span></li>
+  </ul>
+</div>
+
+<!-- ============ APP ============ -->
+<div id="appScreen" class="wrap hidden">
+  <div class="topbar">
+    <h1>Kampil saya</h1>
+    <span class="pill ok" id="pillBackup"><span class="dot"></span><span id="pillBackupText">Backup: —</span></span>
+    <span class="spacer"></span>
+    <button class="small" id="btnBackupPanel">Backup &amp; Drive</button>
+    <button class="small" id="btnLockNow">Kunci sekarang</button>
+  </div>
+
+  <div id="driveBanner" class="banner warn hidden">
+    <span id="driveBannerText">Backup otomatis menunggu: Google Drive belum tersambung. Backup akan langsung dijalankan begitu Drive tersambung dan kampil terbuka.</span>
+    <button class="small" id="btnBannerConnect">Sambungkan Drive</button>
+  </div>
+
+  <div class="toolbar">
+    <input class="search" id="searchBox" type="search" placeholder="Cari nama, layanan, bank, judul…" />
+    <button id="btnAddTop">+ Tambah</button>
+  </div>
+  <div class="tabs" id="tabs"></div>
+  <div id="list"></div>
+</div>
+
+<button class="fab hidden" id="fabAdd">+ Tambah isi</button>
+
+<!-- ============ ITEM EDITOR ============ -->
+<div id="editorOverlay" class="overlay hidden">
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="editorTitle">
+    <h2 id="editorTitle">Tambah isi</h2>
+    <label for="fCategory">Kategori</label>
+    <select id="fCategory">
+      <option value="kontak">Kontak</option>
+      <option value="rekening">Rekening / Akun Bank</option>
+      <option value="login">Akun Login</option>
+      <option value="kode">Kode / Skrip</option>
+      <option value="catatan">Catatan</option>
+    </select>
+    <div id="editorFields"></div>
+    <div id="editorErr" class="err hidden"></div>
+    <div class="foot">
+      <button class="danger hidden" id="btnDeleteItem">Hapus</button>
+      <span class="spacer"></span>
+      <button id="btnCancelEdit">Batal</button>
+      <button class="primary" id="btnSaveItem">Simpan terenkripsi</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ BACKUP PANEL ============ -->
+<div id="backupOverlay" class="overlay hidden">
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="backupTitle" style="max-width:640px">
+    <h2 id="backupTitle">Backup &amp; Google Drive</h2>
+
+    <div class="privbox">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.6-3 7.7-7 9-4-1.3-7-4.4-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
+      <span><b>Selalu privat.</b> Folder <b>“Kampil”</b> dan semua file backup di Drive dibuat dengan akses privat: tidak dibagikan ke siapa pun, bukan publik, dan bukan “siapa saja yang punya link”. Aplikasi ini tidak pernah mengubahnya menjadi publik. File-nya sendiri juga terenkripsi.</span>
+    </div>
+
+    <div class="statusgrid">
+      <div class="stat"><b>Koneksi Drive</b><span id="stDrive">Belum tersambung</span></div>
+      <div class="stat"><b>Folder backup</b><span id="stFolder">Drive › Kampil (dibuat otomatis, privat)</span></div>
+      <div class="stat"><b>Backup terakhir</b><span id="stLast">Belum pernah</span></div>
+      <div class="stat"><b>Status privasi</b><span id="stPrivacy">Privat — tidak dibagikan</span></div>
+    </div>
+
+    <label>Backup otomatis <span class="hint">— hanya berjalan saat kampil terbuka / tidak terkunci</span></label>
+    <div class="seg" id="autoSeg">
+      <button data-mode="off">Mati</button>
+      <button data-mode="change">Setelah ada perubahan</button>
+      <button data-mode="6h">Setiap 6 jam</button>
+      <button data-mode="daily">Harian</button>
+      <button data-mode="weekly">Mingguan</button>
+    </div>
+    <p class="hint" id="autoHint"></p>
+
+    <div id="driveConnectBox">
+      <label for="clientIdInput">Google OAuth Client ID <span class="hint">(milikmu sendiri, bukan password — aman disimpan di sini)</span></label>
+      <input id="clientIdInput" type="text" placeholder="contoh: 1234567890-xxxx.apps.googleusercontent.com" autocomplete="off" />
+      <p><button class="primary" id="btnConnectDrive">Sambungkan Google Drive</button>
+      <button id="btnDisconnectDrive" class="hidden">Putuskan</button></p>
+      <p class="hint">Belum punya Client ID? Buat sekali saja, gratis:</p>
+      <ol class="steps">
+        <li>Buka <b>console.cloud.google.com</b> → buat project baru (mis. “Kampil”).</li>
+        <li>Aktifkan <b>Google Drive API</b> (APIs &amp; Services → Library).</li>
+        <li>Di <b>OAuth consent screen</b> pilih External, isi nama aplikasi, lalu tambahkan emailmu sebagai <i>test user</i>.</li>
+        <li>Di <b>Credentials → Create Credentials → OAuth client ID → Web application</b>, tambahkan alamat halaman ini di <i>Authorized JavaScript origins</i>, lalu salin Client ID-nya ke kolom di atas.</li>
+      </ol>
+      <p class="hint">Izin yang diminta hanya <b>drive.file</b>: aplikasi hanya bisa melihat file/folder yang ia buat sendiri — bukan seluruh Drive-mu.</p>
+    </div>
+
+    <label>Backup manual</label>
+    <p style="display:flex;gap:.5rem;flex-wrap:wrap;margin:.3rem 0">
+      <button class="primary" id="btnBackupNow">Backup sekarang</button>
+      <button id="btnExportFile">Unduh file .kampil</button>
+      <button id="btnImportFile">Impor file .kampil</button>
+    </p>
+    <p class="hint">“Backup sekarang” mengunggah file terenkripsi ke Drive (bila tersambung) — kalau Drive belum tersambung, file .kampil akan diunduh ke perangkat ini supaya tetap ada cadangan, dan unggahan Drive tetap antre untuk dijalankan begitu tersambung.</p>
+
+    <label>Log backup</label>
+    <ul class="loglist" id="backupLog"><li class="hint">Belum ada catatan backup.</li></ul>
+
+    <label style="margin-top:1.2rem">Pasang sebagai aplikasi</label>
+    <p class="hint">Halaman ini bisa dipasang seperti aplikasi: di Chrome Android ketuk menu ⋮ → “Instal aplikasi / Tambahkan ke Layar utama”. Kode aplikasinya juga bisa di-host di GitHub Pages agar bisa diinstal dari mana saja — datanya tetap hanya di perangkatmu. Play Store membutuhkan akun Google Play Developer dan pembungkus TWA, bisa menyusul.</p>
+
+    <div class="foot">
+      <span class="spacer"></span>
+      <button id="btnCloseBackup">Tutup</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ CONFIRM ============ -->
+<div id="confirmOverlay" class="overlay hidden">
+  <div class="sheet" role="alertdialog" aria-modal="true" style="max-width:420px">
+    <h2 id="confirmTitle">Hapus?</h2>
+    <p id="confirmText" class="hint" style="font-size:.95rem"></p>
+    <div class="foot">
+      <span class="spacer"></span>
+      <button id="btnConfirmNo">Batal</button>
+      <button class="danger" id="btnConfirmYes">Ya, hapus</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast hidden"></div>
+<input type="file" id="filePicker" accept=".kampil,application/json" class="hidden" />
+
+<script>
+"use strict";
+/* ================= Helpers ================= */
+var $ = function(id){ return document.getElementById(id); };
+function esc(s){ return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];}); }
+function b64encode(buf){ var b=new Uint8Array(buf),s=""; for(var i=0;i<b.length;i+=0x8000){ s+=String.fromCharCode.apply(null,b.subarray(i,i+0x8000)); } return btoa(s); }
+function b64decode(str){ var bin=atob(str),b=new Uint8Array(bin.length); for(var i=0;i<bin.length;i++) b[i]=bin.charCodeAt(i); return b.buffer; }
+function toast(msg){ var t=$("toast"); t.textContent=msg; t.classList.remove("hidden"); clearTimeout(toast._t); toast._t=setTimeout(function(){ t.classList.add("hidden"); },2600); }
+function fmtTime(ts){ if(!ts) return "—"; var d=new Date(ts); return d.toLocaleDateString("id-ID",{day:"numeric",month:"short",year:"numeric"})+" "+d.toLocaleTimeString("id-ID",{hour:"2-digit",minute:"2-digit"}); }
+
+/* ================= Crypto ================= */
+var PBKDF2_ROUNDS = 250000;
+function deriveKey(password, saltBuf){
+  var enc = new TextEncoder();
+  return crypto.subtle.importKey("raw", enc.encode(password), "PBKDF2", false, ["deriveKey"]).then(function(base){
+    return crypto.subtle.deriveKey({name:"PBKDF2", salt:saltBuf, iterations:PBKDF2_ROUNDS, hash:"SHA-256"}, base, {name:"AES-GCM", length:256}, false, ["encrypt","decrypt"]);
+  });
+}
+function aesEncrypt(key, plaintext){
+  var iv = crypto.getRandomValues(new Uint8Array(12));
+  return crypto.subtle.encrypt({name:"AES-GCM", iv:iv}, key, new TextEncoder().encode(plaintext)).then(function(ct){
+    return { iv: b64encode(iv.buffer), data: b64encode(ct) };
+  });
+}
+function aesDecrypt(key, ivB64, dataB64){
+  return crypto.subtle.decrypt({name:"AES-GCM", iv:new Uint8Array(b64decode(ivB64))}, key, b64decode(dataB64)).then(function(pt){
+    return new TextDecoder().decode(pt);
+  });
+}
+
+/* ================= IndexedDB ================= */
+function idbOpen(){
+  return new Promise(function(res, rej){
+    var rq = indexedDB.open("kampil-info-akses", 1);
+    rq.onupgradeneeded = function(){ rq.result.createObjectStore("kv"); };
+    rq.onsuccess = function(){ res(rq.result); };
+    rq.onerror = function(){ rej(rq.error); };
+  });
+}
+function idbGet(key){
+  return idbOpen().then(function(db){
+    return new Promise(function(res, rej){
+      var rq = db.transaction("kv","readonly").objectStore("kv").get(key);
+      rq.onsuccess = function(){ res(rq.result); };
+      rq.onerror = function(){ rej(rq.error); };
+    });
+  });
+}
+function idbSet(key, val){
+  return idbOpen().then(function(db){
+    return new Promise(function(res, rej){
+      var rq = db.transaction("kv","readwrite").objectStore("kv").put(val, key);
+      rq.onsuccess = function(){ res(); };
+      rq.onerror = function(){ rej(rq.error); };
+    });
+  });
+}
+function idbDel(key){
+  return idbOpen().then(function(db){
+    return new Promise(function(res, rej){
+      var rq = db.transaction("kv","readwrite").objectStore("kv").delete(key);
+      rq.onsuccess = function(){ res(); };
+      rq.onerror = function(){ rej(rq.error); };
+    });
+  });
+}
+</script>
+<script>
+"use strict";
+/* ================= State ================= */
+var sessionKey = null;        // CryptoKey, memory only
+var vaultSalt = null;         // ArrayBuffer
+var vault = null;             // decrypted vault object
+var activeCat = "semua";
+var editingId = null;
+var confirmCb = null;
+var lastActivity = Date.now();
+var revealedPw = {};          // itemId -> bool (memory only)
+var importMode = null;        // 'first' | 'app'
+
+var CATS = {
+  kontak:   { label:"Kontak",    tag:"Kontak" },
+  rekening: { label:"Rekening",  tag:"Rekening" },
+  login:    { label:"Akun Login",tag:"Login" },
+  kode:     { label:"Kode",      tag:"Kode" },
+  catatan:  { label:"Catatan",   tag:"Catatan" }
+};
+var FIELDS = {
+  kontak: [
+    {k:"title", label:"Nama", req:true, ph:"Nama lengkap"},
+    {k:"phone", label:"Nomor HP / Telepon", ph:"08xx…"},
+    {k:"email", label:"Email", ph:"nama@email.com"},
+    {k:"org", label:"Perusahaan / Instansi", ph:""},
+    {k:"note", label:"Catatan", area:true, ph:""}
+  ],
+  rekening: [
+    {k:"title", label:"Bank / Layanan", req:true, ph:"BCA, BRI, Mandiri, DANA…"},
+    {k:"number", label:"Nomor Rekening / Akun", req:true, ph:"Nomor rekening / akun", secret:true},
+    {k:"holder", label:"Atas Nama", ph:""},
+    {k:"branch", label:"Cabang / Keterangan", ph:""},
+    {k:"note", label:"Catatan", area:true, ph:"PIN jangan ditulis di sini bila tidak perlu"}
+  ],
+  login: [
+    {k:"title", label:"Layanan / Situs", req:true, ph:"Gmail, Instagram, Admin WordPress…"},
+    {k:"username", label:"Username / Email", req:true, ph:"nama@email.com / username"},
+    {k:"password", label:"Password", req:true, secret:true, gen:true, ph:"Password tersimpan"},
+    {k:"url", label:"Alamat situs", ph:"https://…"},
+    {k:"note", label:"Catatan", area:true, ph:"Kode 2FA cadangan, dll."}
+  ],
+  kode: [
+    {k:"title", label:"Judul skrip", req:true, ph:""},
+    {k:"lang", label:"Bahasa / Jenis", ph:"JavaScript, HTML, CSS, Apps Script…"},
+    {k:"code", label:"Kode", code:true, req:true, ph:"Tempel kode di sini…"},
+    {k:"note", label:"Catatan", area:true, ph:""}
+  ],
+  catatan: [
+    {k:"title", label:"Judul", req:true, ph:""},
+    {k:"body", label:"Isi catatan", area:true, big:true, req:true, ph:"Tulis catatan…"}
+  ]
+};
+var INTERVALS = { "6h": 6*3600*1000, "daily": 24*3600*1000, "weekly": 7*24*3600*1000 };
+
+function defaultVault(){
+  return {
+    v: 1,
+    items: [],
+    settings: { autoMode: "daily", lastBackupAt: 0, lastChangeAt: 0, pendingDrive: false, log: [] }
+  };
+}
+function uid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2,9); }
+
+/* ================= Vault persistence ================= */
+function saveVault(){
+  if(!sessionKey || !vault) return Promise.resolve();
+  vault.settings.lastChangeAt = Date.now();
+  return aesEncrypt(sessionKey, JSON.stringify(vault)).then(function(enc){
+    return idbSet("kampilData", enc);
+  }).then(function(){ onVaultChanged(); });
+}
+function createVault(password){
+  var salt = crypto.getRandomValues(new Uint8Array(16));
+  vaultSalt = salt.buffer;
+  return deriveKey(password, vaultSalt).then(function(key){
+    sessionKey = key;
+    return aesEncrypt(key, "KAMPIL-OK-VERIFIER");
+  }).then(function(ver){
+    return idbSet("kampilMeta", { salt: b64encode(vaultSalt), verifier: ver }).then(function(){
+      vault = defaultVault();
+      return saveVault();
+    });
+  });
+}
+function unlockVault(password){
+  return idbGet("kampilMeta").then(function(meta){
+    if(!meta) throw new Error("none");
+    vaultSalt = b64decode(meta.salt);
+    return deriveKey(password, vaultSalt).then(function(key){
+      return aesDecrypt(key, meta.verifier.iv, meta.verifier.data).then(function(txt){
+        if(txt !== "KAMPIL-OK-VERIFIER") throw new Error("wrong");
+        sessionKey = key;
+        return idbGet("kampilData");
+      }).then(function(enc){
+        if(!enc){ vault = defaultVault(); return; }
+        return aesDecrypt(sessionKey, enc.iv, enc.data).then(function(json){
+          vault = JSON.parse(json);
+          if(!vault.settings) vault.settings = defaultVault().settings;
+          if(!vault.items) vault.items = [];
+        });
+      });
+    });
+  });
+}
+function lockVault(){
+  sessionKey = null; vault = null; revealedPw = {};
+  $("appScreen").classList.add("hidden");
+  $("fabAdd").classList.add("hidden");
+  $("backupOverlay").classList.add("hidden");
+  $("editorOverlay").classList.add("hidden");
+  $("lockScreen").classList.remove("hidden");
+  $("unlockPass").value = "";
+  refreshLockScreen();
+}
+
+/* ================= Export / Import (.kampil) ================= */
+function buildBackupFileString(password){
+  var salt = crypto.getRandomValues(new Uint8Array(16));
+  return deriveKey(password, salt.buffer).then(function(key){
+    return aesEncrypt(key, JSON.stringify(vault)).then(function(enc){
+      return JSON.stringify({ app:"kampil-info-akses", kind:"backup", version:1, createdAt:new Date().toISOString(), salt:b64encode(salt.buffer), iv:enc.iv, data:enc.data }, null, 2);
+    });
+  });
+}
+function currentPasswordForExport(){
+  return vault._pw || null; // never stored on disk; set at unlock/create in memory only
+}
+function downloadBackup(str){
+  var blob = new Blob([str], {type:"application/json"});
+  var a = document.createElement("a");
+  var d = new Date();
+  var name = "kampil-backup-" + d.getFullYear() + String(d.getMonth()+1).padStart(2,"0") + String(d.getDate()).padStart(2,"0") + "-" + String(d.getHours()).padStart(2,"0") + String(d.getMinutes()).padStart(2,"0") + ".kampil";
+  a.href = URL.createObjectURL(blob);
+  a.download = name;
+  document.body.appendChild(a); a.click();
+  setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 400);
+  return name;
+}
+function importBackupFile(file, password){
+  return file.text().then(function(txt){
+    var obj = JSON.parse(txt);
+    if(obj.app !== "kampil-info-akses" || !obj.salt || !obj.data) throw new Error("format");
+    return deriveKey(password, b64decode(obj.salt)).then(function(key){
+      return aesDecrypt(key, obj.iv, obj.data).then(function(json){
+        var data = JSON.parse(json);
+        if(!data || !Array.isArray(data.items)) throw new Error("format");
+        return { key:key, data:data, salt: obj.salt };
+      });
+    });
+  });
+}
+
+/* ================= Rendering ================= */
+function itemTitle(it){ return it.fields.title || "(tanpa judul)"; }
+function renderTabs(){
+  var counts = { semua: vault.items.length };
+  Object.keys(CATS).forEach(function(c){ counts[c] = vault.items.filter(function(i){return i.cat===c;}).length; });
+  var html = '<button data-cat="semua" class="'+(activeCat==="semua"?"active":"")+'">Semua <span class="cnt">'+counts.semua+'</span></button>';
+  Object.keys(CATS).forEach(function(c){
+    html += '<button data-cat="'+c+'" class="'+(activeCat===c?"active":"")+'">'+CATS[c].label+' <span class="cnt">'+counts[c]+'</span></button>';
+  });
+  $("tabs").innerHTML = html;
+  Array.prototype.forEach.call($("tabs").querySelectorAll("button"), function(b){
+    b.addEventListener("click", function(){ activeCat = b.getAttribute("data-cat"); renderAll(); });
+  });
+}
+function fieldRow(it, f){
+  var val = it.fields[f.k];
+  if(val == null || String(val).trim() === "") return "";
+  var secret = !!f.secret;
+  var shown = secret && !revealedPw[it.id] ? "••••••••••" : esc(val);
+  var acts = "";
+  if(secret){
+    acts = '<span class="acts">'
+      + '<button class="iconbtn" data-act="reveal" data-id="'+it.id+'" title="Tampilkan / sembunyikan">'+(revealedPw[it.id]?"Sembunyi":"Lihat")+'</button>'
+      + '<button class="iconbtn" data-act="copy" data-id="'+it.id+'" data-k="'+f.k+'" title="Salin">Salin</button></span>';
+  } else if(f.k === "phone" || f.k === "email" || f.k === "username" || f.k === "url"){
+    acts = '<span class="acts"><button class="iconbtn" data-act="copy" data-id="'+it.id+'" data-k="'+f.k+'">Salin</button></span>';
+  }
+  return '<div class="r"><span class="k">'+esc(f.label)+'</span><span class="v">'+shown+'</span>'+acts+'</div>';
+}
+function renderList(){
+  var q = ($("searchBox").value || "").toLowerCase().trim();
+  var items = vault.items.filter(function(it){
+    if(activeCat !== "semua" && it.cat !== activeCat) return false;
+    if(!q) return true;
+    return JSON.stringify(it.fields).toLowerCase().indexOf(q) >= 0 || CATS[it.cat].label.toLowerCase().indexOf(q) >= 0;
+  });
+  items.sort(function(a,b){ return (b.updatedAt||0) - (a.updatedAt||0); });
+  if(items.length === 0){
+    $("list").innerHTML = '<div class="empty">' + (vault.items.length === 0
+      ? 'Kampil masih kosong.<br>Ketuk <b>+ Tambah isi</b> untuk menyimpan kontak, rekening, akun login, kode, atau catatan pertamamu.'
+      : 'Tidak ada yang cocok dengan pencarian / kategori ini.') + '</div>';
+    return;
+  }
+  $("list").innerHTML = items.map(function(it){
+    var defs = FIELDS[it.cat];
+    var rows = defs.filter(function(f){ return f.k !== "title" && !f.code && f.k !== "body"; }).map(function(f){ return fieldRow(it, f); }).join("");
+    var codeHtml = "";
+    if(it.cat === "kode" && it.fields.code){
+      codeHtml = '<pre class="codeview">'+esc(it.fields.code)+'</pre>';
+    }
+    if(it.cat === "catatan" && it.fields.body){
+      codeHtml = '<pre class="codeview" style="background:var(--surface2);color:var(--ink)">'+esc(it.fields.body)+'</pre>';
+    }
+    return '<article class="item">'
+      + '<h3><span class="tag">'+CATS[it.cat].tag+'</span> '+esc(itemTitle(it))+'</h3>'
+      + (rows ? '<div class="rows">'+rows+'</div>' : '')
+      + codeHtml
+      + '<div class="foot">'
+      + (it.cat === "kode" || it.cat === "catatan" ? '<button class="small" data-act="copybody" data-id="'+it.id+'">Salin isi</button>' : '')
+      + '<button class="small" data-act="edit" data-id="'+it.id+'">Ubah</button>'
+      + '<button class="small" data-act="del" data-id="'+it.id+'">Hapus</button>'
+      + '<span class="hint" style="margin-left:auto">Diubah '+fmtTime(it.updatedAt)+'</span>'
+      + '</div></article>';
+  }).join("");
+  Array.prototype.forEach.call($("list").querySelectorAll("button[data-act]"), function(b){
+    b.addEventListener("click", function(){ onItemAction(b.getAttribute("data-act"), b.getAttribute("data-id"), b.getAttribute("data-k")); });
+  });
+}
+function findItem(id){ return vault.items.filter(function(i){ return i.id === id; })[0]; }
+function copyText(txt, label){
+  function done(){
+    toast((label || "Tersalin") + " — clipboard dibersihkan dalam 20 detik");
+    setTimeout(function(){
+      if(navigator.clipboard && navigator.clipboard.readText){
+        navigator.clipboard.readText().then(function(cur){ if(cur === txt) navigator.clipboard.writeText(""); }).catch(function(){});
+      }
+    }, 20000);
+  }
+  if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(done).catch(function(){ fallbackCopy(txt); done(); }); }
+  else { fallbackCopy(txt); done(); }
+}
+function fallbackCopy(txt){
+  var ta = document.createElement("textarea");
+  ta.value = txt; ta.style.position = "fixed"; ta.style.opacity = "0";
+  document.body.appendChild(ta); ta.select();
+  try { document.execCommand("copy"); } catch(e){}
+  ta.remove();
+}
+function onItemAction(act, id, k){
+  var it = findItem(id); if(!it) return;
+  if(act === "edit") openEditor(it);
+  else if(act === "del"){
+    askConfirm("Hapus “"+itemTitle(it)+"”?", "Isi ini akan dihapus permanen dari kampil di perangkat ini. Backup lama di Drive yang sudah terunggah tidak ikut terhapus.", function(){
+      vault.items = vault.items.filter(function(i){ return i.id !== id; });
+      saveVault().then(function(){ renderAll(); toast("Terhapus"); });
+    });
+  }
+  else if(act === "reveal"){ revealedPw[id] = !revealedPw[id]; renderList(); }
+  else if(act === "copy"){ copyText(it.fields[k] || "", "Tersalin"); }
+  else if(act === "copybody"){ copyText(it.fields.code || it.fields.body || "", "Isi tersalin"); }
+}
+function renderAll(){ renderTabs(); renderList(); renderBackupStatus(); }
+</script>
+<script>
+"use strict";
+/* ================= Extra state ================= */
+var masterPw = null;          // memory only, never persisted
+var driveToken = null;        // memory only
+var driveFolderId = null;
+var inBackup = false;
+var changeTimer = null;
+
+/* ================= Confirm & password prompt ================= */
+function askConfirm(title, text, cb){
+  $("confirmTitle").textContent = title;
+  $("confirmText").textContent = text;
+  confirmCb = cb;
+  $("confirmOverlay").classList.remove("hidden");
+}
+$("btnConfirmNo").addEventListener("click", function(){ $("confirmOverlay").classList.add("hidden"); confirmCb = null; });
+$("btnConfirmYes").addEventListener("click", function(){
+  $("confirmOverlay").classList.add("hidden");
+  var cb = confirmCb; confirmCb = null;
+  if(cb) cb();
+});
+function promptPassword(title, hint){
+  return new Promise(function(resolve){
+    var ov = document.createElement("div");
+    ov.className = "overlay";
+    ov.innerHTML = '<div class="sheet" style="max-width:420px"><h2>'+esc(title)+'</h2>'
+      + (hint ? '<p class="hint">'+esc(hint)+'</p>' : '')
+      + '<label>Password file backup</label><input type="password" class="pp-input" autocomplete="off" placeholder="Master password file ini" />'
+      + '<div class="foot"><span class="spacer"></span><button class="pp-cancel">Batal</button><button class="primary pp-ok">Buka file</button></div></div>';
+    document.body.appendChild(ov);
+    var input = ov.querySelector(".pp-input");
+    input.focus();
+    function close(val){ ov.remove(); resolve(val); }
+    ov.querySelector(".pp-cancel").addEventListener("click", function(){ close(null); });
+    ov.querySelector(".pp-ok").addEventListener("click", function(){ close(input.value); });
+    input.addEventListener("keydown", function(e){ if(e.key === "Enter") close(input.value); });
+  });
+}
+
+/* ================= Editor ================= */
+function genPassword(){
+  var chars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789!@#$%^&*()-_=+";
+  var arr = new Uint32Array(18), out = "";
+  crypto.getRandomValues(arr);
+  for(var i=0;i<arr.length;i++) out += chars[arr[i] % chars.length];
+  return out;
+}
+function buildEditorFields(cat, values){
+  values = values || {};
+  var html = "";
+  FIELDS[cat].forEach(function(f){
+    var v = esc(values[f.k] || "");
+    html += '<label for="ef-'+f.k+'">'+esc(f.label)+(f.req ? ' *' : '')+'</label>';
+    if(f.code){
+      html += '<textarea class="code" id="ef-'+f.k+'" rows="10" placeholder="'+esc(f.ph||"")+'">'+v+'</textarea>';
+    } else if(f.area){
+      html += '<textarea id="ef-'+f.k+'" rows="'+(f.big?7:3)+'" placeholder="'+esc(f.ph||"")+'">'+v+'</textarea>';
+    } else if(f.secret){
+      html += '<div style="display:flex;gap:.4rem"><input type="password" id="ef-'+f.k+'" value="'+v+'" placeholder="'+esc(f.ph||"")+'" autocomplete="off" style="flex:1" />'
+        + '<button type="button" class="small" data-toggle="ef-'+f.k+'">Lihat</button>'
+        + (f.gen ? '<button type="button" class="small" data-gen="ef-'+f.k+'">Buat acak</button>' : '')
+        + '</div>';
+    } else {
+      html += '<input type="text" id="ef-'+f.k+'" value="'+v+'" placeholder="'+esc(f.ph||"")+'" autocomplete="off" />';
+    }
+  });
+  $("editorFields").innerHTML = html;
+  Array.prototype.forEach.call($("editorFields").querySelectorAll("button[data-toggle]"), function(b){
+    b.addEventListener("click", function(){
+      var inp = $(b.getAttribute("data-toggle"));
+      inp.type = inp.type === "password" ? "text" : "password";
+      b.textContent = inp.type === "password" ? "Lihat" : "Sembunyi";
+    });
+  });
+  Array.prototype.forEach.call($("editorFields").querySelectorAll("button[data-gen]"), function(b){
+    b.addEventListener("click", function(){
+      var inp = $(b.getAttribute("data-gen"));
+      inp.value = genPassword(); inp.type = "text";
+      toast("Password acak dibuat — jangan lupa simpan");
+    });
+  });
+}
+function openEditor(item){
+  editingId = item ? item.id : null;
+  var cat = item ? item.cat : (activeCat !== "semua" ? activeCat : "login");
+  $("fCategory").value = cat;
+  $("editorTitle").textContent = item ? "Ubah isi" : "Tambah isi baru";
+  $("btnDeleteItem").classList.toggle("hidden", !item);
+  $("editorErr").classList.add("hidden");
+  buildEditorFields(cat, item ? item.fields : {});
+  $("editorOverlay").classList.remove("hidden");
+}
+$("fCategory").addEventListener("change", function(){
+  var existing = editingId ? findItem(editingId) : null;
+  var vals = {};
+  FIELDS[$("fCategory").value].forEach(function(){});
+  // keep typed values where field keys overlap
+  Object.keys(FIELDS).forEach(function(c){ FIELDS[c].forEach(function(f){ var el = $("ef-"+f.k); if(el) vals[f.k] = el.value; }); });
+  buildEditorFields($("fCategory").value, Object.keys(vals).length ? vals : (existing ? existing.fields : {}));
+});
+$("btnCancelEdit").addEventListener("click", function(){ $("editorOverlay").classList.add("hidden"); });
+$("btnSaveItem").addEventListener("click", function(){
+  var cat = $("fCategory").value;
+  var fields = {}, missing = [];
+  FIELDS[cat].forEach(function(f){
+    var el = $("ef-"+f.k);
+    var v = el ? el.value.trim() : "";
+    fields[f.k] = v;
+    if(f.req && !v) missing.push(f.label);
+  });
+  if(missing.length){
+    var e = $("editorErr");
+    e.textContent = "Kolom wajib belum diisi: " + missing.join(", ");
+    e.classList.remove("hidden");
+    return;
+  }
+  if(editingId){
+    var it = findItem(editingId);
+    it.cat = cat; it.fields = fields; it.updatedAt = Date.now();
+  } else {
+    vault.items.push({ id: uid(), cat: cat, fields: fields, createdAt: Date.now(), updatedAt: Date.now() });
+  }
+  saveVault().then(function(){
+    $("editorOverlay").classList.add("hidden");
+    renderAll();
+    toast("Tersimpan terenkripsi");
+  });
+});
+$("btnDeleteItem").addEventListener("click", function(){
+  var it = editingId ? findItem(editingId) : null;
+  if(!it) return;
+  $("editorOverlay").classList.add("hidden");
+  onItemAction("del", it.id, null);
+});
+
+/* ================= Backup log & status ================= */
+function addLog(trigger, status, detail){
+  if(!vault) return Promise.resolve();
+  vault.settings.log.unshift({ at: Date.now(), trigger: trigger, status: status, detail: detail });
+  vault.settings.log = vault.settings.log.slice(0, 10);
+  inBackup = true;
+  return saveVault().then(function(){ inBackup = false; renderBackupStatus(); });
+}
+function driveConnected(){ return !!driveToken; }
+function renderBackupStatus(){
+  if(!vault) return;
+  var s = vault.settings;
+  var pill = $("pillBackup"), pillText = $("pillBackupText");
+  pill.className = "pill " + (s.pendingDrive ? "warn" : (s.lastBackupAt ? "ok" : "warn"));
+  pillText.textContent = s.pendingDrive ? "Backup: menunggu Drive" : (s.lastBackupAt ? "Backup: " + fmtTime(s.lastBackupAt) : "Backup: belum pernah");
+  // Banner: never fail silently
+  var showBanner = s.autoMode !== "off" && !driveConnected();
+  $("driveBanner").classList.toggle("hidden", !showBanner);
+  if(showBanner){
+    $("driveBannerText").textContent = s.pendingDrive
+      ? "Ada backup yang menunggu diunggah ke Google Drive. Drive belum tersambung — backup akan langsung dijalankan begitu Drive tersambung dan Kampil terbuka."
+      : "Backup otomatis aktif (" + autoModeLabel(s.autoMode) + "), tetapi Google Drive belum tersambung. Sambungkan Drive agar backup berjalan; jadwal tetap dicatat dan dijalankan begitu tersambung.";
+  }
+  // Panel
+  $("stDrive").textContent = driveConnected() ? "Tersambung (izin drive.file — hanya file buatan Kampil)" : "Belum tersambung";
+  $("stFolder").textContent = driveFolderId ? "Drive › Kampil (privat, hanya kamu)" : "Drive › Kampil (dibuat otomatis saat tersambung, privat)";
+  $("stLast").textContent = s.lastBackupAt ? fmtTime(s.lastBackupAt) : "Belum pernah";
+  $("stPrivacy").textContent = "Privat — tidak dibagikan ke siapa pun";
+  $("btnDisconnectDrive").classList.toggle("hidden", !driveConnected());
+  $("autoHint").textContent = "Mode saat ini: " + autoModeLabel(s.autoMode) + ". Backup hanya berjalan saat Kampil terbuka / tidak terkunci, dan selalu berupa file terenkripsi.";
+  Array.prototype.forEach.call($("autoSeg").querySelectorAll("button"), function(b){
+    b.classList.toggle("active", b.getAttribute("data-mode") === s.autoMode);
+  });
+  var log = s.log || [];
+  $("backupLog").innerHTML = log.length ? log.map(function(l){
+    var cls = l.status === "ok" ? "ok" : (l.status === "wait" ? "wait" : "fail");
+    var lbl = l.status === "ok" ? "Berhasil" : (l.status === "wait" ? "Menunggu" : "Gagal");
+    return '<li><span class="st '+cls+'">'+lbl+'</span><span>'+fmtTime(l.at)+'</span><span>'+esc(l.trigger)+' — '+esc(l.detail)+'</span></li>';
+  }).join("") : '<li class="hint">Belum ada catatan backup.</li>';
+}
+function autoModeLabel(m){
+  return { off:"Mati", change:"Setelah ada perubahan", "6h":"Setiap 6 jam", daily:"Harian", weekly:"Mingguan" }[m] || m;
+}
+
+/* ================= Google Drive (drive.file, folder "Kampil" privat) ================= */
+function getClientId(){ return ($("clientIdInput").value || "").trim(); }
+function driveFetch(path, opts){
+  opts = opts || {};
+  opts.headers = Object.assign({}, opts.headers || {}, { "Authorization": "Bearer " + driveToken });
+  return fetch("https://www.googleapis.com/drive/v3/" + path, opts).then(function(r){
+    if(r.status === 401){ driveToken = null; renderBackupStatus(); throw new Error("Sesi Drive berakhir — sambungkan lagi."); }
+    if(!r.ok) throw new Error("Drive menjawab " + r.status);
+    return r.status === 204 ? null : r.json();
+  });
+}
+function ensureKampilFolder(){
+  if(driveFolderId) return Promise.resolve(driveFolderId);
+  var q = encodeURIComponent("name='Kampil' and mimeType='application/vnd.google-apps.folder' and trashed=false");
+  return driveFetch("files?q=" + q + "&fields=files(id,name)").then(function(res){
+    if(res.files && res.files.length) { driveFolderId = res.files[0].id; return driveFolderId; }
+    // Folder baru di Drive otomatis privat (milik sendiri, tidak dibagikan).
+    return driveFetch("files", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name: "Kampil", mimeType: "application/vnd.google-apps.folder" })
+    }).then(function(f){ driveFolderId = f.id; return driveFolderId; });
+  });
+}
+function checkPrivate(fileId){
+  return driveFetch("files/" + fileId + "/permissions?fields=permissions(type,role)").then(function(res){
+    var perms = (res && res.permissions) || [];
+    var shared = perms.some(function(p){ return p.type === "anyone" || p.type === "domain"; });
+    return !shared;
+  }).catch(function(){ return true; }); // drive.file files are private by default
+}
+function uploadToDrive(fileStr, fileName){
+  return ensureKampilFolder().then(function(folderId){
+    var boundary = "kampil" + Date.now().toString(36);
+    var meta = JSON.stringify({ name: fileName, parents: [folderId], mimeType: "application/json" });
+    var body = "--" + boundary + "\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n" + meta
+      + "\r\n--" + boundary + "\r\nContent-Type: application/json\r\n\r\n" + fileStr
+      + "\r\n--" + boundary + "--";
+    return fetch("https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id,name", {
+      method: "POST",
+      headers: { "Authorization": "Bearer " + driveToken, "Content-Type": "multipart/related; boundary=" + boundary },
+      body: body
+    }).then(function(r){
+      if(!r.ok) throw new Error("Unggah gagal (" + r.status + ")");
+      return r.json();
+    }).then(function(f){
+      return checkPrivate(f.id).then(function(priv){
+        if(!priv) throw new Error("File terdeteksi tidak privat — unggahan ditandai gagal demi keamanan.");
+        return f;
+      });
+    });
+  });
+}
+function connectDrive(){
+  var cid = getClientId();
+  if(!cid){
+    toast("Isi Google OAuth Client ID dulu — langkahnya ada di panel ini");
+    $("backupOverlay").classList.remove("hidden");
+    $("clientIdInput").focus();
+    return;
+  }
+  idbSet("driveClientId", cid);
+  if(!window.google || !google.accounts || !google.accounts.oauth2){
+    toast("Komponen Google belum termuat — periksa koneksi internet lalu coba lagi");
+    return;
+  }
+  var tc = google.accounts.oauth2.initTokenClient({
+    client_id: cid,
+    scope: "https://www.googleapis.com/auth/drive.file",
+    callback: function(resp){
+      if(resp.error){ toast("Gagal menyambungkan Drive: " + resp.error); addLog("Sambungkan Drive", "fail", resp.error); return; }
+      driveToken = resp.access_token;
+      toast("Google Drive tersambung");
+      ensureKampilFolder().then(function(){
+        renderBackupStatus();
+        // Jadwal yang tertunda langsung dijalankan — tidak gagal diam-diam.
+        if(vault && (vault.settings.pendingDrive || vault.settings.lastChangeAt > (vault.settings.lastBackupAt || 0))){
+          runBackup("otomatis (setelah tersambung)");
+        } else {
+          addLog("Sambungkan Drive", "ok", "Folder “Kampil” siap, privat.");
+        }
+      }).catch(function(e){ toast(e.message); });
+    }
+  });
+  tc.requestAccessToken({ prompt: driveToken ? "" : "consent" });
+}
+
+/* ================= Backup orchestration ================= */
+function backupFileName(){
+  var d = new Date();
+  return "kampil-backup-" + d.getFullYear() + String(d.getMonth()+1).padStart(2,"0") + String(d.getDate()).padStart(2,"0")
+    + "-" + String(d.getHours()).padStart(2,"0") + String(d.getMinutes()).padStart(2,"0") + String(d.getSeconds()).padStart(2,"0") + ".kampil";
+}
+function runBackup(trigger){
+  if(!vault || !masterPw || inBackup) return Promise.resolve();
+  inBackup = true;
+  return buildBackupFileString(masterPw).then(function(str){
+    if(driveConnected()){
+      return uploadToDrive(str, backupFileName()).then(function(){
+        vault.settings.lastBackupAt = Date.now();
+        vault.settings.pendingDrive = false;
+        inBackup = false;
+        return addLog(trigger, "ok", "Terunggah ke Drive › Kampil (privat, terenkripsi).");
+      }).then(function(){ toast("Backup berhasil ke Drive › Kampil (privat)"); renderBackupStatus(); });
+    }
+    // Drive belum tersambung: jangan gagal diam-diam.
+    vault.settings.pendingDrive = true;
+    inBackup = false;
+    return addLog(trigger, "wait", "Drive belum tersambung — backup dijadwalkan dan akan diunggah begitu tersambung.").then(function(){ renderBackupStatus(); });
+  }).catch(function(e){
+    inBackup = false;
+    if(vault) addLog(trigger, "fail", e.message || "Kesalahan tak dikenal");
+    toast("Backup gagal: " + (e.message || e));
+  });
+}
+function onVaultChanged(){
+  if(!vault || inBackup) return;
+  var mode = vault.settings.autoMode;
+  if(vault.settings.pendingDrive && driveConnected()){ runBackup("otomatis (lanjutan tertunda)"); return; }
+  if(mode === "change"){
+    clearTimeout(changeTimer);
+    changeTimer = setTimeout(function(){ runBackup("otomatis (setelah perubahan)"); }, 15000);
+  }
+}
+/* Scheduler: interval-based auto backup, only while unlocked */
+setInterval(function(){
+  if(!vault || !sessionKey) return;
+  var s = vault.settings;
+  if(s.autoMode === "off" || s.autoMode === "change") {
+    if(s.pendingDrive && driveConnected()) runBackup("otomatis (lanjutan tertunda)");
+    return;
+  }
+  var iv = INTERVALS[s.autoMode];
+  if(iv && Date.now() - (s.lastBackupAt || 0) >= iv){
+    runBackup("otomatis (" + autoModeLabel(s.autoMode).toLowerCase() + ")");
+  }
+}, 30000);
+/* Auto-lock after 5 minutes idle */
+["pointerdown","keydown","touchstart"].forEach(function(ev){
+  document.addEventListener(ev, function(){ lastActivity = Date.now(); }, { passive:true });
+});
+setInterval(function(){
+  if(vault && sessionKey && Date.now() - lastActivity > 5*60*1000){
+    lockVault();
+    toast("Kampil terkunci otomatis (5 menit tanpa aktivitas)");
+  }
+}, 20000);
+
+/* ================= Lock screen flow ================= */
+function refreshLockScreen(){
+  idbGet("kampilMeta").then(function(meta){
+    $("setupCard").classList.toggle("hidden", !!meta);
+    $("unlockCard").classList.toggle("hidden", !meta);
+  });
+}
+function enterApp(){
+  $("lockScreen").classList.add("hidden");
+  $("appScreen").classList.remove("hidden");
+  $("fabAdd").classList.remove("hidden");
+  lastActivity = Date.now();
+  renderAll();
+  idbGet("driveClientId").then(function(cid){ if(cid) $("clientIdInput").value = cid; });
+  // Pending scheduled backup is surfaced, not silent
+  if(vault.settings.autoMode !== "off" && !driveConnected()) renderBackupStatus();
+}
+$("btnCreate").addEventListener("click", function(){
+  var p1 = $("newPass").value, p2 = $("newPass2").value;
+  var err = $("setupErr");
+  function fail(m){ err.textContent = m; err.classList.remove("hidden"); }
+  err.classList.add("hidden");
+  if(p1.length < 8) return fail("Master password minimal 8 karakter. Pakai gabungan kata yang mudah kamu ingat tapi sulit ditebak.");
+  if(p1 !== p2) return fail("Kedua password tidak sama — ketik ulang dengan teliti.");
+  $("btnCreate").disabled = true;
+  createVault(p1).then(function(){
+    masterPw = p1;
+    $("btnCreate").disabled = false;
+    enterApp();
+    toast("Kampil dibuat & terkunci aman di perangkat ini");
+  }).catch(function(e){ $("btnCreate").disabled = false; fail("Gagal membuat kampil: " + e.message); });
+});
+$("btnUnlock").addEventListener("click", function(){
+  var p = $("unlockPass").value;
+  var err = $("unlockErr");
+  err.classList.add("hidden");
+  if(!p) return;
+  $("btnUnlock").disabled = true;
+  unlockVault(p).then(function(){
+    masterPw = p;
+    $("btnUnlock").disabled = false;
+    enterApp();
+  }).catch(function(){
+    $("btnUnlock").disabled = false;
+    err.textContent = "Password salah, atau data kampil rusak. Coba lagi dengan teliti.";
+    err.classList.remove("hidden");
+  });
+});
+$("unlockPass").addEventListener("keydown", function(e){ if(e.key === "Enter") $("btnUnlock").click(); });
+function wipeVault(){
+  askConfirm("Hapus kampil di perangkat ini?", "Semua isi kampil di perangkat ini akan dihapus permanen. File backup .kampil yang sudah kamu unduh / di Drive tidak ikut terhapus dan masih bisa dipulihkan.", function(){
+    idbDel("kampilMeta").then(function(){ return idbDel("kampilData"); }).then(function(){
+      masterPw = null; toast("Kampil di perangkat ini sudah dihapus"); refreshLockScreen();
+    });
+  });
+}
+$("linkWipe").addEventListener("click", function(e){ e.preventDefault(); wipeVault(); });
+
+/* ================= Import flow ================= */
+var pendingImportFile = null;
+function startImport(mode){
+  importMode = mode;
+  $("filePicker").value = "";
+  $("filePicker").click();
+}
+$("filePicker").addEventListener("change", function(){
+  var file = $("filePicker").files[0];
+  if(!file) return;
+  pendingImportFile = file;
+  promptPassword("Buka file backup", "Masukkan master password yang dipakai saat file backup ini dibuat.").then(function(pw){
+    if(!pw) return;
+    importBackupFile(file, pw).then(function(res){
+      if(importMode === "app"){
+        askConfirm("Ganti isi kampil dengan isi file backup?", "Isi kampil saat ini di perangkat ini akan digantikan seluruhnya oleh isi file backup.", function(){
+          applyImported(res, pw);
+        });
+      } else {
+        applyImported(res, pw);
+      }
+    }).catch(function(){
+      toast("Gagal membuka file: password salah atau file bukan backup Kampil yang valid.");
+    });
+  });
+});
+function applyImported(res, pw){
+  vaultSalt = b64decode(res.salt);
+  sessionKey = res.key;
+  masterPw = pw;
+  vault = res.data;
+  if(!vault.settings) vault.settings = defaultVault().settings;
+  aesEncrypt(sessionKey, "KAMPIL-OK-VERIFIER").then(function(ver){
+    return idbSet("kampilMeta", { salt: res.salt, verifier: ver });
+  }).then(function(){
+    inBackup = false;
+    return saveVault();
+  }).then(function(){
+    $("backupOverlay").classList.add("hidden");
+    enterApp();
+    toast("Backup dipulihkan — isi kampil sudah diganti dari file");
+  });
+}
+$("linkImportFirst").addEventListener("click", function(e){ e.preventDefault(); startImport("first"); });
+$("linkImportFirst2").addEventListener("click", function(e){ e.preventDefault(); startImport("first"); });
+
+/* ================= Top-level bindings ================= */
+$("btnAddTop").addEventListener("click", function(){ openEditor(null); });
+$("fabAdd").addEventListener("click", function(){ openEditor(null); });
+$("searchBox").addEventListener("input", renderList);
+$("btnLockNow").addEventListener("click", function(){ lockVault(); toast("Kampil terkunci"); });
+$("btnBackupPanel").addEventListener("click", function(){ renderBackupStatus(); $("backupOverlay").classList.remove("hidden"); });
+$("btnCloseBackup").addEventListener("click", function(){ $("backupOverlay").classList.add("hidden"); });
+$("btnBannerConnect").addEventListener("click", function(){ renderBackupStatus(); $("backupOverlay").classList.remove("hidden"); connectDrive(); });
+$("btnConnectDrive").addEventListener("click", connectDrive);
+$("btnDisconnectDrive").addEventListener("click", function(){
+  driveToken = null; driveFolderId = null;
+  renderBackupStatus();
+  toast("Koneksi Drive diputuskan di sesi ini");
+});
+Array.prototype.forEach.call($("autoSeg").querySelectorAll("button"), function(b){
+  b.addEventListener("click", function(){
+    vault.settings.autoMode = b.getAttribute("data-mode");
+    inBackup = true;
+    saveVault().then(function(){
+      inBackup = false; renderBackupStatus();
+      toast("Backup otomatis: " + autoModeLabel(vault.settings.autoMode));
+      if(vault.settings.autoMode !== "off") onVaultChanged();
+    });
+  });
+});
+$("btnBackupNow").addEventListener("click", function(){
+  if(driveConnected()){ runBackup("manual"); return; }
+  // Not connected: still leave a copy on-device + queue the Drive upload.
+  buildBackupFileString(masterPw).then(function(str){
+    var name = downloadBackup(str);
+    vault.settings.lastBackupAt = Date.now();
+    vault.settings.pendingDrive = true;
+    return addLog("manual", "wait", "File " + name + " diunduh ke perangkat; unggahan ke Drive antre sampai tersambung.");
+  }).then(function(){ toast("File backup terenkripsi diunduh. Unggahan Drive menunggu koneksi."); });
+});
+$("btnExportFile").addEventListener("click", function(){
+  buildBackupFileString(masterPw).then(function(str){
+    downloadBackup(str);
+    toast("File .kampil terenkripsi diunduh");
+  });
+});
+$("btnImportFile").addEventListener("click", function(){ startImport("app"); });
+$("clientIdInput").addEventListener("change", function(){
+  var v = getClientId();
+  if(v) idbSet("driveClientId", v);
+});
+
+/* ================= Init ================= */
+refreshLockScreen();
+</script>
+</body>
+</html>
