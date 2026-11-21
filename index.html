@@ -47,7 +47,7 @@ if("serviceWorker" in navigator){
     navigator.serviceWorker.register("sw.js", { updateViaCache: "none" })
       .then(useReg)
       .catch(function(){
-        return navigator.serviceWorker.register("data:application/javascript;base64,LyogS2FtcGlsIOKAlCBzZXJ2aWNlIHdvcmtlcgogICBNZW1idWF0IEthbXBpbCBtZW1lbnVoaSBzeWFyYXQgImRhcGF0IGRpaW5zdGFsIiAoSW5zdGFsbCBhcHApIGRpIENocm9tZSBBbmRyb2lkCiAgIGRhbiBiaXNhIGRpYnVrYSBkYXJpIGlrb24gYXBsaWthc2kgd2FsYXUga29uZWtzaSBzZWRhbmcgYnVydWsuCiAgIEhhbnlhIG1lbmctY2FjaGUgZmlsZSBhcGxpa2FzaSAoaW5kZXgsIG1hbmlmZXN0LCBpa29uKSDigJQgVElEQUsgUEVSTkFIIG1lbmctY2FjaGUKICAgZGF0YSBrYW1waWw7IGRhdGEgdGV0YXAgdGVyZW5rcmlwc2kgZGkgSW5kZXhlZERCIHBlcmFuZ2thdC4KICAgdjM6IGluc3RhbGFzaSBjYWNoZSBkaXRvbGVyYW5zaSBwZXIgZmlsZSAoc2F0dSBmaWxlIGdhZ2FsIHRpZGFrIGxhZ2kgbWVuZ2dhZ2Fsa2FuCiAgIGFrdGl2YXNpIHNlcnZpY2Ugd29ya2VyKSBkYW4gbmF2aWdhc2kgamFyaW5nYW4tZHVsdSBkZW5nYW4gY2FkYW5nYW4gaW5kZXggZGFyaQogICBjYWNoZSwgYWdhciBzdGFydF91cmwgc2VsYWx1IGJpc2EgZGlidWthIHNlcnZpY2Ugd29ya2VyLiAqLwp2YXIgQ0FDSEUgPSAia2FtcGlsLXY1IjsKdmFyIEFQUF9GSUxFUyA9IFsKICAiLi4vaW5kZXguaHRtbCIsCiAgIi4vbWFuaWZlc3Qud2VibWFuaWZlc3QiLAogICIuL2ljb24tMTkyLnBuZyIsCiAgIi4vaWNvbi01MTIucG5nIiwKICAiLi9pY29uLW1hc2thYmxlLTUxMi5wbmciLAogICIuL2FwcGxlLXRvdWNoLWljb24ucG5nIgpdOwp2YXIgSU5ERVhfVVJMID0gbmV3IFVSTCgiLi4vaW5kZXguaHRtbCIsIHNlbGYucmVnaXN0cmF0aW9uLnNjb3BlKS5ocmVmOwoKc2VsZi5hZGRFdmVudExpc3RlbmVyKCJpbnN0YWxsIiwgZnVuY3Rpb24gKGV2ZW50KSB7CiAgZXZlbnQud2FpdFVudGlsKAogICAgY2FjaGVzLm9wZW4oQ0FDSEUpLnRoZW4oZnVuY3Rpb24gKGNhY2hlKSB7CiAgICAgIC8qIGNhY2hlLmFkZEFsbCBiZXJzaWZhdCBhdG9taWs6IFNBVFUgZmlsZSBnYWdhbCAoNDA0L3JlZGlyZWN0KSBtZW5nZ2FnYWxrYW4KICAgICAgICAgU0VMVVJVSCBpbnN0YWxhc2kgc2VydmljZSB3b3JrZXIg4oCUIGRhbiB0YW5wYSBTVyBha3RpZiBDaHJvbWUgbWVub2xhawogICAgICAgICBpbnN0YWwgYXBsaWthc2kuIEthcmVuYSBpdHU6IGNvYmEgYWRkQWxsLCBsYWx1IGxlbmdrYXBpIHBlciBmaWxlIGRlbmdhbgogICAgICAgICBrZWdhZ2FsYW4gcGVyIGZpbGUgZGl0b2xlcmFuc2kuIEFrdGl2YXNpIFNXIHRpZGFrIGJvbGVoIGRpdmV0byBjYWNoZS4gKi8KICAgICAgcmV0dXJuIGNhY2hlLmFkZEFsbChBUFBfRklMRVMpLmNhdGNoKGZ1bmN0aW9uICgpIHsKICAgICAgICByZXR1cm4gUHJvbWlzZS5hbGwoQVBQX0ZJTEVTLm1hcChmdW5jdGlvbiAodSkgewogICAgICAgICAgcmV0dXJuIGNhY2hlLmFkZCh1KS5jYXRjaChmdW5jdGlvbiAoKSB7IHJldHVybiBudWxsOyB9KTsKICAgICAgICB9KSk7CiAgICAgIH0pOwogICAgfSkudGhlbihmdW5jdGlvbiAoKSB7IHJldHVybiBzZWxmLnNraXBXYWl0aW5nKCk7IH0pCiAgKTsKfSk7CgpzZWxmLmFkZEV2ZW50TGlzdGVuZXIoImFjdGl2YXRlIiwgZnVuY3Rpb24gKGV2ZW50KSB7CiAgZXZlbnQud2FpdFVudGlsKAogICAgY2FjaGVzLmtleXMoKS50aGVuKGZ1bmN0aW9uIChrZXlzKSB7CiAgICAgIHJldHVybiBQcm9taXNlLmFsbChrZXlzLm1hcChmdW5jdGlvbiAoaykgewogICAgICAgIHJldHVybiBrID09PSBDQUNIRSA/IG51bGwgOiBjYWNoZXMuZGVsZXRlKGspOwogICAgICB9KSk7CiAgICB9KS50aGVuKGZ1bmN0aW9uICgpIHsgcmV0dXJuIHNlbGYuY2xpZW50cy5jbGFpbSgpOyB9KQogICk7Cn0pOwoKc2VsZi5hZGRFdmVudExpc3RlbmVyKCJmZXRjaCIsIGZ1bmN0aW9uIChldmVudCkgewogIHZhciByZXEgPSBldmVudC5yZXF1ZXN0OwogIGlmIChyZXEubWV0aG9kICE9PSAiR0VUIikgcmV0dXJuOwogIHZhciB1cmwgPSBuZXcgVVJMKHJlcS51cmwpOwogIGlmICh1cmwub3JpZ2luICE9PSBuZXcgVVJMKHNlbGYucmVnaXN0cmF0aW9uLnNjb3BlKS5vcmlnaW4pIHJldHVybjsgLy8gR29vZ2xlIEdTSSAvIERyaXZlIEFQSTogYmlhcmthbiBrZSBqYXJpbmdhbgogIGlmIChyZXEubW9kZSA9PT0gIm5hdmlnYXRlIikgewogICAgLyogTmF2aWdhc2k6IGphcmluZ2FuIGR1bHUgKGhhbGFtYW4gc2VsYWx1IHZlcnNpIHRlcmJhcnUpLCBjYWNoZSBpbmRleAogICAgICAgc2ViYWdhaSBjYWRhbmdhbiBvZmZsaW5lIOKAlCBzdGFydF91cmwgaGFydXMgYmlzYSBkaWxheWFuaSBTVy4gKi8KICAgIGV2ZW50LnJlc3BvbmRXaXRoKAogICAgICBmZXRjaChyZXEpLnRoZW4oZnVuY3Rpb24gKHJlcykgewogICAgICAgIGlmIChyZXMgJiYgcmVzLm9rKSB7CiAgICAgICAgICB2YXIgY29weSA9IHJlcy5jbG9uZSgpOwogICAgICAgICAgY2FjaGVzLm9wZW4oQ0FDSEUpLnRoZW4oZnVuY3Rpb24gKGNhY2hlKSB7IGNhY2hlLnB1dChJTkRFWF9VUkwsIGNvcHkpOyB9KTsKICAgICAgICB9CiAgICAgICAgcmV0dXJuIHJlczsKICAgICAgfSkuY2F0Y2goZnVuY3Rpb24gKCkgewogICAgICAgIHJldHVybiBjYWNoZXMubWF0Y2goSU5ERVhfVVJMLCB7IGlnbm9yZVNlYXJjaDogdHJ1ZSB9KS50aGVuKGZ1bmN0aW9uIChoaXQpIHsKICAgICAgICAgIHJldHVybiBoaXQgfHwgbmV3IFJlc3BvbnNlKCJPZmZsaW5lIiwgeyBzdGF0dXM6IDUwMywgc3RhdHVzVGV4dDogIk9mZmxpbmUiIH0pOwogICAgICAgIH0pOwogICAgICB9KQogICAgKTsKICAgIHJldHVybjsKICB9CiAgZXZlbnQucmVzcG9uZFdpdGgoCiAgICBjYWNoZXMubWF0Y2gocmVxLCB7IGlnbm9yZVNlYXJjaDogdHJ1ZSB9KS50aGVuKGZ1bmN0aW9uIChoaXQpIHsKICAgICAgdmFyIG5ldHdvcmsgPSBmZXRjaChyZXEpLnRoZW4oZnVuY3Rpb24gKHJlcykgewogICAgICAgIGlmIChyZXMgJiYgcmVzLm9rKSB7CiAgICAgICAgICB2YXIgY29weSA9IHJlcy5jbG9uZSgpOwogICAgICAgICAgY2FjaGVzLm9wZW4oQ0FDSEUpLnRoZW4oZnVuY3Rpb24gKGNhY2hlKSB7IGNhY2hlLnB1dChyZXEsIGNvcHkpOyB9KTsKICAgICAgICB9CiAgICAgICAgcmV0dXJuIHJlczsKICAgICAgfSkuY2F0Y2goZnVuY3Rpb24gKCkgewogICAgICAgIHJldHVybiBoaXQgfHwgbmV3IFJlc3BvbnNlKCIiLCB7IHN0YXR1czogNTA0LCBzdGF0dXNUZXh0OiAiR2F0ZXdheSBUaW1lb3V0IiB9KTsKICAgICAgfSk7CiAgICAgIHJldHVybiBoaXQgfHwgbmV0d29yazsKICAgIH0pCiAgKTsKfSk7Cg==", { updateViaCache: "none" }).then(useReg);
+        return navigator.serviceWorker.register("data:application/javascript;base64,LyogS2FtcGlsIOKAlCBzZXJ2aWNlIHdvcmtlcgogICBNZW1idWF0IEthbXBpbCBtZW1lbnVoaSBzeWFyYXQgImRhcGF0IGRpaW5zdGFsIiAoSW5zdGFsbCBhcHApIGRpIENocm9tZSBBbmRyb2lkCiAgIGRhbiBiaXNhIGRpYnVrYSBkYXJpIGlrb24gYXBsaWthc2kgd2FsYXUga29uZWtzaSBzZWRhbmcgYnVydWsuCiAgIEhhbnlhIG1lbmctY2FjaGUgZmlsZSBhcGxpa2FzaSAoaW5kZXgsIG1hbmlmZXN0LCBpa29uKSDigJQgVElEQUsgUEVSTkFIIG1lbmctY2FjaGUKICAgZGF0YSBrYW1waWw7IGRhdGEgdGV0YXAgdGVyZW5rcmlwc2kgZGkgSW5kZXhlZERCIHBlcmFuZ2thdC4KICAgdjM6IGluc3RhbGFzaSBjYWNoZSBkaXRvbGVyYW5zaSBwZXIgZmlsZSAoc2F0dSBmaWxlIGdhZ2FsIHRpZGFrIGxhZ2kgbWVuZ2dhZ2Fsa2FuCiAgIGFrdGl2YXNpIHNlcnZpY2Ugd29ya2VyKSBkYW4gbmF2aWdhc2kgamFyaW5nYW4tZHVsdSBkZW5nYW4gY2FkYW5nYW4gaW5kZXggZGFyaQogICBjYWNoZSwgYWdhciBzdGFydF91cmwgc2VsYWx1IGJpc2EgZGlidWthIHNlcnZpY2Ugd29ya2VyLiAqLwp2YXIgQ0FDSEUgPSAia2FtcGlsLXY2IjsKdmFyIEFQUF9GSUxFUyA9IFsKICAiLi4vaW5kZXguaHRtbCIsCiAgIi4vbWFuaWZlc3Qud2VibWFuaWZlc3QiLAogICIuL2ljb24tMTkyLnBuZyIsCiAgIi4vaWNvbi01MTIucG5nIiwKICAiLi9pY29uLW1hc2thYmxlLTUxMi5wbmciLAogICIuL2FwcGxlLXRvdWNoLWljb24ucG5nIgpdOwp2YXIgSU5ERVhfVVJMID0gbmV3IFVSTCgiLi4vaW5kZXguaHRtbCIsIHNlbGYucmVnaXN0cmF0aW9uLnNjb3BlKS5ocmVmOwoKc2VsZi5hZGRFdmVudExpc3RlbmVyKCJpbnN0YWxsIiwgZnVuY3Rpb24gKGV2ZW50KSB7CiAgZXZlbnQud2FpdFVudGlsKAogICAgY2FjaGVzLm9wZW4oQ0FDSEUpLnRoZW4oZnVuY3Rpb24gKGNhY2hlKSB7CiAgICAgIC8qIGNhY2hlLmFkZEFsbCBiZXJzaWZhdCBhdG9taWs6IFNBVFUgZmlsZSBnYWdhbCAoNDA0L3JlZGlyZWN0KSBtZW5nZ2FnYWxrYW4KICAgICAgICAgU0VMVVJVSCBpbnN0YWxhc2kgc2VydmljZSB3b3JrZXIg4oCUIGRhbiB0YW5wYSBTVyBha3RpZiBDaHJvbWUgbWVub2xhawogICAgICAgICBpbnN0YWwgYXBsaWthc2kuIEthcmVuYSBpdHU6IGNvYmEgYWRkQWxsLCBsYWx1IGxlbmdrYXBpIHBlciBmaWxlIGRlbmdhbgogICAgICAgICBrZWdhZ2FsYW4gcGVyIGZpbGUgZGl0b2xlcmFuc2kuIEFrdGl2YXNpIFNXIHRpZGFrIGJvbGVoIGRpdmV0byBjYWNoZS4gKi8KICAgICAgcmV0dXJuIGNhY2hlLmFkZEFsbChBUFBfRklMRVMpLmNhdGNoKGZ1bmN0aW9uICgpIHsKICAgICAgICByZXR1cm4gUHJvbWlzZS5hbGwoQVBQX0ZJTEVTLm1hcChmdW5jdGlvbiAodSkgewogICAgICAgICAgcmV0dXJuIGNhY2hlLmFkZCh1KS5jYXRjaChmdW5jdGlvbiAoKSB7IHJldHVybiBudWxsOyB9KTsKICAgICAgICB9KSk7CiAgICAgIH0pOwogICAgfSkudGhlbihmdW5jdGlvbiAoKSB7IHJldHVybiBzZWxmLnNraXBXYWl0aW5nKCk7IH0pCiAgKTsKfSk7CgpzZWxmLmFkZEV2ZW50TGlzdGVuZXIoImFjdGl2YXRlIiwgZnVuY3Rpb24gKGV2ZW50KSB7CiAgZXZlbnQud2FpdFVudGlsKAogICAgY2FjaGVzLmtleXMoKS50aGVuKGZ1bmN0aW9uIChrZXlzKSB7CiAgICAgIHJldHVybiBQcm9taXNlLmFsbChrZXlzLm1hcChmdW5jdGlvbiAoaykgewogICAgICAgIHJldHVybiBrID09PSBDQUNIRSA/IG51bGwgOiBjYWNoZXMuZGVsZXRlKGspOwogICAgICB9KSk7CiAgICB9KS50aGVuKGZ1bmN0aW9uICgpIHsgcmV0dXJuIHNlbGYuY2xpZW50cy5jbGFpbSgpOyB9KQogICk7Cn0pOwoKc2VsZi5hZGRFdmVudExpc3RlbmVyKCJmZXRjaCIsIGZ1bmN0aW9uIChldmVudCkgewogIHZhciByZXEgPSBldmVudC5yZXF1ZXN0OwogIGlmIChyZXEubWV0aG9kICE9PSAiR0VUIikgcmV0dXJuOwogIHZhciB1cmwgPSBuZXcgVVJMKHJlcS51cmwpOwogIGlmICh1cmwub3JpZ2luICE9PSBuZXcgVVJMKHNlbGYucmVnaXN0cmF0aW9uLnNjb3BlKS5vcmlnaW4pIHJldHVybjsgLy8gR29vZ2xlIEdTSSAvIERyaXZlIEFQSTogYmlhcmthbiBrZSBqYXJpbmdhbgogIGlmIChyZXEubW9kZSA9PT0gIm5hdmlnYXRlIikgewogICAgLyogTmF2aWdhc2k6IGphcmluZ2FuIGR1bHUgKGhhbGFtYW4gc2VsYWx1IHZlcnNpIHRlcmJhcnUpLCBjYWNoZSBpbmRleAogICAgICAgc2ViYWdhaSBjYWRhbmdhbiBvZmZsaW5lIOKAlCBzdGFydF91cmwgaGFydXMgYmlzYSBkaWxheWFuaSBTVy4gKi8KICAgIGV2ZW50LnJlc3BvbmRXaXRoKAogICAgICBmZXRjaChyZXEpLnRoZW4oZnVuY3Rpb24gKHJlcykgewogICAgICAgIGlmIChyZXMgJiYgcmVzLm9rKSB7CiAgICAgICAgICB2YXIgY29weSA9IHJlcy5jbG9uZSgpOwogICAgICAgICAgY2FjaGVzLm9wZW4oQ0FDSEUpLnRoZW4oZnVuY3Rpb24gKGNhY2hlKSB7IGNhY2hlLnB1dChJTkRFWF9VUkwsIGNvcHkpOyB9KTsKICAgICAgICB9CiAgICAgICAgcmV0dXJuIHJlczsKICAgICAgfSkuY2F0Y2goZnVuY3Rpb24gKCkgewogICAgICAgIHJldHVybiBjYWNoZXMubWF0Y2goSU5ERVhfVVJMLCB7IGlnbm9yZVNlYXJjaDogdHJ1ZSB9KS50aGVuKGZ1bmN0aW9uIChoaXQpIHsKICAgICAgICAgIHJldHVybiBoaXQgfHwgbmV3IFJlc3BvbnNlKCJPZmZsaW5lIiwgeyBzdGF0dXM6IDUwMywgc3RhdHVzVGV4dDogIk9mZmxpbmUiIH0pOwogICAgICAgIH0pOwogICAgICB9KQogICAgKTsKICAgIHJldHVybjsKICB9CiAgZXZlbnQucmVzcG9uZFdpdGgoCiAgICBjYWNoZXMubWF0Y2gocmVxLCB7IGlnbm9yZVNlYXJjaDogdHJ1ZSB9KS50aGVuKGZ1bmN0aW9uIChoaXQpIHsKICAgICAgdmFyIG5ldHdvcmsgPSBmZXRjaChyZXEpLnRoZW4oZnVuY3Rpb24gKHJlcykgewogICAgICAgIGlmIChyZXMgJiYgcmVzLm9rKSB7CiAgICAgICAgICB2YXIgY29weSA9IHJlcy5jbG9uZSgpOwogICAgICAgICAgY2FjaGVzLm9wZW4oQ0FDSEUpLnRoZW4oZnVuY3Rpb24gKGNhY2hlKSB7IGNhY2hlLnB1dChyZXEsIGNvcHkpOyB9KTsKICAgICAgICB9CiAgICAgICAgcmV0dXJuIHJlczsKICAgICAgfSkuY2F0Y2goZnVuY3Rpb24gKCkgewogICAgICAgIHJldHVybiBoaXQgfHwgbmV3IFJlc3BvbnNlKCIiLCB7IHN0YXR1czogNTA0LCBzdGF0dXNUZXh0OiAiR2F0ZXdheSBUaW1lb3V0IiB9KTsKICAgICAgfSk7CiAgICAgIHJldHVybiBoaXQgfHwgbmV0d29yazsKICAgIH0pCiAgKTsKfSk7Cg==", { updateViaCache: "none" }).then(useReg);
       })
       .catch(function(){ /* halaman tetap jalan tanpa SW */ });
   }
@@ -151,13 +151,34 @@ if("serviceWorker" in navigator){
   .multirow{display:flex;gap:.4rem;align-items:center;margin-bottom:.45rem}
   .multirow input{flex:1;min-width:0}
 
-  /* Panel kontrol laman utama: folder, label, dan sortir berkelompok dalam satu
-     kartu dengan pemisah yang jelas, supaya halaman terasa lega dan tidak ramai. */
-  .controls{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:.8rem .85rem .3rem;margin-bottom:1.05rem}
-  .controls .folderbar{margin:0 0 .65rem}
-  .controls .labelbar{margin:0 0 .65rem;padding-top:.65rem;border-top:1px solid var(--line)}
-  .controls .sortbar{margin:0 0 .5rem;padding-top:.65rem;border-top:1px solid var(--line)}
-  .controls .bulkbar{margin:.15rem 0 .55rem}
+  /* Panel kontrol laman utama (accordion): folder, label, dan sortir tersimpan
+     di balik satu kepala panel dan TERTUTUP secara bawaan — laman utama lega,
+     panel dibuka hanya saat perlu menyaring / mengurutkan. Ringkasan di kepala
+     panel tetap menunjukkan saringan & urutan yang sedang aktif. */
+  .controls{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:1.05rem;overflow:hidden}
+  .acc-head{display:flex;align-items:center;gap:.6rem;width:100%;text-align:left;border:none;background:transparent;padding:.8rem .95rem;min-height:3.1rem;border-radius:0;font-size:.98rem}
+  .acc-head:hover{background:var(--surface2)}
+  .acc-title{font-weight:800;white-space:nowrap}
+  .acc-summary{flex:1;color:var(--muted);font-size:.84rem;font-weight:600;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .acc-chev{width:20px;height:20px;stroke:var(--muted);flex:0 0 auto;transition:transform .25s ease}
+  .acc-head[aria-expanded="true"] .acc-chev{transform:rotate(180deg)}
+  @media (prefers-reduced-motion: reduce){.acc-chev{transition:none}}
+  .acc-body{padding:.1rem .85rem .35rem;border-top:1px solid var(--line)}
+  .acc-body .folderbar{margin:.55rem 0 .65rem}
+  .acc-body .labelbar{margin:0 0 .65rem;padding-top:.65rem;border-top:1px solid var(--line)}
+  .acc-body .sortbar{margin:0 0 .5rem;padding-top:.65rem;border-top:1px solid var(--line)}
+  .controls .bulkbar{margin:0 .85rem .85rem}
+  /* Bilah konteks folder / label yang sedang dibuka */
+  .ctxbar{display:flex;gap:.55rem;align-items:center;flex-wrap:wrap;background:var(--accent-soft);border-radius:var(--radius);padding:.65rem .8rem;margin-bottom:1rem}
+  .ctxbar .ctxinfo{flex:1 1 180px;font-size:.92rem;display:flex;align-items:center;gap:.45rem;flex-wrap:wrap}
+  /* Panel kelola isi (centang) untuk folder & label */
+  .checkrow{display:flex;gap:.6rem;align-items:flex-start;padding:.55rem .6rem;border:1px solid var(--line);border-radius:10px;margin:0 0 .45rem;cursor:pointer;font-weight:400;font-size:.95rem}
+  .checkrow:hover{border-color:var(--accent)}
+  .checkrow input[type="checkbox"]{width:1.3rem;height:1.3rem;min-height:0;accent-color:var(--accent);flex:0 0 auto;margin-top:.12rem}
+  .checkrow .ctitle{font-weight:700}
+  .checkrow .cmeta{display:block;font-size:.82rem;color:var(--muted);font-weight:400}
+  .checkrow.off{opacity:.72}
+  .panel-sec{font-size:.78rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:.95rem 0 .45rem}
 
   /* Label lintas kategori */
   .labelbar{display:flex;gap:.45rem;flex-wrap:wrap;align-items:center;margin:.1rem 0 .55rem}
@@ -191,7 +212,24 @@ if("serviceWorker" in navigator){
   pre.codeview{background:var(--code-bg);color:var(--code-ink);border-radius:10px;padding:.8rem;overflow-x:auto;font-size:.85rem;margin:.5rem 0 0;white-space:pre-wrap;word-break:break-word}
   .item .foot{display:flex;gap:.45rem;flex-wrap:wrap;margin-top:.7rem}
   .empty{text-align:center;color:var(--muted);padding:2.4rem 1rem;border:1px dashed var(--line);border-radius:var(--radius);background:var(--surface)}
-  .fab{position:fixed;right:1rem;bottom:calc(1rem + env(safe-area-inset-bottom));z-index:30;background:var(--accent);color:var(--accent-ink);border:none;border-radius:999px;padding:.85rem 1.4rem;font-size:1rem;box-shadow:var(--shadow);min-height:3.2rem}
+  .fab{position:fixed;right:1rem;bottom:calc(1rem + env(safe-area-inset-bottom));z-index:32;background:var(--accent);color:var(--accent-ink);border:none;border-radius:999px;padding:.85rem 1.4rem;font-size:1rem;box-shadow:var(--shadow);min-height:3.2rem;display:inline-flex;align-items:center;justify-content:center;gap:.5rem}
+  .fab.open{width:3.4rem;height:3.4rem;min-height:3.4rem;border-radius:50%;padding:0;background:var(--ink);color:var(--bg)}
+  .fab.open svg{width:22px;height:22px;stroke:currentColor}
+  /* Menu mengambang ala Drive: pilihan mengembang di atas tombol +, latar
+     halaman diredupkan, dan tombol + berubah menjadi X untuk menutup menu. */
+  .fabscrim{position:fixed;inset:0;background:rgba(5,15,12,.45);z-index:29}
+  .fabmenu{position:fixed;right:1rem;bottom:calc(5.5rem + env(safe-area-inset-bottom));z-index:31;display:flex;flex-direction:column;align-items:flex-end;gap:.55rem}
+  .fabact{display:inline-flex;align-items:center;gap:.6rem;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:.5rem 1.05rem .5rem .55rem;box-shadow:var(--shadow);font-weight:700;min-height:2.9rem;animation:fabin .18s ease both}
+  .fabact:nth-child(2){animation-delay:.04s}
+  .fabact:nth-child(3){animation-delay:.08s}
+  .fabact:nth-child(4){animation-delay:.12s}
+  .fabact .fic{width:2rem;height:2rem;border-radius:50%;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+  .fabact .fic svg{width:18px;height:18px;stroke:var(--accent)}
+  .fabact.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+  .fabact.primary .fic{background:rgba(255,255,255,.25)}
+  .fabact.primary .fic svg{stroke:var(--accent-ink)}
+  @keyframes fabin{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+  @media (prefers-reduced-motion: reduce){.fabact{animation:none}}
 
   /* Tombol menu (hamburger) */
   .menubtn{width:2.6rem;height:2.6rem;min-height:2.6rem;padding:0;display:flex;align-items:center;justify-content:center;border-radius:10px;flex:0 0 auto}
@@ -391,6 +429,12 @@ if("serviceWorker" in navigator){
   </div>
   <div class="tabs" id="tabs"></div>
   <div class="controls">
+  <button type="button" class="acc-head" id="btnControlsToggle" aria-expanded="false" aria-controls="controlsBody">
+    <span class="acc-title">Folder, Label &amp; Urutkan</span>
+    <span class="acc-summary" id="controlsSummary"></span>
+    <svg class="acc-chev" viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+  </button>
+  <div class="acc-body hidden" id="controlsBody">
   <div class="folderbar" id="folderBar"></div>
   <div class="labelbar" id="labelBar"></div>
   <div class="sortbar">
@@ -403,6 +447,7 @@ if("serviceWorker" in navigator){
     <span style="flex:1"></span>
     <button id="btnSelectMode" type="button" class="small">Tandai beberapa</button>
   </div>
+  </div>
   <div class="bulkbar hidden" id="bulkBar">
     <span class="bcnt" id="bulkCount">0 dipilih</span>
     <select id="bulkFolderSel" aria-label="Folder tujuan"></select>
@@ -414,10 +459,18 @@ if("serviceWorker" in navigator){
     <button id="btnBulkDone" type="button" class="small">Selesai</button>
   </div>
   </div>
+  <div id="contextBar" class="ctxbar hidden"></div>
   <div id="list"></div>
 </div>
 
-<button class="fab hidden" id="fabAdd">+ Tambah isi</button>
+<div class="fabscrim hidden" id="fabScrim"></div>
+<div class="fabmenu hidden" id="fabMenu" role="menu" aria-label="Menu tambah cepat">
+  <button type="button" class="fabact" data-fabact="label" role="menuitem"><span class="fic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4L11 3.8A2 2 0 0 0 9.6 3.2H4a1 1 0 0 0-1 1v5.6c0 .5.2 1 .6 1.4l9.6 9.6a2 2 0 0 0 2.8 0l4.6-4.6a2 2 0 0 0 0-2.8z"/><circle cx="7.5" cy="7.5" r="1.3"/></svg></span>Label baru</button>
+  <button type="button" class="fabact" data-fabact="folder" role="menuitem"><span class="fic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/></svg></span>Folder baru</button>
+  <button type="button" class="fabact" data-fabact="select" role="menuitem"><span class="fic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="3"/><path d="M8.5 12.5l2.5 2.5 4.8-5.5"/></svg></span><span id="fabSelectLabel">Tandai beberapa</span></button>
+  <button type="button" class="fabact primary" data-fabact="add" role="menuitem"><span class="fic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>Tambah isi</button>
+</div>
+<button class="fab hidden" id="fabAdd" aria-expanded="false" aria-haspopup="menu" aria-label="Tambah isi">+ Tambah isi</button>
 
 <!-- ============ MENU SAMPING (DRAWER) ============ -->
 <div class="scrim" id="drawerScrim"></div>
@@ -766,6 +819,8 @@ var activeLabel = "all";      // "all" | id label (lintas kategori)
 var selectMode = false;       // mode tandai banyak item
 var selectedIds = {};         // itemId -> true (memori saja, tidak disimpan)
 var dragIds = null;           // id item yang sedang diseret (drag & drop)
+var controlsOpen = false;     // panel accordion Folder/Label/Urutkan: tertutup secara bawaan (memori saja)
+var fabOpen = false;          // menu tombol + mengambang ala Drive: tertutup secara bawaan (memori saja)
 var editingId = null;
 var editorLabelIds = {};      // labelId -> true, pilihan label di editor item (memori saja)
 var confirmCb = null;
@@ -1083,6 +1138,7 @@ function lockVault(){
   masterPw = null;
   $("appScreen").classList.add("hidden");
   $("fabAdd").classList.add("hidden");
+  if(typeof closeFabMenu === "function") closeFabMenu();
   closeDrawer();
   $("backupOverlay").classList.add("hidden");
   $("editorOverlay").classList.add("hidden");
@@ -1173,6 +1229,61 @@ function renderSortBar(){
   $("btnSortDir").textContent = sortDirLabel();
   $("btnSelectMode").textContent = selectMode ? "Batalkan tandai" : "Tandai beberapa";
   $("btnSelectMode").classList.toggle("primary", selectMode);
+}
+/* ================= Accordion Folder / Label / Urutkan =================
+   Panel kontrol laman utama tertutup secara bawaan; kepala panel selalu
+   terlihat dan menampilkan ringkasan saringan + urutan yang aktif, supaya
+   pengguna tahu tampilan sedang tersaring walau panel sedang tertutup. */
+function renderControlsSummary(){
+  var el = $("controlsSummary");
+  if(!el) return;
+  if(!vault){ el.textContent = ""; return; }
+  var parts = [];
+  var lab = activeLabel !== "all" ? labelById(activeLabel) : null;
+  var fol = (activeFolder !== "all" && activeFolder !== "none") ? folderById(activeFolder) : null;
+  if(lab) parts.push("Label: " + lab.name);
+  else if(fol) parts.push("Folder: " + fol.name);
+  else if(activeFolder === "none") parts.push("Tanpa folder");
+  else parts.push("Semua isi");
+  parts.push(sortDirLabel());
+  el.textContent = parts.join(" · ");
+}
+function setControlsOpen(open){
+  controlsOpen = !!open;
+  var body = $("controlsBody");
+  var btn = $("btnControlsToggle");
+  if(body) body.classList.toggle("hidden", !controlsOpen);
+  if(btn) btn.setAttribute("aria-expanded", controlsOpen ? "true" : "false");
+}
+/* ================= Bilah konteks folder / label yang sedang dibuka =================
+   Selalu terlihat saat sebuah folder / label sedang dibuka (di luar accordion),
+   berisi tombol Kelola isi — panel centang untuk menambah & melepas isi —
+   dan tombol Item baru yang langsung masuk konteks ini. */
+function renderContextBar(){
+  var bar = $("contextBar");
+  if(!bar) return;
+  if(!vault){ bar.innerHTML = ""; bar.classList.add("hidden"); return; }
+  var folder = (activeFolder !== "all" && activeFolder !== "none") ? folderById(activeFolder) : null;
+  var label = (!folder && activeLabel !== "all") ? labelById(activeLabel) : null;
+  if(!folder && !label){ bar.innerHTML = ""; bar.classList.add("hidden"); return; }
+  bar.classList.remove("hidden");
+  if(folder){
+    var n = vault.items.filter(function(it){ return it.folderId === folder.id; }).length;
+    bar.innerHTML = '<div class="ctxinfo"><span>Folder <b>' + esc(folder.name) + '</b> · ' + esc(CATS[folder.cat].label) + ' · ' + n + ' item</span></div>'
+      + '<button type="button" class="small primary" data-ctx="manage">Kelola isi folder</button>'
+      + '<button type="button" class="small" data-ctx="newitem">+ Item baru</button>';
+  } else {
+    var n2 = labelCounts()[label.id] || 0;
+    bar.innerHTML = '<div class="ctxinfo"><span class="ldot" style="background:' + label.color + '"></span><span>Label <b>' + esc(label.name) + '</b> · ' + n2 + ' item <span class="hint">(termasuk lewat folder)</span></span></div>'
+      + '<button type="button" class="small primary" data-ctx="manage">Kelola isi label</button>'
+      + '<button type="button" class="small" data-ctx="newitem">+ Item baru</button>';
+  }
+  Array.prototype.forEach.call(bar.querySelectorAll("button[data-ctx]"), function(b){
+    b.addEventListener("click", function(){
+      if(b.getAttribute("data-ctx") === "manage") openManagePanel();
+      else openEditor(null);
+    });
+  });
 }
 function setSort(by){
   vault.settings.sortBy = by;
@@ -1344,6 +1455,8 @@ function fieldRow(it, f){
 }
 function renderList(){
   renderBulkBar();
+  renderControlsSummary();
+  renderContextBar();
   var q = ($("searchBox").value || "").toLowerCase().trim();
   var items = vault.items.filter(function(it){
     if(activeCat !== "semua" && it.cat !== activeCat) return false;
@@ -1356,9 +1469,23 @@ function renderList(){
   });
   items.sort(compareItems);
   if(items.length === 0){
-    $("list").innerHTML = '<div class="empty">' + (vault.items.length === 0
-      ? 'Kampil masih kosong.<br>Ketuk <b>+ Tambah isi</b> untuk menyimpan kontak, rekening, akun login, kode, atau catatan pertamamu.'
-      : (activeLabel !== "all" ? 'Belum ada item dengan label ini.<br>Beri label lewat tombol <b>Ubah</b> pada item, tandai beberapa item lalu <b>Tambahkan label</b>, atau beri label ke sebuah folder — semua isinya ikut terhitung.' : (activeFolder !== "all" ? 'Tidak ada item di folder ini untuk tampilan saat ini.<br>Seret kartu item ke chip folder di atas, atau pakai <b>Tandai beberapa</b> untuk memindahkan banyak item sekaligus.' : 'Tidak ada yang cocok dengan pencarian / kategori ini.'))) + '</div>';
+    var emptyHtml;
+    if(vault.items.length === 0){
+      emptyHtml = 'Kampil masih kosong.<br>Ketuk <b>+ Tambah isi</b> untuk menyimpan kontak, rekening, akun login, kode, atau catatan pertamamu.';
+    } else if(activeLabel !== "all" && labelById(activeLabel)){
+      emptyHtml = 'Belum ada item dengan label ini.<br>Ketuk <b>Kelola isi label</b> untuk mencentang item &amp; folder yang mau diberi label ini — centang yang sudah ada juga bisa dilepas dari panel yang sama.'
+        + '<p style="margin:1rem 0 0;display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap"><button type="button" class="primary" data-managectx>Kelola isi label</button><button type="button" data-newctx>+ Item baru berlabel ini</button></p>';
+    } else if(activeFolder !== "all" && activeFolder !== "none" && folderById(activeFolder)){
+      emptyHtml = 'Folder ini masih kosong untuk tampilan saat ini.<br>Ketuk <b>Kelola isi folder</b> untuk mencentang item yang mau dimasukkan ke folder ini — centang yang sudah ada juga bisa dilepas dari panel yang sama.'
+        + '<p style="margin:1rem 0 0;display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap"><button type="button" class="primary" data-managectx>Kelola isi folder</button><button type="button" data-newctx>+ Item baru di folder ini</button></p>';
+    } else if(activeFolder !== "all"){
+      emptyHtml = 'Tidak ada item di tampilan folder ini saat ini.<br>Seret kartu item ke chip folder, atau pakai <b>Tandai beberapa</b> untuk memindahkan banyak item sekaligus.';
+    } else {
+      emptyHtml = 'Tidak ada yang cocok dengan pencarian / kategori ini.';
+    }
+    $("list").innerHTML = '<div class="empty">' + emptyHtml + '</div>';
+    Array.prototype.forEach.call($("list").querySelectorAll("button[data-managectx]"), function(b){ b.addEventListener("click", function(){ openManagePanel(); }); });
+    Array.prototype.forEach.call($("list").querySelectorAll("button[data-newctx]"), function(b){ b.addEventListener("click", function(){ openEditor(null); }); });
     return;
   }
   $("list").innerHTML = items.map(function(it){
@@ -1548,6 +1675,7 @@ function renderDrawer(){
     });
   }
 }
+$("btnControlsToggle").addEventListener("click", function(){ setControlsOpen(!controlsOpen); });
 $("btnMenu").addEventListener("click", openDrawer);
 $("btnDrawerClose").addEventListener("click", closeDrawer);
 $("drawerScrim").addEventListener("click", closeDrawer);
@@ -1567,6 +1695,7 @@ Array.prototype.forEach.call(document.querySelectorAll("[data-xclose]"), functio
 document.addEventListener("keydown", function(e){
   if(e.key !== "Escape") return;
   if(drawerIsOpen()){ closeDrawer(); return; }
+  if(fabOpen && typeof closeFabMenu === "function"){ closeFabMenu(); return; }
   if(!$("confirmOverlay").classList.contains("hidden")){ $("btnConfirmNo").click(); return; }
   ["backupOverlay", "settingsOverlay", "editorOverlay", "recoveryOverlay"].forEach(function(id){
     var el = $(id); if(el && !el.classList.contains("hidden")) el.classList.add("hidden");
@@ -1867,6 +1996,158 @@ function openFolderDialog(opts){
       if(activeFolder === target.id) activeFolder = "all";
       saveVault().then(function(){ renderAll(); toast("Folder dihapus — item di dalamnya tetap tersimpan"); });
     });
+  });
+}
+/* ================= Panel kelola isi folder / label (centang) =================
+   Dari tampilan sebuah folder: panel berisi daftar judul item SATU kategori
+   folder itu beserta info foldernya saat ini — centang memasukkan item ke
+   folder ini (item dari folder lain pindah ke sini), lepas centang
+   mengeluarkannya menjadi Tanpa folder.
+   Dari tampilan sebuah label: panel berisi daftar FOLDER dan daftar ITEM
+   semua kategori beserta info kategorinya — centang memberi label, lepas
+   centang melepasnya. Item yang berlabel lewat foldernya tampil tercentang
+   tapi terkunci, dengan keterangan; melepasnya lewat baris foldernya.
+   Semua perubahan langsung tersimpan terenkripsi; item/folder tidak pernah
+   terhapus dari panel ini. */
+function openManagePanel(){
+  var folder = (activeFolder !== "all" && activeFolder !== "none") ? folderById(activeFolder) : null;
+  var label = (!folder && activeLabel !== "all") ? labelById(activeLabel) : null;
+  if(!folder && !label){ toast("Buka dulu folder atau label yang mau dikelola isinya"); return; }
+  var isFolder = !!folder;
+  var ov = document.createElement("div");
+  ov.className = "overlay";
+  function itemRowMeta(it){
+    if(it.folderId === folder.id) return "Sudah di folder ini";
+    var cf = it.folderId ? folderById(it.folderId) : null;
+    return cf ? ("Di folder \u201C" + cf.name + "\u201D — mencentang memindahkannya ke sini") : "Tanpa folder";
+  }
+  function itemRowHtml(it){
+    var checked, disabled = false, meta;
+    if(isFolder){
+      checked = it.folderId === folder.id;
+      meta = itemRowMeta(it);
+    } else {
+      var direct = itemDirectLabelIds(it).indexOf(label.id) >= 0;
+      var fl = it.folderId ? folderById(it.folderId) : null;
+      var inh = !direct && fl && (Array.isArray(fl.labelIds) ? fl.labelIds : []).indexOf(label.id) >= 0;
+      checked = direct || inh;
+      disabled = inh;
+      meta = CATS[it.cat].label + (inh ? " · Sudah berlabel lewat folder \u201C" + fl.name + "\u201D — lepas dari baris folder di atas" : "");
+    }
+    return '<label class="checkrow' + (disabled ? " off" : "") + '" data-title="' + esc(itemTitle(it).toLowerCase()) + '">'
+      + '<input type="checkbox" data-mitem="' + it.id + '"' + (checked ? " checked" : "") + (disabled ? " disabled" : "") + ' />'
+      + '<span><span class="ctitle">' + esc(itemTitle(it)) + '</span><span class="cmeta" data-meta="' + it.id + '">' + esc(meta) + '</span></span></label>';
+  }
+  function folderRowHtml(f){
+    var n = vault.items.filter(function(it){ return it.folderId === f.id; }).length;
+    var checked = (Array.isArray(f.labelIds) ? f.labelIds : []).indexOf(label.id) >= 0;
+    return '<label class="checkrow" data-title="' + esc(("folder " + f.name).toLowerCase()) + '">'
+      + '<input type="checkbox" data-mfolder="' + f.id + '"' + (checked ? " checked" : "") + ' />'
+      + '<span><span class="ctitle">Folder: ' + esc(f.name) + '</span><span class="cmeta">' + esc(CATS[f.cat].label) + ' · ' + n + ' item di dalamnya — semua ikut berlabel ini</span></span></label>';
+  }
+  var bodyHtml = "";
+  if(isFolder){
+    var fitems = vault.items.filter(function(it){ return it.cat === folder.cat; }).slice().sort(function(a, b){
+      var ai = a.folderId === folder.id ? 0 : 1, bi = b.folderId === folder.id ? 0 : 1;
+      if(ai !== bi) return ai - bi;
+      return itemTitle(a).localeCompare(itemTitle(b), "id", { sensitivity: "base" });
+    });
+    bodyHtml = fitems.length
+      ? '<div class="mp-sec">' + fitems.map(itemRowHtml).join("") + '</div>'
+      : '<p class="hint">Belum ada item kategori ' + esc(CATS[folder.cat].label) + ' sama sekali. Buat dulu lewat tombol <b>+ Item baru</b> di bilah folder — itemnya langsung masuk folder ini.</p>';
+  } else {
+    var fs = (vault.folders || []).slice().sort(function(a, b){
+      var c = CATS[a.cat].label.localeCompare(CATS[b.cat].label, "id");
+      return c !== 0 ? c : a.name.localeCompare(b.name, "id", { sensitivity: "base" });
+    });
+    var its = vault.items.slice().sort(function(a, b){ return itemTitle(a).localeCompare(itemTitle(b), "id", { sensitivity: "base" }); });
+    bodyHtml = '<div class="mp-sec"><div class="panel-sec">Folder</div>'
+      + (fs.length ? fs.map(folderRowHtml).join("") : '<p class="hint">Belum ada folder.</p>') + '</div>'
+      + '<div class="mp-sec"><div class="panel-sec">Item</div>'
+      + (its.length ? its.map(itemRowHtml).join("") : '<p class="hint">Belum ada item sama sekali.</p>') + '</div>';
+  }
+  ov.innerHTML = '<div class="sheet" style="max-width:560px">' + XWRAP_HTML
+    + '<h2>' + (isFolder ? "Kelola isi folder" : "Kelola isi label") + '</h2>'
+    + '<p class="hint" style="margin-top:-.5rem">' + (isFolder
+        ? 'Folder <b>' + esc(folder.name) + '</b> · kategori ' + esc(CATS[folder.cat].label) + '. Centang item untuk memasukkannya ke folder ini; lepas centang untuk mengeluarkannya. Perubahan langsung tersimpan dan item tidak pernah terhapus.'
+        : 'Label <b>' + esc(label.name) + '</b> lintas kategori. Centang item atau folder untuk memberi label ini; lepas centang untuk melepasnya. Perubahan langsung tersimpan dan item / folder tidak pernah terhapus.') + '</p>'
+    + '<p class="hint mp-count" style="font-weight:700"></p>'
+    + '<input type="search" class="mp-search" placeholder="Cari judul item / folder…" />'
+    + '<div class="mp-body">' + bodyHtml + '</div>'
+    + '<div class="foot"><span class="spacer"></span><button class="primary mp-done">Selesai</button></div></div>';
+  document.body.appendChild(ov);
+  var body = ov.querySelector(".mp-body");
+  var countEl = ov.querySelector(".mp-count");
+  function refreshCounts(){
+    if(isFolder){
+      var n = vault.items.filter(function(it){ return it.folderId === folder.id; }).length;
+      countEl.textContent = n + " item di folder ini";
+    } else {
+      countEl.textContent = (labelCounts()[label.id] || 0) + " item berlabel ini (termasuk lewat folder)";
+    }
+  }
+  function refreshItemRow(it){
+    var row = body.querySelector('input[data-mitem="' + it.id + '"]');
+    if(!row) return;
+    var wrap = row.closest ? row.closest(".checkrow") : null;
+    var metaEl = body.querySelector('[data-meta="' + it.id + '"]');
+    if(isFolder){
+      row.checked = it.folderId === folder.id;
+      if(metaEl) metaEl.textContent = itemRowMeta(it);
+      return;
+    }
+    var direct = itemDirectLabelIds(it).indexOf(label.id) >= 0;
+    var fl = it.folderId ? folderById(it.folderId) : null;
+    var inh = !direct && fl && (Array.isArray(fl.labelIds) ? fl.labelIds : []).indexOf(label.id) >= 0;
+    row.checked = direct || inh;
+    row.disabled = inh;
+    if(wrap) wrap.classList.toggle("off", inh);
+    if(metaEl) metaEl.textContent = CATS[it.cat].label + (inh ? " · Sudah berlabel lewat folder \u201C" + fl.name + "\u201D — lepas dari baris folder di atas" : "");
+  }
+  refreshCounts();
+  function close(){ ov.remove(); }
+  ov.querySelector(".xbtn").addEventListener("click", close);
+  ov.querySelector(".mp-done").addEventListener("click", close);
+  ov.querySelector(".mp-search").addEventListener("input", function(e){
+    var q = e.target.value.toLowerCase().trim();
+    Array.prototype.forEach.call(body.querySelectorAll(".mp-sec"), function(sec){
+      var any = false;
+      Array.prototype.forEach.call(sec.querySelectorAll(".checkrow"), function(r){
+        var show = !q || (r.getAttribute("data-title") || "").indexOf(q) >= 0;
+        r.classList.toggle("hidden", !show);
+        if(show) any = true;
+      });
+      sec.classList.toggle("hidden", !any);
+    });
+  });
+  body.addEventListener("change", function(e){
+    var t = e.target;
+    if(t.hasAttribute("data-mitem")){
+      var it = findItem(t.getAttribute("data-mitem"));
+      if(!it) return;
+      if(isFolder){
+        it.folderId = t.checked ? folder.id : (it.folderId === folder.id ? null : it.folderId);
+      } else {
+        var ids = itemDirectLabelIds(it).slice();
+        if(t.checked && ids.indexOf(label.id) < 0) ids.push(label.id);
+        if(!t.checked) ids = ids.filter(function(x){ return x !== label.id; });
+        it.labelIds = ids;
+      }
+      saveVault().then(function(){ renderAll(); refreshCounts(); refreshItemRow(it); });
+      return;
+    }
+    if(t.hasAttribute("data-mfolder")){
+      var f = folderById(t.getAttribute("data-mfolder"));
+      if(!f) return;
+      var lids = (Array.isArray(f.labelIds) ? f.labelIds : []).slice();
+      if(t.checked && lids.indexOf(label.id) < 0) lids.push(label.id);
+      if(!t.checked) lids = lids.filter(function(x){ return x !== label.id; });
+      f.labelIds = lids;
+      saveVault().then(function(){
+        renderAll(); refreshCounts();
+        vault.items.forEach(function(it2){ refreshItemRow(it2); });
+      });
+    }
   });
 }
 function openEditor(item){
@@ -2568,6 +2849,7 @@ function wipeEverything(){
     sessionKey = null; masterPw = null; vault = null;
     $("appScreen").classList.add("hidden");
     $("fabAdd").classList.add("hidden");
+    if(typeof closeFabMenu === "function") closeFabMenu();
     $("backupOverlay").classList.add("hidden");
     $("editorOverlay").classList.add("hidden");
     $("settingsOverlay").classList.add("hidden");
@@ -2797,18 +3079,48 @@ $("btnWipeSettings").addEventListener("click", function(){
 
 /* ================= Top-level bindings ================= */
 $("btnAddTop").addEventListener("click", function(){ openEditor(null); });
-$("fabAdd").addEventListener("click", function(){ openEditor(null); });
+/* ===== Menu tombol + mengambang ala Drive =====
+   Ketuk tombol + mengembangkan menu pilihan di atasnya (Tambah isi,
+   Tandai beberapa sebagai akses cepat, Folder baru, Label baru) dengan
+   latar redup; tombolnya berubah menjadi X untuk menutup menu. */
+function setFabOpen(open){
+  fabOpen = !!open;
+  var menu = $("fabMenu"), scrim = $("fabScrim"), fab = $("fabAdd");
+  if(menu) menu.classList.toggle("hidden", !fabOpen);
+  if(scrim) scrim.classList.toggle("hidden", !fabOpen);
+  if(fab){
+    fab.classList.toggle("open", fabOpen);
+    fab.setAttribute("aria-expanded", fabOpen ? "true" : "false");
+    fab.setAttribute("aria-label", fabOpen ? "Tutup menu tambah" : "Tambah isi");
+    fab.innerHTML = fabOpen ? '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg>' : '+ Tambah isi';
+  }
+  if(fabOpen){ var sl = $("fabSelectLabel"); if(sl) sl.textContent = selectMode ? "Batalkan tandai" : "Tandai beberapa"; }
+}
+function closeFabMenu(){ if(fabOpen) setFabOpen(false); }
+$("fabAdd").addEventListener("click", function(){ setFabOpen(!fabOpen); });
+$("fabScrim").addEventListener("click", closeFabMenu);
+Array.prototype.forEach.call(document.querySelectorAll("[data-fabact]"), function(b){
+  b.addEventListener("click", function(){
+    var act = b.getAttribute("data-fabact");
+    closeFabMenu();
+    if(act === "add") openEditor(null);
+    else if(act === "select") toggleSelectMode();
+    else if(act === "folder") openFolderDialog({ folder: null, cat: activeCat !== "semua" ? activeCat : "login", onSaved: function(f){ activeCat = f.cat; activeFolder = f.id; activeLabel = "all"; clearSelection(); renderAll(); } });
+    else if(act === "label") openLabelDialog({ label: null, onSaved: function(l){ activeCat = "semua"; activeFolder = "all"; activeLabel = l.id; clearSelection(); renderAll(); } });
+  });
+});
 $("searchBox").addEventListener("input", renderList);
 Array.prototype.forEach.call($("sortBySeg").querySelectorAll("button"), function(b){
   b.addEventListener("click", function(){ setSort(b.getAttribute("data-sortby")); });
 });
 $("btnSortDir").addEventListener("click", toggleSortDir);
-$("btnSelectMode").addEventListener("click", function(){
+function toggleSelectMode(){
   selectMode = !selectMode;
   clearSelection();
   renderSortBar(); renderList();
   if(selectMode) toast("Mode tandai aktif — centang item, pilih folder tujuan, lalu ketuk Tambahkan ke folder");
-});
+}
+$("btnSelectMode").addEventListener("click", toggleSelectMode);
 $("btnBulkMove").addEventListener("click", function(){
   var ids = Object.keys(selectedIds);
   if(!ids.length){ toast("Belum ada item yang ditandai — centang dulu itemnya"); return; }
@@ -3067,7 +3379,7 @@ if("serviceWorker" in navigator){
     navigator.serviceWorker.register("sw.js", { updateViaCache: "none" })
       .then(useReg)
       .catch(function(){
-        return navigator.serviceWorker.register("data:application/javascript;base64,LyogS2FtcGlsIOKAlCBzZXJ2aWNlIHdvcmtlcgogICBNZW1idWF0IEthbXBpbCBtZW1lbnVoaSBzeWFyYXQgImRhcGF0IGRpaW5zdGFsIiAoSW5zdGFsbCBhcHApIGRpIENocm9tZSBBbmRyb2lkCiAgIGRhbiBiaXNhIGRpYnVrYSBkYXJpIGlrb24gYXBsaWthc2kgd2FsYXUga29uZWtzaSBzZWRhbmcgYnVydWsuCiAgIEhhbnlhIG1lbmctY2FjaGUgZmlsZSBhcGxpa2FzaSAoaW5kZXgsIG1hbmlmZXN0LCBpa29uKSDigJQgVElEQUsgUEVSTkFIIG1lbmctY2FjaGUKICAgZGF0YSBrYW1waWw7IGRhdGEgdGV0YXAgdGVyZW5rcmlwc2kgZGkgSW5kZXhlZERCIHBlcmFuZ2thdC4KICAgdjM6IGluc3RhbGFzaSBjYWNoZSBkaXRvbGVyYW5zaSBwZXIgZmlsZSAoc2F0dSBmaWxlIGdhZ2FsIHRpZGFrIGxhZ2kgbWVuZ2dhZ2Fsa2FuCiAgIGFrdGl2YXNpIHNlcnZpY2Ugd29ya2VyKSBkYW4gbmF2aWdhc2kgamFyaW5nYW4tZHVsdSBkZW5nYW4gY2FkYW5nYW4gaW5kZXggZGFyaQogICBjYWNoZSwgYWdhciBzdGFydF91cmwgc2VsYWx1IGJpc2EgZGlidWthIHNlcnZpY2Ugd29ya2VyLiAqLwp2YXIgQ0FDSEUgPSAia2FtcGlsLXY1IjsKdmFyIEFQUF9GSUxFUyA9IFsKICAiLi4vaW5kZXguaHRtbCIsCiAgIi4vbWFuaWZlc3Qud2VibWFuaWZlc3QiLAogICIuL2ljb24tMTkyLnBuZyIsCiAgIi4vaWNvbi01MTIucG5nIiwKICAiLi9pY29uLW1hc2thYmxlLTUxMi5wbmciLAogICIuL2FwcGxlLXRvdWNoLWljb24ucG5nIgpdOwp2YXIgSU5ERVhfVVJMID0gbmV3IFVSTCgiLi4vaW5kZXguaHRtbCIsIHNlbGYucmVnaXN0cmF0aW9uLnNjb3BlKS5ocmVmOwoKc2VsZi5hZGRFdmVudExpc3RlbmVyKCJpbnN0YWxsIiwgZnVuY3Rpb24gKGV2ZW50KSB7CiAgZXZlbnQud2FpdFVudGlsKAogICAgY2FjaGVzLm9wZW4oQ0FDSEUpLnRoZW4oZnVuY3Rpb24gKGNhY2hlKSB7CiAgICAgIC8qIGNhY2hlLmFkZEFsbCBiZXJzaWZhdCBhdG9taWs6IFNBVFUgZmlsZSBnYWdhbCAoNDA0L3JlZGlyZWN0KSBtZW5nZ2FnYWxrYW4KICAgICAgICAgU0VMVVJVSCBpbnN0YWxhc2kgc2VydmljZSB3b3JrZXIg4oCUIGRhbiB0YW5wYSBTVyBha3RpZiBDaHJvbWUgbWVub2xhawogICAgICAgICBpbnN0YWwgYXBsaWthc2kuIEthcmVuYSBpdHU6IGNvYmEgYWRkQWxsLCBsYWx1IGxlbmdrYXBpIHBlciBmaWxlIGRlbmdhbgogICAgICAgICBrZWdhZ2FsYW4gcGVyIGZpbGUgZGl0b2xlcmFuc2kuIEFrdGl2YXNpIFNXIHRpZGFrIGJvbGVoIGRpdmV0byBjYWNoZS4gKi8KICAgICAgcmV0dXJuIGNhY2hlLmFkZEFsbChBUFBfRklMRVMpLmNhdGNoKGZ1bmN0aW9uICgpIHsKICAgICAgICByZXR1cm4gUHJvbWlzZS5hbGwoQVBQX0ZJTEVTLm1hcChmdW5jdGlvbiAodSkgewogICAgICAgICAgcmV0dXJuIGNhY2hlLmFkZCh1KS5jYXRjaChmdW5jdGlvbiAoKSB7IHJldHVybiBudWxsOyB9KTsKICAgICAgICB9KSk7CiAgICAgIH0pOwogICAgfSkudGhlbihmdW5jdGlvbiAoKSB7IHJldHVybiBzZWxmLnNraXBXYWl0aW5nKCk7IH0pCiAgKTsKfSk7CgpzZWxmLmFkZEV2ZW50TGlzdGVuZXIoImFjdGl2YXRlIiwgZnVuY3Rpb24gKGV2ZW50KSB7CiAgZXZlbnQud2FpdFVudGlsKAogICAgY2FjaGVzLmtleXMoKS50aGVuKGZ1bmN0aW9uIChrZXlzKSB7CiAgICAgIHJldHVybiBQcm9taXNlLmFsbChrZXlzLm1hcChmdW5jdGlvbiAoaykgewogICAgICAgIHJldHVybiBrID09PSBDQUNIRSA/IG51bGwgOiBjYWNoZXMuZGVsZXRlKGspOwogICAgICB9KSk7CiAgICB9KS50aGVuKGZ1bmN0aW9uICgpIHsgcmV0dXJuIHNlbGYuY2xpZW50cy5jbGFpbSgpOyB9KQogICk7Cn0pOwoKc2VsZi5hZGRFdmVudExpc3RlbmVyKCJmZXRjaCIsIGZ1bmN0aW9uIChldmVudCkgewogIHZhciByZXEgPSBldmVudC5yZXF1ZXN0OwogIGlmIChyZXEubWV0aG9kICE9PSAiR0VUIikgcmV0dXJuOwogIHZhciB1cmwgPSBuZXcgVVJMKHJlcS51cmwpOwogIGlmICh1cmwub3JpZ2luICE9PSBuZXcgVVJMKHNlbGYucmVnaXN0cmF0aW9uLnNjb3BlKS5vcmlnaW4pIHJldHVybjsgLy8gR29vZ2xlIEdTSSAvIERyaXZlIEFQSTogYmlhcmthbiBrZSBqYXJpbmdhbgogIGlmIChyZXEubW9kZSA9PT0gIm5hdmlnYXRlIikgewogICAgLyogTmF2aWdhc2k6IGphcmluZ2FuIGR1bHUgKGhhbGFtYW4gc2VsYWx1IHZlcnNpIHRlcmJhcnUpLCBjYWNoZSBpbmRleAogICAgICAgc2ViYWdhaSBjYWRhbmdhbiBvZmZsaW5lIOKAlCBzdGFydF91cmwgaGFydXMgYmlzYSBkaWxheWFuaSBTVy4gKi8KICAgIGV2ZW50LnJlc3BvbmRXaXRoKAogICAgICBmZXRjaChyZXEpLnRoZW4oZnVuY3Rpb24gKHJlcykgewogICAgICAgIGlmIChyZXMgJiYgcmVzLm9rKSB7CiAgICAgICAgICB2YXIgY29weSA9IHJlcy5jbG9uZSgpOwogICAgICAgICAgY2FjaGVzLm9wZW4oQ0FDSEUpLnRoZW4oZnVuY3Rpb24gKGNhY2hlKSB7IGNhY2hlLnB1dChJTkRFWF9VUkwsIGNvcHkpOyB9KTsKICAgICAgICB9CiAgICAgICAgcmV0dXJuIHJlczsKICAgICAgfSkuY2F0Y2goZnVuY3Rpb24gKCkgewogICAgICAgIHJldHVybiBjYWNoZXMubWF0Y2goSU5ERVhfVVJMLCB7IGlnbm9yZVNlYXJjaDogdHJ1ZSB9KS50aGVuKGZ1bmN0aW9uIChoaXQpIHsKICAgICAgICAgIHJldHVybiBoaXQgfHwgbmV3IFJlc3BvbnNlKCJPZmZsaW5lIiwgeyBzdGF0dXM6IDUwMywgc3RhdHVzVGV4dDogIk9mZmxpbmUiIH0pOwogICAgICAgIH0pOwogICAgICB9KQogICAgKTsKICAgIHJldHVybjsKICB9CiAgZXZlbnQucmVzcG9uZFdpdGgoCiAgICBjYWNoZXMubWF0Y2gocmVxLCB7IGlnbm9yZVNlYXJjaDogdHJ1ZSB9KS50aGVuKGZ1bmN0aW9uIChoaXQpIHsKICAgICAgdmFyIG5ldHdvcmsgPSBmZXRjaChyZXEpLnRoZW4oZnVuY3Rpb24gKHJlcykgewogICAgICAgIGlmIChyZXMgJiYgcmVzLm9rKSB7CiAgICAgICAgICB2YXIgY29weSA9IHJlcy5jbG9uZSgpOwogICAgICAgICAgY2FjaGVzLm9wZW4oQ0FDSEUpLnRoZW4oZnVuY3Rpb24gKGNhY2hlKSB7IGNhY2hlLnB1dChyZXEsIGNvcHkpOyB9KTsKICAgICAgICB9CiAgICAgICAgcmV0dXJuIHJlczsKICAgICAgfSkuY2F0Y2goZnVuY3Rpb24gKCkgewogICAgICAgIHJldHVybiBoaXQgfHwgbmV3IFJlc3BvbnNlKCIiLCB7IHN0YXR1czogNTA0LCBzdGF0dXNUZXh0OiAiR2F0ZXdheSBUaW1lb3V0IiB9KTsKICAgICAgfSk7CiAgICAgIHJldHVybiBoaXQgfHwgbmV0d29yazsKICAgIH0pCiAgKTsKfSk7Cg==", { updateViaCache: "none" }).then(useReg);
+        return navigator.serviceWorker.register("data:application/javascript;base64,LyogS2FtcGlsIOKAlCBzZXJ2aWNlIHdvcmtlcgogICBNZW1idWF0IEthbXBpbCBtZW1lbnVoaSBzeWFyYXQgImRhcGF0IGRpaW5zdGFsIiAoSW5zdGFsbCBhcHApIGRpIENocm9tZSBBbmRyb2lkCiAgIGRhbiBiaXNhIGRpYnVrYSBkYXJpIGlrb24gYXBsaWthc2kgd2FsYXUga29uZWtzaSBzZWRhbmcgYnVydWsuCiAgIEhhbnlhIG1lbmctY2FjaGUgZmlsZSBhcGxpa2FzaSAoaW5kZXgsIG1hbmlmZXN0LCBpa29uKSDigJQgVElEQUsgUEVSTkFIIG1lbmctY2FjaGUKICAgZGF0YSBrYW1waWw7IGRhdGEgdGV0YXAgdGVyZW5rcmlwc2kgZGkgSW5kZXhlZERCIHBlcmFuZ2thdC4KICAgdjM6IGluc3RhbGFzaSBjYWNoZSBkaXRvbGVyYW5zaSBwZXIgZmlsZSAoc2F0dSBmaWxlIGdhZ2FsIHRpZGFrIGxhZ2kgbWVuZ2dhZ2Fsa2FuCiAgIGFrdGl2YXNpIHNlcnZpY2Ugd29ya2VyKSBkYW4gbmF2aWdhc2kgamFyaW5nYW4tZHVsdSBkZW5nYW4gY2FkYW5nYW4gaW5kZXggZGFyaQogICBjYWNoZSwgYWdhciBzdGFydF91cmwgc2VsYWx1IGJpc2EgZGlidWthIHNlcnZpY2Ugd29ya2VyLiAqLwp2YXIgQ0FDSEUgPSAia2FtcGlsLXY2IjsKdmFyIEFQUF9GSUxFUyA9IFsKICAiLi4vaW5kZXguaHRtbCIsCiAgIi4vbWFuaWZlc3Qud2VibWFuaWZlc3QiLAogICIuL2ljb24tMTkyLnBuZyIsCiAgIi4vaWNvbi01MTIucG5nIiwKICAiLi9pY29uLW1hc2thYmxlLTUxMi5wbmciLAogICIuL2FwcGxlLXRvdWNoLWljb24ucG5nIgpdOwp2YXIgSU5ERVhfVVJMID0gbmV3IFVSTCgiLi4vaW5kZXguaHRtbCIsIHNlbGYucmVnaXN0cmF0aW9uLnNjb3BlKS5ocmVmOwoKc2VsZi5hZGRFdmVudExpc3RlbmVyKCJpbnN0YWxsIiwgZnVuY3Rpb24gKGV2ZW50KSB7CiAgZXZlbnQud2FpdFVudGlsKAogICAgY2FjaGVzLm9wZW4oQ0FDSEUpLnRoZW4oZnVuY3Rpb24gKGNhY2hlKSB7CiAgICAgIC8qIGNhY2hlLmFkZEFsbCBiZXJzaWZhdCBhdG9taWs6IFNBVFUgZmlsZSBnYWdhbCAoNDA0L3JlZGlyZWN0KSBtZW5nZ2FnYWxrYW4KICAgICAgICAgU0VMVVJVSCBpbnN0YWxhc2kgc2VydmljZSB3b3JrZXIg4oCUIGRhbiB0YW5wYSBTVyBha3RpZiBDaHJvbWUgbWVub2xhawogICAgICAgICBpbnN0YWwgYXBsaWthc2kuIEthcmVuYSBpdHU6IGNvYmEgYWRkQWxsLCBsYWx1IGxlbmdrYXBpIHBlciBmaWxlIGRlbmdhbgogICAgICAgICBrZWdhZ2FsYW4gcGVyIGZpbGUgZGl0b2xlcmFuc2kuIEFrdGl2YXNpIFNXIHRpZGFrIGJvbGVoIGRpdmV0byBjYWNoZS4gKi8KICAgICAgcmV0dXJuIGNhY2hlLmFkZEFsbChBUFBfRklMRVMpLmNhdGNoKGZ1bmN0aW9uICgpIHsKICAgICAgICByZXR1cm4gUHJvbWlzZS5hbGwoQVBQX0ZJTEVTLm1hcChmdW5jdGlvbiAodSkgewogICAgICAgICAgcmV0dXJuIGNhY2hlLmFkZCh1KS5jYXRjaChmdW5jdGlvbiAoKSB7IHJldHVybiBudWxsOyB9KTsKICAgICAgICB9KSk7CiAgICAgIH0pOwogICAgfSkudGhlbihmdW5jdGlvbiAoKSB7IHJldHVybiBzZWxmLnNraXBXYWl0aW5nKCk7IH0pCiAgKTsKfSk7CgpzZWxmLmFkZEV2ZW50TGlzdGVuZXIoImFjdGl2YXRlIiwgZnVuY3Rpb24gKGV2ZW50KSB7CiAgZXZlbnQud2FpdFVudGlsKAogICAgY2FjaGVzLmtleXMoKS50aGVuKGZ1bmN0aW9uIChrZXlzKSB7CiAgICAgIHJldHVybiBQcm9taXNlLmFsbChrZXlzLm1hcChmdW5jdGlvbiAoaykgewogICAgICAgIHJldHVybiBrID09PSBDQUNIRSA/IG51bGwgOiBjYWNoZXMuZGVsZXRlKGspOwogICAgICB9KSk7CiAgICB9KS50aGVuKGZ1bmN0aW9uICgpIHsgcmV0dXJuIHNlbGYuY2xpZW50cy5jbGFpbSgpOyB9KQogICk7Cn0pOwoKc2VsZi5hZGRFdmVudExpc3RlbmVyKCJmZXRjaCIsIGZ1bmN0aW9uIChldmVudCkgewogIHZhciByZXEgPSBldmVudC5yZXF1ZXN0OwogIGlmIChyZXEubWV0aG9kICE9PSAiR0VUIikgcmV0dXJuOwogIHZhciB1cmwgPSBuZXcgVVJMKHJlcS51cmwpOwogIGlmICh1cmwub3JpZ2luICE9PSBuZXcgVVJMKHNlbGYucmVnaXN0cmF0aW9uLnNjb3BlKS5vcmlnaW4pIHJldHVybjsgLy8gR29vZ2xlIEdTSSAvIERyaXZlIEFQSTogYmlhcmthbiBrZSBqYXJpbmdhbgogIGlmIChyZXEubW9kZSA9PT0gIm5hdmlnYXRlIikgewogICAgLyogTmF2aWdhc2k6IGphcmluZ2FuIGR1bHUgKGhhbGFtYW4gc2VsYWx1IHZlcnNpIHRlcmJhcnUpLCBjYWNoZSBpbmRleAogICAgICAgc2ViYWdhaSBjYWRhbmdhbiBvZmZsaW5lIOKAlCBzdGFydF91cmwgaGFydXMgYmlzYSBkaWxheWFuaSBTVy4gKi8KICAgIGV2ZW50LnJlc3BvbmRXaXRoKAogICAgICBmZXRjaChyZXEpLnRoZW4oZnVuY3Rpb24gKHJlcykgewogICAgICAgIGlmIChyZXMgJiYgcmVzLm9rKSB7CiAgICAgICAgICB2YXIgY29weSA9IHJlcy5jbG9uZSgpOwogICAgICAgICAgY2FjaGVzLm9wZW4oQ0FDSEUpLnRoZW4oZnVuY3Rpb24gKGNhY2hlKSB7IGNhY2hlLnB1dChJTkRFWF9VUkwsIGNvcHkpOyB9KTsKICAgICAgICB9CiAgICAgICAgcmV0dXJuIHJlczsKICAgICAgfSkuY2F0Y2goZnVuY3Rpb24gKCkgewogICAgICAgIHJldHVybiBjYWNoZXMubWF0Y2goSU5ERVhfVVJMLCB7IGlnbm9yZVNlYXJjaDogdHJ1ZSB9KS50aGVuKGZ1bmN0aW9uIChoaXQpIHsKICAgICAgICAgIHJldHVybiBoaXQgfHwgbmV3IFJlc3BvbnNlKCJPZmZsaW5lIiwgeyBzdGF0dXM6IDUwMywgc3RhdHVzVGV4dDogIk9mZmxpbmUiIH0pOwogICAgICAgIH0pOwogICAgICB9KQogICAgKTsKICAgIHJldHVybjsKICB9CiAgZXZlbnQucmVzcG9uZFdpdGgoCiAgICBjYWNoZXMubWF0Y2gocmVxLCB7IGlnbm9yZVNlYXJjaDogdHJ1ZSB9KS50aGVuKGZ1bmN0aW9uIChoaXQpIHsKICAgICAgdmFyIG5ldHdvcmsgPSBmZXRjaChyZXEpLnRoZW4oZnVuY3Rpb24gKHJlcykgewogICAgICAgIGlmIChyZXMgJiYgcmVzLm9rKSB7CiAgICAgICAgICB2YXIgY29weSA9IHJlcy5jbG9uZSgpOwogICAgICAgICAgY2FjaGVzLm9wZW4oQ0FDSEUpLnRoZW4oZnVuY3Rpb24gKGNhY2hlKSB7IGNhY2hlLnB1dChyZXEsIGNvcHkpOyB9KTsKICAgICAgICB9CiAgICAgICAgcmV0dXJuIHJlczsKICAgICAgfSkuY2F0Y2goZnVuY3Rpb24gKCkgewogICAgICAgIHJldHVybiBoaXQgfHwgbmV3IFJlc3BvbnNlKCIiLCB7IHN0YXR1czogNTA0LCBzdGF0dXNUZXh0OiAiR2F0ZXdheSBUaW1lb3V0IiB9KTsKICAgICAgfSk7CiAgICAgIHJldHVybiBoaXQgfHwgbmV0d29yazsKICAgIH0pCiAgKTsKfSk7Cg==", { updateViaCache: "none" }).then(useReg);
       })
       .catch(function(){ /* halaman tetap jalan tanpa SW */ });
   }
@@ -3171,13 +3483,34 @@ if("serviceWorker" in navigator){
   .multirow{display:flex;gap:.4rem;align-items:center;margin-bottom:.45rem}
   .multirow input{flex:1;min-width:0}
 
-  /* Panel kontrol laman utama: folder, label, dan sortir berkelompok dalam satu
-     kartu dengan pemisah yang jelas, supaya halaman terasa lega dan tidak ramai. */
-  .controls{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:.8rem .85rem .3rem;margin-bottom:1.05rem}
-  .controls .folderbar{margin:0 0 .65rem}
-  .controls .labelbar{margin:0 0 .65rem;padding-top:.65rem;border-top:1px solid var(--line)}
-  .controls .sortbar{margin:0 0 .5rem;padding-top:.65rem;border-top:1px solid var(--line)}
-  .controls .bulkbar{margin:.15rem 0 .55rem}
+  /* Panel kontrol laman utama (accordion): folder, label, dan sortir tersimpan
+     di balik satu kepala panel dan TERTUTUP secara bawaan — laman utama lega,
+     panel dibuka hanya saat perlu menyaring / mengurutkan. Ringkasan di kepala
+     panel tetap menunjukkan saringan & urutan yang sedang aktif. */
+  .controls{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:1.05rem;overflow:hidden}
+  .acc-head{display:flex;align-items:center;gap:.6rem;width:100%;text-align:left;border:none;background:transparent;padding:.8rem .95rem;min-height:3.1rem;border-radius:0;font-size:.98rem}
+  .acc-head:hover{background:var(--surface2)}
+  .acc-title{font-weight:800;white-space:nowrap}
+  .acc-summary{flex:1;color:var(--muted);font-size:.84rem;font-weight:600;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .acc-chev{width:20px;height:20px;stroke:var(--muted);flex:0 0 auto;transition:transform .25s ease}
+  .acc-head[aria-expanded="true"] .acc-chev{transform:rotate(180deg)}
+  @media (prefers-reduced-motion: reduce){.acc-chev{transition:none}}
+  .acc-body{padding:.1rem .85rem .35rem;border-top:1px solid var(--line)}
+  .acc-body .folderbar{margin:.55rem 0 .65rem}
+  .acc-body .labelbar{margin:0 0 .65rem;padding-top:.65rem;border-top:1px solid var(--line)}
+  .acc-body .sortbar{margin:0 0 .5rem;padding-top:.65rem;border-top:1px solid var(--line)}
+  .controls .bulkbar{margin:0 .85rem .85rem}
+  /* Bilah konteks folder / label yang sedang dibuka */
+  .ctxbar{display:flex;gap:.55rem;align-items:center;flex-wrap:wrap;background:var(--accent-soft);border-radius:var(--radius);padding:.65rem .8rem;margin-bottom:1rem}
+  .ctxbar .ctxinfo{flex:1 1 180px;font-size:.92rem;display:flex;align-items:center;gap:.45rem;flex-wrap:wrap}
+  /* Panel kelola isi (centang) untuk folder & label */
+  .checkrow{display:flex;gap:.6rem;align-items:flex-start;padding:.55rem .6rem;border:1px solid var(--line);border-radius:10px;margin:0 0 .45rem;cursor:pointer;font-weight:400;font-size:.95rem}
+  .checkrow:hover{border-color:var(--accent)}
+  .checkrow input[type="checkbox"]{width:1.3rem;height:1.3rem;min-height:0;accent-color:var(--accent);flex:0 0 auto;margin-top:.12rem}
+  .checkrow .ctitle{font-weight:700}
+  .checkrow .cmeta{display:block;font-size:.82rem;color:var(--muted);font-weight:400}
+  .checkrow.off{opacity:.72}
+  .panel-sec{font-size:.78rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:.95rem 0 .45rem}
 
   /* Label lintas kategori */
   .labelbar{display:flex;gap:.45rem;flex-wrap:wrap;align-items:center;margin:.1rem 0 .55rem}
@@ -3211,7 +3544,24 @@ if("serviceWorker" in navigator){
   pre.codeview{background:var(--code-bg);color:var(--code-ink);border-radius:10px;padding:.8rem;overflow-x:auto;font-size:.85rem;margin:.5rem 0 0;white-space:pre-wrap;word-break:break-word}
   .item .foot{display:flex;gap:.45rem;flex-wrap:wrap;margin-top:.7rem}
   .empty{text-align:center;color:var(--muted);padding:2.4rem 1rem;border:1px dashed var(--line);border-radius:var(--radius);background:var(--surface)}
-  .fab{position:fixed;right:1rem;bottom:calc(1rem + env(safe-area-inset-bottom));z-index:30;background:var(--accent);color:var(--accent-ink);border:none;border-radius:999px;padding:.85rem 1.4rem;font-size:1rem;box-shadow:var(--shadow);min-height:3.2rem}
+  .fab{position:fixed;right:1rem;bottom:calc(1rem + env(safe-area-inset-bottom));z-index:32;background:var(--accent);color:var(--accent-ink);border:none;border-radius:999px;padding:.85rem 1.4rem;font-size:1rem;box-shadow:var(--shadow);min-height:3.2rem;display:inline-flex;align-items:center;justify-content:center;gap:.5rem}
+  .fab.open{width:3.4rem;height:3.4rem;min-height:3.4rem;border-radius:50%;padding:0;background:var(--ink);color:var(--bg)}
+  .fab.open svg{width:22px;height:22px;stroke:currentColor}
+  /* Menu mengambang ala Drive: pilihan mengembang di atas tombol +, latar
+     halaman diredupkan, dan tombol + berubah menjadi X untuk menutup menu. */
+  .fabscrim{position:fixed;inset:0;background:rgba(5,15,12,.45);z-index:29}
+  .fabmenu{position:fixed;right:1rem;bottom:calc(5.5rem + env(safe-area-inset-bottom));z-index:31;display:flex;flex-direction:column;align-items:flex-end;gap:.55rem}
+  .fabact{display:inline-flex;align-items:center;gap:.6rem;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:.5rem 1.05rem .5rem .55rem;box-shadow:var(--shadow);font-weight:700;min-height:2.9rem;animation:fabin .18s ease both}
+  .fabact:nth-child(2){animation-delay:.04s}
+  .fabact:nth-child(3){animation-delay:.08s}
+  .fabact:nth-child(4){animation-delay:.12s}
+  .fabact .fic{width:2rem;height:2rem;border-radius:50%;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+  .fabact .fic svg{width:18px;height:18px;stroke:var(--accent)}
+  .fabact.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+  .fabact.primary .fic{background:rgba(255,255,255,.25)}
+  .fabact.primary .fic svg{stroke:var(--accent-ink)}
+  @keyframes fabin{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+  @media (prefers-reduced-motion: reduce){.fabact{animation:none}}
 
   /* Tombol menu (hamburger) */
   .menubtn{width:2.6rem;height:2.6rem;min-height:2.6rem;padding:0;display:flex;align-items:center;justify-content:center;border-radius:10px;flex:0 0 auto}
@@ -3411,6 +3761,12 @@ if("serviceWorker" in navigator){
   </div>
   <div class="tabs" id="tabs"></div>
   <div class="controls">
+  <button type="button" class="acc-head" id="btnControlsToggle" aria-expanded="false" aria-controls="controlsBody">
+    <span class="acc-title">Folder, Label &amp; Urutkan</span>
+    <span class="acc-summary" id="controlsSummary"></span>
+    <svg class="acc-chev" viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+  </button>
+  <div class="acc-body hidden" id="controlsBody">
   <div class="folderbar" id="folderBar"></div>
   <div class="labelbar" id="labelBar"></div>
   <div class="sortbar">
@@ -3423,6 +3779,7 @@ if("serviceWorker" in navigator){
     <span style="flex:1"></span>
     <button id="btnSelectMode" type="button" class="small">Tandai beberapa</button>
   </div>
+  </div>
   <div class="bulkbar hidden" id="bulkBar">
     <span class="bcnt" id="bulkCount">0 dipilih</span>
     <select id="bulkFolderSel" aria-label="Folder tujuan"></select>
@@ -3434,10 +3791,18 @@ if("serviceWorker" in navigator){
     <button id="btnBulkDone" type="button" class="small">Selesai</button>
   </div>
   </div>
+  <div id="contextBar" class="ctxbar hidden"></div>
   <div id="list"></div>
 </div>
 
-<button class="fab hidden" id="fabAdd">+ Tambah isi</button>
+<div class="fabscrim hidden" id="fabScrim"></div>
+<div class="fabmenu hidden" id="fabMenu" role="menu" aria-label="Menu tambah cepat">
+  <button type="button" class="fabact" data-fabact="label" role="menuitem"><span class="fic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4L11 3.8A2 2 0 0 0 9.6 3.2H4a1 1 0 0 0-1 1v5.6c0 .5.2 1 .6 1.4l9.6 9.6a2 2 0 0 0 2.8 0l4.6-4.6a2 2 0 0 0 0-2.8z"/><circle cx="7.5" cy="7.5" r="1.3"/></svg></span>Label baru</button>
+  <button type="button" class="fabact" data-fabact="folder" role="menuitem"><span class="fic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/></svg></span>Folder baru</button>
+  <button type="button" class="fabact" data-fabact="select" role="menuitem"><span class="fic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="3"/><path d="M8.5 12.5l2.5 2.5 4.8-5.5"/></svg></span><span id="fabSelectLabel">Tandai beberapa</span></button>
+  <button type="button" class="fabact primary" data-fabact="add" role="menuitem"><span class="fic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>Tambah isi</button>
+</div>
+<button class="fab hidden" id="fabAdd" aria-expanded="false" aria-haspopup="menu" aria-label="Tambah isi">+ Tambah isi</button>
 
 <\!-- ============ MENU SAMPING (DRAWER) ============ -->
 <div class="scrim" id="drawerScrim"></div>
@@ -3786,6 +4151,8 @@ var activeLabel = "all";      // "all" | id label (lintas kategori)
 var selectMode = false;       // mode tandai banyak item
 var selectedIds = {};         // itemId -> true (memori saja, tidak disimpan)
 var dragIds = null;           // id item yang sedang diseret (drag & drop)
+var controlsOpen = false;     // panel accordion Folder/Label/Urutkan: tertutup secara bawaan (memori saja)
+var fabOpen = false;          // menu tombol + mengambang ala Drive: tertutup secara bawaan (memori saja)
 var editingId = null;
 var editorLabelIds = {};      // labelId -> true, pilihan label di editor item (memori saja)
 var confirmCb = null;
@@ -4103,6 +4470,7 @@ function lockVault(){
   masterPw = null;
   $("appScreen").classList.add("hidden");
   $("fabAdd").classList.add("hidden");
+  if(typeof closeFabMenu === "function") closeFabMenu();
   closeDrawer();
   $("backupOverlay").classList.add("hidden");
   $("editorOverlay").classList.add("hidden");
@@ -4193,6 +4561,61 @@ function renderSortBar(){
   $("btnSortDir").textContent = sortDirLabel();
   $("btnSelectMode").textContent = selectMode ? "Batalkan tandai" : "Tandai beberapa";
   $("btnSelectMode").classList.toggle("primary", selectMode);
+}
+/* ================= Accordion Folder / Label / Urutkan =================
+   Panel kontrol laman utama tertutup secara bawaan; kepala panel selalu
+   terlihat dan menampilkan ringkasan saringan + urutan yang aktif, supaya
+   pengguna tahu tampilan sedang tersaring walau panel sedang tertutup. */
+function renderControlsSummary(){
+  var el = $("controlsSummary");
+  if(!el) return;
+  if(!vault){ el.textContent = ""; return; }
+  var parts = [];
+  var lab = activeLabel !== "all" ? labelById(activeLabel) : null;
+  var fol = (activeFolder !== "all" && activeFolder !== "none") ? folderById(activeFolder) : null;
+  if(lab) parts.push("Label: " + lab.name);
+  else if(fol) parts.push("Folder: " + fol.name);
+  else if(activeFolder === "none") parts.push("Tanpa folder");
+  else parts.push("Semua isi");
+  parts.push(sortDirLabel());
+  el.textContent = parts.join(" · ");
+}
+function setControlsOpen(open){
+  controlsOpen = !!open;
+  var body = $("controlsBody");
+  var btn = $("btnControlsToggle");
+  if(body) body.classList.toggle("hidden", !controlsOpen);
+  if(btn) btn.setAttribute("aria-expanded", controlsOpen ? "true" : "false");
+}
+/* ================= Bilah konteks folder / label yang sedang dibuka =================
+   Selalu terlihat saat sebuah folder / label sedang dibuka (di luar accordion),
+   berisi tombol Kelola isi — panel centang untuk menambah & melepas isi —
+   dan tombol Item baru yang langsung masuk konteks ini. */
+function renderContextBar(){
+  var bar = $("contextBar");
+  if(!bar) return;
+  if(!vault){ bar.innerHTML = ""; bar.classList.add("hidden"); return; }
+  var folder = (activeFolder !== "all" && activeFolder !== "none") ? folderById(activeFolder) : null;
+  var label = (!folder && activeLabel !== "all") ? labelById(activeLabel) : null;
+  if(!folder && !label){ bar.innerHTML = ""; bar.classList.add("hidden"); return; }
+  bar.classList.remove("hidden");
+  if(folder){
+    var n = vault.items.filter(function(it){ return it.folderId === folder.id; }).length;
+    bar.innerHTML = '<div class="ctxinfo"><span>Folder <b>' + esc(folder.name) + '</b> · ' + esc(CATS[folder.cat].label) + ' · ' + n + ' item</span></div>'
+      + '<button type="button" class="small primary" data-ctx="manage">Kelola isi folder</button>'
+      + '<button type="button" class="small" data-ctx="newitem">+ Item baru</button>';
+  } else {
+    var n2 = labelCounts()[label.id] || 0;
+    bar.innerHTML = '<div class="ctxinfo"><span class="ldot" style="background:' + label.color + '"></span><span>Label <b>' + esc(label.name) + '</b> · ' + n2 + ' item <span class="hint">(termasuk lewat folder)</span></span></div>'
+      + '<button type="button" class="small primary" data-ctx="manage">Kelola isi label</button>'
+      + '<button type="button" class="small" data-ctx="newitem">+ Item baru</button>';
+  }
+  Array.prototype.forEach.call(bar.querySelectorAll("button[data-ctx]"), function(b){
+    b.addEventListener("click", function(){
+      if(b.getAttribute("data-ctx") === "manage") openManagePanel();
+      else openEditor(null);
+    });
+  });
 }
 function setSort(by){
   vault.settings.sortBy = by;
@@ -4364,6 +4787,8 @@ function fieldRow(it, f){
 }
 function renderList(){
   renderBulkBar();
+  renderControlsSummary();
+  renderContextBar();
   var q = ($("searchBox").value || "").toLowerCase().trim();
   var items = vault.items.filter(function(it){
     if(activeCat !== "semua" && it.cat !== activeCat) return false;
@@ -4376,9 +4801,23 @@ function renderList(){
   });
   items.sort(compareItems);
   if(items.length === 0){
-    $("list").innerHTML = '<div class="empty">' + (vault.items.length === 0
-      ? 'Kampil masih kosong.<br>Ketuk <b>+ Tambah isi</b> untuk menyimpan kontak, rekening, akun login, kode, atau catatan pertamamu.'
-      : (activeLabel !== "all" ? 'Belum ada item dengan label ini.<br>Beri label lewat tombol <b>Ubah</b> pada item, tandai beberapa item lalu <b>Tambahkan label</b>, atau beri label ke sebuah folder — semua isinya ikut terhitung.' : (activeFolder !== "all" ? 'Tidak ada item di folder ini untuk tampilan saat ini.<br>Seret kartu item ke chip folder di atas, atau pakai <b>Tandai beberapa</b> untuk memindahkan banyak item sekaligus.' : 'Tidak ada yang cocok dengan pencarian / kategori ini.'))) + '</div>';
+    var emptyHtml;
+    if(vault.items.length === 0){
+      emptyHtml = 'Kampil masih kosong.<br>Ketuk <b>+ Tambah isi</b> untuk menyimpan kontak, rekening, akun login, kode, atau catatan pertamamu.';
+    } else if(activeLabel !== "all" && labelById(activeLabel)){
+      emptyHtml = 'Belum ada item dengan label ini.<br>Ketuk <b>Kelola isi label</b> untuk mencentang item &amp; folder yang mau diberi label ini — centang yang sudah ada juga bisa dilepas dari panel yang sama.'
+        + '<p style="margin:1rem 0 0;display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap"><button type="button" class="primary" data-managectx>Kelola isi label</button><button type="button" data-newctx>+ Item baru berlabel ini</button></p>';
+    } else if(activeFolder !== "all" && activeFolder !== "none" && folderById(activeFolder)){
+      emptyHtml = 'Folder ini masih kosong untuk tampilan saat ini.<br>Ketuk <b>Kelola isi folder</b> untuk mencentang item yang mau dimasukkan ke folder ini — centang yang sudah ada juga bisa dilepas dari panel yang sama.'
+        + '<p style="margin:1rem 0 0;display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap"><button type="button" class="primary" data-managectx>Kelola isi folder</button><button type="button" data-newctx>+ Item baru di folder ini</button></p>';
+    } else if(activeFolder !== "all"){
+      emptyHtml = 'Tidak ada item di tampilan folder ini saat ini.<br>Seret kartu item ke chip folder, atau pakai <b>Tandai beberapa</b> untuk memindahkan banyak item sekaligus.';
+    } else {
+      emptyHtml = 'Tidak ada yang cocok dengan pencarian / kategori ini.';
+    }
+    $("list").innerHTML = '<div class="empty">' + emptyHtml + '</div>';
+    Array.prototype.forEach.call($("list").querySelectorAll("button[data-managectx]"), function(b){ b.addEventListener("click", function(){ openManagePanel(); }); });
+    Array.prototype.forEach.call($("list").querySelectorAll("button[data-newctx]"), function(b){ b.addEventListener("click", function(){ openEditor(null); }); });
     return;
   }
   $("list").innerHTML = items.map(function(it){
@@ -4568,6 +5007,7 @@ function renderDrawer(){
     });
   }
 }
+$("btnControlsToggle").addEventListener("click", function(){ setControlsOpen(!controlsOpen); });
 $("btnMenu").addEventListener("click", openDrawer);
 $("btnDrawerClose").addEventListener("click", closeDrawer);
 $("drawerScrim").addEventListener("click", closeDrawer);
@@ -4587,6 +5027,7 @@ Array.prototype.forEach.call(document.querySelectorAll("[data-xclose]"), functio
 document.addEventListener("keydown", function(e){
   if(e.key !== "Escape") return;
   if(drawerIsOpen()){ closeDrawer(); return; }
+  if(fabOpen && typeof closeFabMenu === "function"){ closeFabMenu(); return; }
   if(!$("confirmOverlay").classList.contains("hidden")){ $("btnConfirmNo").click(); return; }
   ["backupOverlay", "settingsOverlay", "editorOverlay", "recoveryOverlay"].forEach(function(id){
     var el = $(id); if(el && !el.classList.contains("hidden")) el.classList.add("hidden");
@@ -4887,6 +5328,158 @@ function openFolderDialog(opts){
       if(activeFolder === target.id) activeFolder = "all";
       saveVault().then(function(){ renderAll(); toast("Folder dihapus — item di dalamnya tetap tersimpan"); });
     });
+  });
+}
+/* ================= Panel kelola isi folder / label (centang) =================
+   Dari tampilan sebuah folder: panel berisi daftar judul item SATU kategori
+   folder itu beserta info foldernya saat ini — centang memasukkan item ke
+   folder ini (item dari folder lain pindah ke sini), lepas centang
+   mengeluarkannya menjadi Tanpa folder.
+   Dari tampilan sebuah label: panel berisi daftar FOLDER dan daftar ITEM
+   semua kategori beserta info kategorinya — centang memberi label, lepas
+   centang melepasnya. Item yang berlabel lewat foldernya tampil tercentang
+   tapi terkunci, dengan keterangan; melepasnya lewat baris foldernya.
+   Semua perubahan langsung tersimpan terenkripsi; item/folder tidak pernah
+   terhapus dari panel ini. */
+function openManagePanel(){
+  var folder = (activeFolder !== "all" && activeFolder !== "none") ? folderById(activeFolder) : null;
+  var label = (!folder && activeLabel !== "all") ? labelById(activeLabel) : null;
+  if(!folder && !label){ toast("Buka dulu folder atau label yang mau dikelola isinya"); return; }
+  var isFolder = !!folder;
+  var ov = document.createElement("div");
+  ov.className = "overlay";
+  function itemRowMeta(it){
+    if(it.folderId === folder.id) return "Sudah di folder ini";
+    var cf = it.folderId ? folderById(it.folderId) : null;
+    return cf ? ("Di folder \u201C" + cf.name + "\u201D — mencentang memindahkannya ke sini") : "Tanpa folder";
+  }
+  function itemRowHtml(it){
+    var checked, disabled = false, meta;
+    if(isFolder){
+      checked = it.folderId === folder.id;
+      meta = itemRowMeta(it);
+    } else {
+      var direct = itemDirectLabelIds(it).indexOf(label.id) >= 0;
+      var fl = it.folderId ? folderById(it.folderId) : null;
+      var inh = !direct && fl && (Array.isArray(fl.labelIds) ? fl.labelIds : []).indexOf(label.id) >= 0;
+      checked = direct || inh;
+      disabled = inh;
+      meta = CATS[it.cat].label + (inh ? " · Sudah berlabel lewat folder \u201C" + fl.name + "\u201D — lepas dari baris folder di atas" : "");
+    }
+    return '<label class="checkrow' + (disabled ? " off" : "") + '" data-title="' + esc(itemTitle(it).toLowerCase()) + '">'
+      + '<input type="checkbox" data-mitem="' + it.id + '"' + (checked ? " checked" : "") + (disabled ? " disabled" : "") + ' />'
+      + '<span><span class="ctitle">' + esc(itemTitle(it)) + '</span><span class="cmeta" data-meta="' + it.id + '">' + esc(meta) + '</span></span></label>';
+  }
+  function folderRowHtml(f){
+    var n = vault.items.filter(function(it){ return it.folderId === f.id; }).length;
+    var checked = (Array.isArray(f.labelIds) ? f.labelIds : []).indexOf(label.id) >= 0;
+    return '<label class="checkrow" data-title="' + esc(("folder " + f.name).toLowerCase()) + '">'
+      + '<input type="checkbox" data-mfolder="' + f.id + '"' + (checked ? " checked" : "") + ' />'
+      + '<span><span class="ctitle">Folder: ' + esc(f.name) + '</span><span class="cmeta">' + esc(CATS[f.cat].label) + ' · ' + n + ' item di dalamnya — semua ikut berlabel ini</span></span></label>';
+  }
+  var bodyHtml = "";
+  if(isFolder){
+    var fitems = vault.items.filter(function(it){ return it.cat === folder.cat; }).slice().sort(function(a, b){
+      var ai = a.folderId === folder.id ? 0 : 1, bi = b.folderId === folder.id ? 0 : 1;
+      if(ai !== bi) return ai - bi;
+      return itemTitle(a).localeCompare(itemTitle(b), "id", { sensitivity: "base" });
+    });
+    bodyHtml = fitems.length
+      ? '<div class="mp-sec">' + fitems.map(itemRowHtml).join("") + '</div>'
+      : '<p class="hint">Belum ada item kategori ' + esc(CATS[folder.cat].label) + ' sama sekali. Buat dulu lewat tombol <b>+ Item baru</b> di bilah folder — itemnya langsung masuk folder ini.</p>';
+  } else {
+    var fs = (vault.folders || []).slice().sort(function(a, b){
+      var c = CATS[a.cat].label.localeCompare(CATS[b.cat].label, "id");
+      return c !== 0 ? c : a.name.localeCompare(b.name, "id", { sensitivity: "base" });
+    });
+    var its = vault.items.slice().sort(function(a, b){ return itemTitle(a).localeCompare(itemTitle(b), "id", { sensitivity: "base" }); });
+    bodyHtml = '<div class="mp-sec"><div class="panel-sec">Folder</div>'
+      + (fs.length ? fs.map(folderRowHtml).join("") : '<p class="hint">Belum ada folder.</p>') + '</div>'
+      + '<div class="mp-sec"><div class="panel-sec">Item</div>'
+      + (its.length ? its.map(itemRowHtml).join("") : '<p class="hint">Belum ada item sama sekali.</p>') + '</div>';
+  }
+  ov.innerHTML = '<div class="sheet" style="max-width:560px">' + XWRAP_HTML
+    + '<h2>' + (isFolder ? "Kelola isi folder" : "Kelola isi label") + '</h2>'
+    + '<p class="hint" style="margin-top:-.5rem">' + (isFolder
+        ? 'Folder <b>' + esc(folder.name) + '</b> · kategori ' + esc(CATS[folder.cat].label) + '. Centang item untuk memasukkannya ke folder ini; lepas centang untuk mengeluarkannya. Perubahan langsung tersimpan dan item tidak pernah terhapus.'
+        : 'Label <b>' + esc(label.name) + '</b> lintas kategori. Centang item atau folder untuk memberi label ini; lepas centang untuk melepasnya. Perubahan langsung tersimpan dan item / folder tidak pernah terhapus.') + '</p>'
+    + '<p class="hint mp-count" style="font-weight:700"></p>'
+    + '<input type="search" class="mp-search" placeholder="Cari judul item / folder…" />'
+    + '<div class="mp-body">' + bodyHtml + '</div>'
+    + '<div class="foot"><span class="spacer"></span><button class="primary mp-done">Selesai</button></div></div>';
+  document.body.appendChild(ov);
+  var body = ov.querySelector(".mp-body");
+  var countEl = ov.querySelector(".mp-count");
+  function refreshCounts(){
+    if(isFolder){
+      var n = vault.items.filter(function(it){ return it.folderId === folder.id; }).length;
+      countEl.textContent = n + " item di folder ini";
+    } else {
+      countEl.textContent = (labelCounts()[label.id] || 0) + " item berlabel ini (termasuk lewat folder)";
+    }
+  }
+  function refreshItemRow(it){
+    var row = body.querySelector('input[data-mitem="' + it.id + '"]');
+    if(!row) return;
+    var wrap = row.closest ? row.closest(".checkrow") : null;
+    var metaEl = body.querySelector('[data-meta="' + it.id + '"]');
+    if(isFolder){
+      row.checked = it.folderId === folder.id;
+      if(metaEl) metaEl.textContent = itemRowMeta(it);
+      return;
+    }
+    var direct = itemDirectLabelIds(it).indexOf(label.id) >= 0;
+    var fl = it.folderId ? folderById(it.folderId) : null;
+    var inh = !direct && fl && (Array.isArray(fl.labelIds) ? fl.labelIds : []).indexOf(label.id) >= 0;
+    row.checked = direct || inh;
+    row.disabled = inh;
+    if(wrap) wrap.classList.toggle("off", inh);
+    if(metaEl) metaEl.textContent = CATS[it.cat].label + (inh ? " · Sudah berlabel lewat folder \u201C" + fl.name + "\u201D — lepas dari baris folder di atas" : "");
+  }
+  refreshCounts();
+  function close(){ ov.remove(); }
+  ov.querySelector(".xbtn").addEventListener("click", close);
+  ov.querySelector(".mp-done").addEventListener("click", close);
+  ov.querySelector(".mp-search").addEventListener("input", function(e){
+    var q = e.target.value.toLowerCase().trim();
+    Array.prototype.forEach.call(body.querySelectorAll(".mp-sec"), function(sec){
+      var any = false;
+      Array.prototype.forEach.call(sec.querySelectorAll(".checkrow"), function(r){
+        var show = !q || (r.getAttribute("data-title") || "").indexOf(q) >= 0;
+        r.classList.toggle("hidden", !show);
+        if(show) any = true;
+      });
+      sec.classList.toggle("hidden", !any);
+    });
+  });
+  body.addEventListener("change", function(e){
+    var t = e.target;
+    if(t.hasAttribute("data-mitem")){
+      var it = findItem(t.getAttribute("data-mitem"));
+      if(!it) return;
+      if(isFolder){
+        it.folderId = t.checked ? folder.id : (it.folderId === folder.id ? null : it.folderId);
+      } else {
+        var ids = itemDirectLabelIds(it).slice();
+        if(t.checked && ids.indexOf(label.id) < 0) ids.push(label.id);
+        if(!t.checked) ids = ids.filter(function(x){ return x !== label.id; });
+        it.labelIds = ids;
+      }
+      saveVault().then(function(){ renderAll(); refreshCounts(); refreshItemRow(it); });
+      return;
+    }
+    if(t.hasAttribute("data-mfolder")){
+      var f = folderById(t.getAttribute("data-mfolder"));
+      if(!f) return;
+      var lids = (Array.isArray(f.labelIds) ? f.labelIds : []).slice();
+      if(t.checked && lids.indexOf(label.id) < 0) lids.push(label.id);
+      if(!t.checked) lids = lids.filter(function(x){ return x !== label.id; });
+      f.labelIds = lids;
+      saveVault().then(function(){
+        renderAll(); refreshCounts();
+        vault.items.forEach(function(it2){ refreshItemRow(it2); });
+      });
+    }
   });
 }
 function openEditor(item){
@@ -5588,6 +6181,7 @@ function wipeEverything(){
     sessionKey = null; masterPw = null; vault = null;
     $("appScreen").classList.add("hidden");
     $("fabAdd").classList.add("hidden");
+    if(typeof closeFabMenu === "function") closeFabMenu();
     $("backupOverlay").classList.add("hidden");
     $("editorOverlay").classList.add("hidden");
     $("settingsOverlay").classList.add("hidden");
@@ -5817,18 +6411,48 @@ $("btnWipeSettings").addEventListener("click", function(){
 
 /* ================= Top-level bindings ================= */
 $("btnAddTop").addEventListener("click", function(){ openEditor(null); });
-$("fabAdd").addEventListener("click", function(){ openEditor(null); });
+/* ===== Menu tombol + mengambang ala Drive =====
+   Ketuk tombol + mengembangkan menu pilihan di atasnya (Tambah isi,
+   Tandai beberapa sebagai akses cepat, Folder baru, Label baru) dengan
+   latar redup; tombolnya berubah menjadi X untuk menutup menu. */
+function setFabOpen(open){
+  fabOpen = !!open;
+  var menu = $("fabMenu"), scrim = $("fabScrim"), fab = $("fabAdd");
+  if(menu) menu.classList.toggle("hidden", !fabOpen);
+  if(scrim) scrim.classList.toggle("hidden", !fabOpen);
+  if(fab){
+    fab.classList.toggle("open", fabOpen);
+    fab.setAttribute("aria-expanded", fabOpen ? "true" : "false");
+    fab.setAttribute("aria-label", fabOpen ? "Tutup menu tambah" : "Tambah isi");
+    fab.innerHTML = fabOpen ? '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg>' : '+ Tambah isi';
+  }
+  if(fabOpen){ var sl = $("fabSelectLabel"); if(sl) sl.textContent = selectMode ? "Batalkan tandai" : "Tandai beberapa"; }
+}
+function closeFabMenu(){ if(fabOpen) setFabOpen(false); }
+$("fabAdd").addEventListener("click", function(){ setFabOpen(!fabOpen); });
+$("fabScrim").addEventListener("click", closeFabMenu);
+Array.prototype.forEach.call(document.querySelectorAll("[data-fabact]"), function(b){
+  b.addEventListener("click", function(){
+    var act = b.getAttribute("data-fabact");
+    closeFabMenu();
+    if(act === "add") openEditor(null);
+    else if(act === "select") toggleSelectMode();
+    else if(act === "folder") openFolderDialog({ folder: null, cat: activeCat !== "semua" ? activeCat : "login", onSaved: function(f){ activeCat = f.cat; activeFolder = f.id; activeLabel = "all"; clearSelection(); renderAll(); } });
+    else if(act === "label") openLabelDialog({ label: null, onSaved: function(l){ activeCat = "semua"; activeFolder = "all"; activeLabel = l.id; clearSelection(); renderAll(); } });
+  });
+});
 $("searchBox").addEventListener("input", renderList);
 Array.prototype.forEach.call($("sortBySeg").querySelectorAll("button"), function(b){
   b.addEventListener("click", function(){ setSort(b.getAttribute("data-sortby")); });
 });
 $("btnSortDir").addEventListener("click", toggleSortDir);
-$("btnSelectMode").addEventListener("click", function(){
+function toggleSelectMode(){
   selectMode = !selectMode;
   clearSelection();
   renderSortBar(); renderList();
   if(selectMode) toast("Mode tandai aktif — centang item, pilih folder tujuan, lalu ketuk Tambahkan ke folder");
-});
+}
+$("btnSelectMode").addEventListener("click", toggleSelectMode);
 $("btnBulkMove").addEventListener("click", function(){
   var ids = Object.keys(selectedIds);
   if(!ids.length){ toast("Belum ada item yang ditandai — centang dulu itemnya"); return; }
@@ -6050,7 +6674,7 @@ refreshLockScreen();
    v3: instalasi cache ditoleransi per file (satu file gagal tidak lagi
    menggagalkan aktivasi service worker) dan navigasi jaringan-dulu dengan
    cadangan index dari cache, agar start_url selalu bisa dibuka SW. */
-var CACHE = "kampil-github-v5";
+var CACHE = "kampil-github-v6";
 var APP_FILES = [
   "./",
   "index.html",
@@ -6142,6 +6766,9 @@ Nama folder backup di Google Drive juga bernama **Kampil** dan selalu privat.
 - **Folder di dalam kategori:** kelompokkan isi tiap kategori ke folder buatanmu sendiri (mis. Akun Login → Sosmed, Kerja, Bank). Satu item masuk ke satu folder; folder bisa dibuat, diubah namanya, dan dihapus — menghapus folder tidak menghapus isinya, item hanya keluar menjadi Tanpa folder. Pindahkan isi dengan menyeret kartu item ke chip folder (drag & drop), atau tandai beberapa item sekaligus lalu pilih **Tambahkan ke folder**. Chip folder di atas daftar (Semua / Tanpa folder / nama folder) menyaring tampilan — cara lengkapnya di bagian Folder dan sortir di bawah.
 - **Label lintas kategori dengan warna custom:** tandai item dari kategori berbeda-beda dengan label yang sama (mis. satu label berisi akun login media sosial, rekening bank, dan kode sekaligus). Satu item bisa punya beberapa label, dan label juga bisa menandai folder. Warna label bebas dipilih, termasuk warna custom. Cara lengkapnya di bagian Label (lintas kategori) di bawah.
 - **Sortir daftar:** urutkan isi berdasarkan **Judul** (A → Z atau Z → A) atau **Waktu diubah** (Terbaru → terlama atau Terlama → terbaru) lewat baris Urutkan di atas daftar. Tombol arah membalik urutannya, dan pilihan sortir tersimpan di brankas.
+- **Panel Folder, Label & Urutkan jadi accordion:** panel di laman utama tertutup secara bawaan dan hanya dibuka saat perlu menyaring atau mengurutkan, supaya laman utama lega. Kepala panel tetap menampilkan ringkasan saringan dan urutan yang sedang aktif.
+- **Tombol + mengambang ala Drive:** mengetuk tombol **+ Tambah isi** di kanan bawah mengembangkan menu pilihan — **Tambah isi**, **Tandai beberapa** (akses cepat ke mode tandai), **Folder baru**, dan **Label baru** — dengan latar redup dan tombol berubah menjadi **X** untuk menutup.
+- **Kelola isi folder / label (panel centang):** dari tampilan folder atau label, ketuk **Kelola isi** untuk membuka panel berisi daftar judul item beserta info kategorinya (untuk label: daftar item dan folder). Centang untuk menambahkan, lepas centang untuk mengeluarkan/melepas — perubahan langsung tersimpan dan item tidak pernah terhapus.
 - **Password yang disalin** dibersihkan sendiri dari clipboard setelah 20 detik.
 - **Bisa diinstal sebagai aplikasi (PWA)** di Android dan desktop bila di-deploy lengkap lewat GitHub Pages — lihat cara instal di bawah.
 - **Backup terenkripsi** berupa file .kampil: manual (unduh / impor) dan otomatis berkala ke folder **Kampil** di Google Drive yang privat.
@@ -6258,6 +6885,7 @@ iOS tidak memakai tombol Instal dari manifest seperti Android. Buka alamat `gith
 - Folder tersimpan terenkripsi di dalam brankas, jadi ikut terbawa di backup .kampil dan sinkronisasi Drive.
 
 - **Menambah item langsung dari folder yang sedang dibuka:** saat sebuah folder sedang tampil, tombol **+ Tambah** / **+ Tambah isi** membuat item baru yang otomatis masuk ke folder itu (kategori mengikuti foldernya).
+- **Kelola isi folder (panel centang):** ketuk **Kelola isi folder** di bilah folder (atau di kotak kosong folder) untuk membuka panel berisi daftar judul item kategori folder itu beserta info foldernya saat ini. Centang item untuk memasukkannya (item dari folder lain ikut pindah ke sini), lepas centang untuk mengeluarkannya — langsung tersimpan, tanpa menghapus item.
 - **Melepas item dari folder:** pada tampilan folder, ketuk **Keluarkan dari folder** di kartu item, atau tandai beberapa item lalu ketuk **Keluarkan dari folder ini** di bilah tandai. Bisa juga lewat formulir Ubah item → kolom **Folder** → **Tanpa folder**, atau memilih **Tanpa folder** sebagai tujuan di bilah tandai. Item tidak terhapus — hanya keluar dari folder.
 
 ### Sortir
@@ -6279,6 +6907,7 @@ iOS tidak memakai tombol Instal dari manifest seperti Android. Buka alamat `gith
 - Label dan warnanya tersimpan terenkripsi di dalam brankas, jadi ikut terbawa di backup .kampil dan sinkronisasi Drive, sama seperti folder.
 
 - **Menambah item langsung dari label yang sedang dibuka:** saat sebuah label sedang tampil, tombol **+ Tambah** membuat item baru yang otomatis diberi label itu.
+- **Kelola isi label (panel centang):** ketuk **Kelola isi label** di bilah label (atau di kotak kosong label) untuk membuka panel berisi daftar folder dan daftar item dari semua kategori beserta info kategorinya. Centang untuk memberi label, lepas centang untuk melepasnya. Item yang sudah berlabel lewat foldernya ditandai khusus — lepas labelnya dari baris folder di panel yang sama.
 - **Melepas label dari item:** buka item lewat **Ubah** lalu ketuk chip label yang aktif untuk melepasnya, atau tandai beberapa item, pilih labelnya di bilah tandai, lalu ketuk **Lepaskan label**. Pada tampilan sebuah label, ada juga tombol **Lepas label ini** di kartu item dan **Lepaskan label ini** di bilah tandai. Label yang menempel lewat folder hanya bisa dilepas dari foldernya. Item tidak terhapus.
 
 ## Backup dan pemulihan
@@ -6712,7 +7341,7 @@ Kampil dibuat untuk pemakaian pribadi menyimpan info akses milik sendiri. Simpan
    v3: instalasi cache ditoleransi per file (satu file gagal tidak lagi
    menggagalkan aktivasi service worker) dan navigasi jaringan-dulu dengan
    cadangan index dari cache, agar start_url selalu bisa dibuka SW. */
-var CACHE = "kampil-github-v5";
+var CACHE = "kampil-github-v6";
 var APP_FILES = [
   "./",
   "index.html",
@@ -6804,6 +7433,9 @@ Nama folder backup di Google Drive juga bernama **Kampil** dan selalu privat.
 - **Folder di dalam kategori:** kelompokkan isi tiap kategori ke folder buatanmu sendiri (mis. Akun Login → Sosmed, Kerja, Bank). Satu item masuk ke satu folder; folder bisa dibuat, diubah namanya, dan dihapus — menghapus folder tidak menghapus isinya, item hanya keluar menjadi Tanpa folder. Pindahkan isi dengan menyeret kartu item ke chip folder (drag & drop), atau tandai beberapa item sekaligus lalu pilih **Tambahkan ke folder**. Chip folder di atas daftar (Semua / Tanpa folder / nama folder) menyaring tampilan — cara lengkapnya di bagian Folder dan sortir di bawah.
 - **Label lintas kategori dengan warna custom:** tandai item dari kategori berbeda-beda dengan label yang sama (mis. satu label berisi akun login media sosial, rekening bank, dan kode sekaligus). Satu item bisa punya beberapa label, dan label juga bisa menandai folder. Warna label bebas dipilih, termasuk warna custom. Cara lengkapnya di bagian Label (lintas kategori) di bawah.
 - **Sortir daftar:** urutkan isi berdasarkan **Judul** (A → Z atau Z → A) atau **Waktu diubah** (Terbaru → terlama atau Terlama → terbaru) lewat baris Urutkan di atas daftar. Tombol arah membalik urutannya, dan pilihan sortir tersimpan di brankas.
+- **Panel Folder, Label & Urutkan jadi accordion:** panel di laman utama tertutup secara bawaan dan hanya dibuka saat perlu menyaring atau mengurutkan, supaya laman utama lega. Kepala panel tetap menampilkan ringkasan saringan dan urutan yang sedang aktif.
+- **Tombol + mengambang ala Drive:** mengetuk tombol **+ Tambah isi** di kanan bawah mengembangkan menu pilihan — **Tambah isi**, **Tandai beberapa** (akses cepat ke mode tandai), **Folder baru**, dan **Label baru** — dengan latar redup dan tombol berubah menjadi **X** untuk menutup.
+- **Kelola isi folder / label (panel centang):** dari tampilan folder atau label, ketuk **Kelola isi** untuk membuka panel berisi daftar judul item beserta info kategorinya (untuk label: daftar item dan folder). Centang untuk menambahkan, lepas centang untuk mengeluarkan/melepas — perubahan langsung tersimpan dan item tidak pernah terhapus.
 - **Password yang disalin** dibersihkan sendiri dari clipboard setelah 20 detik.
 - **Bisa diinstal sebagai aplikasi (PWA)** di Android dan desktop bila di-deploy lengkap lewat GitHub Pages — lihat cara instal di bawah.
 - **Backup terenkripsi** berupa file .kampil: manual (unduh / impor) dan otomatis berkala ke folder **Kampil** di Google Drive yang privat.
@@ -6920,6 +7552,7 @@ iOS tidak memakai tombol Instal dari manifest seperti Android. Buka alamat `gith
 - Folder tersimpan terenkripsi di dalam brankas, jadi ikut terbawa di backup .kampil dan sinkronisasi Drive.
 
 - **Menambah item langsung dari folder yang sedang dibuka:** saat sebuah folder sedang tampil, tombol **+ Tambah** / **+ Tambah isi** membuat item baru yang otomatis masuk ke folder itu (kategori mengikuti foldernya).
+- **Kelola isi folder (panel centang):** ketuk **Kelola isi folder** di bilah folder (atau di kotak kosong folder) untuk membuka panel berisi daftar judul item kategori folder itu beserta info foldernya saat ini. Centang item untuk memasukkannya (item dari folder lain ikut pindah ke sini), lepas centang untuk mengeluarkannya — langsung tersimpan, tanpa menghapus item.
 - **Melepas item dari folder:** pada tampilan folder, ketuk **Keluarkan dari folder** di kartu item, atau tandai beberapa item lalu ketuk **Keluarkan dari folder ini** di bilah tandai. Bisa juga lewat formulir Ubah item → kolom **Folder** → **Tanpa folder**, atau memilih **Tanpa folder** sebagai tujuan di bilah tandai. Item tidak terhapus — hanya keluar dari folder.
 
 ### Sortir
@@ -6941,6 +7574,7 @@ iOS tidak memakai tombol Instal dari manifest seperti Android. Buka alamat `gith
 - Label dan warnanya tersimpan terenkripsi di dalam brankas, jadi ikut terbawa di backup .kampil dan sinkronisasi Drive, sama seperti folder.
 
 - **Menambah item langsung dari label yang sedang dibuka:** saat sebuah label sedang tampil, tombol **+ Tambah** membuat item baru yang otomatis diberi label itu.
+- **Kelola isi label (panel centang):** ketuk **Kelola isi label** di bilah label (atau di kotak kosong label) untuk membuka panel berisi daftar folder dan daftar item dari semua kategori beserta info kategorinya. Centang untuk memberi label, lepas centang untuk melepasnya. Item yang sudah berlabel lewat foldernya ditandai khusus — lepas labelnya dari baris folder di panel yang sama.
 - **Melepas label dari item:** buka item lewat **Ubah** lalu ketuk chip label yang aktif untuk melepasnya, atau tandai beberapa item, pilih labelnya di bilah tandai, lalu ketuk **Lepaskan label**. Pada tampilan sebuah label, ada juga tombol **Lepas label ini** di kartu item dan **Lepaskan label ini** di bilah tandai. Label yang menempel lewat folder hanya bisa dilepas dari foldernya. Item tidak terhapus.
 
 ## Backup dan pemulihan

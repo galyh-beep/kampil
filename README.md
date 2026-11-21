@@ -65,8 +65,10 @@ Kampil ditujukan untuk pemakaian pribadi, bukan untuk berbagi akses dengan tim. 
 - **Folder di dalam tiap kategori** — kelompokkan item di Kontak, Rekening, Akun Login, Kode/Skrip, dan Catatan ke dalam folder buatanmu sendiri.
 - **Label lintas kategori dengan warna custom** — tandai item dari kategori berbeda dengan satu label yang sama, misalnya label untuk akun medsos, rekening bank, dan kode sekaligus. Label juga bisa ditempel ke folder.
 - **Sortir daftar yang fleksibel** — urutkan item berdasarkan Judul (A–Z / Z–A) atau Waktu diubah (Terbaru / Terlama), dengan arah urutan yang bisa dibalik.
-- **Laman utama yang lebih rapi** — pilihan Folder, Label, dan Urutkan kini berkelompok dalam satu kartu panel, sehingga laman utama lebih lega dan mudah dibaca, terutama di HP.
+- **Laman utama yang lebih rapi** — panel Folder, Label, dan Urutkan kini berupa accordion yang tertutup secara bawaan dan dibuka hanya saat diperlukan, sehingga laman utama lebih lega dan mudah dibaca, terutama di HP.
+- **Tombol mengambang ala Drive Mobile** — tombol **+ Tambah isi** di kanan bawah kini mengembangkan menu pilihan saat diketuk (**Tambah isi**, **Tandai beberapa** sebagai akses cepat, **Folder baru**, dan **Label baru**), dan tombolnya berubah menjadi **X** untuk menutup menu.
 - **Tambah langsung dari folder atau label** — saat sebuah folder atau label sedang dibuka, tombol Tambah membuat item baru yang otomatis masuk ke folder itu atau otomatis diberi label itu.
+- **Kelola isi lewat panel centang** — dari tampilan folder maupun label (termasuk saat masih kosong) tersedia tombol **Kelola isi** untuk menambahkan atau mengeluarkan item dan folder dengan mencentang atau melepas centang, dan perubahan langsung tersimpan tanpa menghapus item.
 - **Lepas folder dan label tanpa menghapus item** — folder dan label bisa dilepas per item maupun massal, itemnya sendiri tetap ada.
 - **Penyimpanan lokal saja** — data berada di perangkatmu, bukan di server pihak ketiga.
 - **Backup file terenkripsi `.kampil`** yang bisa diunduh, disimpan, dan diimpor kembali.
@@ -278,7 +280,15 @@ Gunakan untuk info akses pendukung yang tidak masuk ke empat kategori lain: petu
 
 Seiring isi brankas bertambah, daftar item di tiap kategori bisa menjadi panjang. Folder dan sortir membantu menjaga daftar tetap rapi dan mudah dicari, tanpa mengubah lima kategori utama Kampil.
 
-Di laman utama, pilihan **Folder**, **Label**, dan **Urutkan** kini **berkelompok dalam satu kartu panel** yang rapi, bukan lagi berderet terpisah memenuhi layar. Laman utama jadi lebih bersih dan lega — kategori, pencarian, dan daftar item lebih mudah dibaca, terutama di HP.
+Di laman utama, panel yang berisi **Folder**, **Label**, dan **Urutkan** kini berupa **accordion** — tertutup secara bawaan dan dibuka hanya saat diperlukan. Ketuk judul panel untuk mengembangkannya saat kamu perlu memilih folder, menyaring label, atau mengubah urutan, lalu tutup lagi agar laman utama tetap bersih dan lega. Kategori, pencarian, dan daftar item jadi lebih mudah dibaca, terutama di HP.
+
+### Tombol mengambang dan akses cepat
+
+Tombol mengambang **+ Tambah isi** di kanan bawah kini bekerja seperti tombol tambah di **Drive Mobile**:
+
+- Mengetuknya **mengembangkan menu pilihan** di atas tombol: **Tambah isi**, **Tandai beberapa** sebagai akses cepat, **Folder baru**, dan **Label baru**.
+- Saat menu terbuka, tombolnya berubah menjadi **X** — ketuk lagi untuk menutup menu.
+- Dengan pola ini, tindakan yang paling sering dipakai tetap satu ketukan dari mana saja, tanpa memenuhi layar dengan banyak tombol terpisah.
 
 ### Folder di dalam tiap kategori
 
@@ -307,6 +317,15 @@ Ada tiga cara memindahkan item, pilih yang paling mudah untukmu:
 ### Menambah item dari tampilan folder
 
 Saat kamu sedang membuka tampilan sebuah folder, tombol **Tambah** di tampilan itu membuat item baru yang **otomatis masuk ke folder yang sedang dibuka** — tidak perlu memilih foldernya lagi di editor. Cara yang sama berlaku di tampilan label: item baru dari sana otomatis diberi label yang sedang dibuka (lihat bagian [Label (lintas kategori)](#label-lintas-kategori)).
+
+### Kelola isi folder lewat panel centang
+
+Dari tampilan folder — termasuk saat folder itu masih kosong — tersedia tombol **Kelola isi** yang membuka panel centang:
+
+- Panel berisi **daftar judul item dari kategori folder tersebut** beserta **info foldernya** saat ini, sehingga kamu tahu tiap item sedang berada di folder mana.
+- **Centang** item untuk menambahkannya ke folder yang sedang dibuka.
+- **Lepas centang** untuk mengeluarkannya dari folder tersebut.
+- Perubahan **langsung tersimpan** saat centang diubah, tanpa menghapus item — item yang dikeluarkan hanya kembali menjadi tanpa folder di kategori yang sama.
 
 ### Melepas item dari folder
 
@@ -368,6 +387,15 @@ Label bisa diberikan dengan tiga cara:
 ### Menambah item dari tampilan label
 
 Saat kamu sedang membuka tampilan sebuah label, tombol **Tambah** di tampilan itu membuat item baru yang **otomatis diberi label yang sedang dibuka** — tidak perlu memilih labelnya lagi di editor. Cara yang sama berlaku di tampilan folder: item baru dari sana otomatis masuk ke folder yang sedang dibuka (lihat bagian [Folder dan sortir](#folder-dan-sortir)).
+
+### Kelola isi label lewat panel centang
+
+Dari tampilan label — termasuk saat label itu masih kosong — tersedia tombol **Kelola isi** yang membuka panel centang:
+
+- Panel berisi **daftar folder dan item dari semua kategori** beserta **info kategorinya**, sehingga kamu bisa menandai isi lintas kategori dari satu tempat.
+- **Centang** folder atau item untuk menambahkan label yang sedang dibuka kepadanya. Jika yang dicentang adalah folder, semua item di dalam folder itu ikut terhitung berlabel tersebut.
+- **Lepas centang** untuk melepas label itu dari folder atau item tersebut.
+- Perubahan **langsung tersimpan** saat centang diubah, tanpa menghapus item atau folder — yang hilang hanya tanda labelnya.
 
 ### Melepas label dari item dan folder
 
