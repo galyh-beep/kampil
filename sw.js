@@ -1,3 +1,4 @@
+
 /* Kampil — service worker untuk GitHub Pages (ROOT, sejajar index.html)
    Scope service worker mengikuti folder skripnya: file ini HARUS di root repo
    agar bisa mengontrol halaman utama — syarat Chrome Android untuk menawarkan
