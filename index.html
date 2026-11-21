@@ -47,7 +47,7 @@ if("serviceWorker" in navigator){
     navigator.serviceWorker.register("sw.js", { updateViaCache: "none" })
       .then(useReg)
       .catch(function(){
-        return navigator.serviceWorker.register("data:application/javascript;base64,LyogS2FtcGlsIOKAlCBzZXJ2aWNlIHdvcmtlcgogICBNZW1idWF0IEthbXBpbCBtZW1lbnVoaSBzeWFyYXQgImRhcGF0IGRpaW5zdGFsIiAoSW5zdGFsbCBhcHApIGRpIENocm9tZSBBbmRyb2lkCiAgIGRhbiBiaXNhIGRpYnVrYSBkYXJpIGlrb24gYXBsaWthc2kgd2FsYXUga29uZWtzaSBzZWRhbmcgYnVydWsuCiAgIEhhbnlhIG1lbmctY2FjaGUgZmlsZSBhcGxpa2FzaSAoaW5kZXgsIG1hbmlmZXN0LCBpa29uKSDigJQgVElEQUsgUEVSTkFIIG1lbmctY2FjaGUKICAgZGF0YSBrYW1waWw7IGRhdGEgdGV0YXAgdGVyZW5rcmlwc2kgZGkgSW5kZXhlZERCIHBlcmFuZ2thdC4KICAgdjM6IGluc3RhbGFzaSBjYWNoZSBkaXRvbGVyYW5zaSBwZXIgZmlsZSAoc2F0dSBmaWxlIGdhZ2FsIHRpZGFrIGxhZ2kgbWVuZ2dhZ2Fsa2FuCiAgIGFrdGl2YXNpIHNlcnZpY2Ugd29ya2VyKSBkYW4gbmF2aWdhc2kgamFyaW5nYW4tZHVsdSBkZW5nYW4gY2FkYW5nYW4gaW5kZXggZGFyaQogICBjYWNoZSwgYWdhciBzdGFydF91cmwgc2VsYWx1IGJpc2EgZGlidWthIHNlcnZpY2Ugd29ya2VyLiAqLwp2YXIgQ0FDSEUgPSAia2FtcGlsLXY0IjsKdmFyIEFQUF9GSUxFUyA9IFsKICAiLi4vaW5kZXguaHRtbCIsCiAgIi4vbWFuaWZlc3Qud2VibWFuaWZlc3QiLAogICIuL2ljb24tMTkyLnBuZyIsCiAgIi4vaWNvbi01MTIucG5nIiwKICAiLi9pY29uLW1hc2thYmxlLTUxMi5wbmciLAogICIuL2FwcGxlLXRvdWNoLWljb24ucG5nIgpdOwp2YXIgSU5ERVhfVVJMID0gbmV3IFVSTCgiLi4vaW5kZXguaHRtbCIsIHNlbGYucmVnaXN0cmF0aW9uLnNjb3BlKS5ocmVmOwoKc2VsZi5hZGRFdmVudExpc3RlbmVyKCJpbnN0YWxsIiwgZnVuY3Rpb24gKGV2ZW50KSB7CiAgZXZlbnQud2FpdFVudGlsKAogICAgY2FjaGVzLm9wZW4oQ0FDSEUpLnRoZW4oZnVuY3Rpb24gKGNhY2hlKSB7CiAgICAgIC8qIGNhY2hlLmFkZEFsbCBiZXJzaWZhdCBhdG9taWs6IFNBVFUgZmlsZSBnYWdhbCAoNDA0L3JlZGlyZWN0KSBtZW5nZ2FnYWxrYW4KICAgICAgICAgU0VMVVJVSCBpbnN0YWxhc2kgc2VydmljZSB3b3JrZXIg4oCUIGRhbiB0YW5wYSBTVyBha3RpZiBDaHJvbWUgbWVub2xhawogICAgICAgICBpbnN0YWwgYXBsaWthc2kuIEthcmVuYSBpdHU6IGNvYmEgYWRkQWxsLCBsYWx1IGxlbmdrYXBpIHBlciBmaWxlIGRlbmdhbgogICAgICAgICBrZWdhZ2FsYW4gcGVyIGZpbGUgZGl0b2xlcmFuc2kuIEFrdGl2YXNpIFNXIHRpZGFrIGJvbGVoIGRpdmV0byBjYWNoZS4gKi8KICAgICAgcmV0dXJuIGNhY2hlLmFkZEFsbChBUFBfRklMRVMpLmNhdGNoKGZ1bmN0aW9uICgpIHsKICAgICAgICByZXR1cm4gUHJvbWlzZS5hbGwoQVBQX0ZJTEVTLm1hcChmdW5jdGlvbiAodSkgewogICAgICAgICAgcmV0dXJuIGNhY2hlLmFkZCh1KS5jYXRjaChmdW5jdGlvbiAoKSB7IHJldHVybiBudWxsOyB9KTsKICAgICAgICB9KSk7CiAgICAgIH0pOwogICAgfSkudGhlbihmdW5jdGlvbiAoKSB7IHJldHVybiBzZWxmLnNraXBXYWl0aW5nKCk7IH0pCiAgKTsKfSk7CgpzZWxmLmFkZEV2ZW50TGlzdGVuZXIoImFjdGl2YXRlIiwgZnVuY3Rpb24gKGV2ZW50KSB7CiAgZXZlbnQud2FpdFVudGlsKAogICAgY2FjaGVzLmtleXMoKS50aGVuKGZ1bmN0aW9uIChrZXlzKSB7CiAgICAgIHJldHVybiBQcm9taXNlLmFsbChrZXlzLm1hcChmdW5jdGlvbiAoaykgewogICAgICAgIHJldHVybiBrID09PSBDQUNIRSA/IG51bGwgOiBjYWNoZXMuZGVsZXRlKGspOwogICAgICB9KSk7CiAgICB9KS50aGVuKGZ1bmN0aW9uICgpIHsgcmV0dXJuIHNlbGYuY2xpZW50cy5jbGFpbSgpOyB9KQogICk7Cn0pOwoKc2VsZi5hZGRFdmVudExpc3RlbmVyKCJmZXRjaCIsIGZ1bmN0aW9uIChldmVudCkgewogIHZhciByZXEgPSBldmVudC5yZXF1ZXN0OwogIGlmIChyZXEubWV0aG9kICE9PSAiR0VUIikgcmV0dXJuOwogIHZhciB1cmwgPSBuZXcgVVJMKHJlcS51cmwpOwogIGlmICh1cmwub3JpZ2luICE9PSBuZXcgVVJMKHNlbGYucmVnaXN0cmF0aW9uLnNjb3BlKS5vcmlnaW4pIHJldHVybjsgLy8gR29vZ2xlIEdTSSAvIERyaXZlIEFQSTogYmlhcmthbiBrZSBqYXJpbmdhbgogIGlmIChyZXEubW9kZSA9PT0gIm5hdmlnYXRlIikgewogICAgLyogTmF2aWdhc2k6IGphcmluZ2FuIGR1bHUgKGhhbGFtYW4gc2VsYWx1IHZlcnNpIHRlcmJhcnUpLCBjYWNoZSBpbmRleAogICAgICAgc2ViYWdhaSBjYWRhbmdhbiBvZmZsaW5lIOKAlCBzdGFydF91cmwgaGFydXMgYmlzYSBkaWxheWFuaSBTVy4gKi8KICAgIGV2ZW50LnJlc3BvbmRXaXRoKAogICAgICBmZXRjaChyZXEpLnRoZW4oZnVuY3Rpb24gKHJlcykgewogICAgICAgIGlmIChyZXMgJiYgcmVzLm9rKSB7CiAgICAgICAgICB2YXIgY29weSA9IHJlcy5jbG9uZSgpOwogICAgICAgICAgY2FjaGVzLm9wZW4oQ0FDSEUpLnRoZW4oZnVuY3Rpb24gKGNhY2hlKSB7IGNhY2hlLnB1dChJTkRFWF9VUkwsIGNvcHkpOyB9KTsKICAgICAgICB9CiAgICAgICAgcmV0dXJuIHJlczsKICAgICAgfSkuY2F0Y2goZnVuY3Rpb24gKCkgewogICAgICAgIHJldHVybiBjYWNoZXMubWF0Y2goSU5ERVhfVVJMLCB7IGlnbm9yZVNlYXJjaDogdHJ1ZSB9KS50aGVuKGZ1bmN0aW9uIChoaXQpIHsKICAgICAgICAgIHJldHVybiBoaXQgfHwgbmV3IFJlc3BvbnNlKCJPZmZsaW5lIiwgeyBzdGF0dXM6IDUwMywgc3RhdHVzVGV4dDogIk9mZmxpbmUiIH0pOwogICAgICAgIH0pOwogICAgICB9KQogICAgKTsKICAgIHJldHVybjsKICB9CiAgZXZlbnQucmVzcG9uZFdpdGgoCiAgICBjYWNoZXMubWF0Y2gocmVxLCB7IGlnbm9yZVNlYXJjaDogdHJ1ZSB9KS50aGVuKGZ1bmN0aW9uIChoaXQpIHsKICAgICAgdmFyIG5ldHdvcmsgPSBmZXRjaChyZXEpLnRoZW4oZnVuY3Rpb24gKHJlcykgewogICAgICAgIGlmIChyZXMgJiYgcmVzLm9rKSB7CiAgICAgICAgICB2YXIgY29weSA9IHJlcy5jbG9uZSgpOwogICAgICAgICAgY2FjaGVzLm9wZW4oQ0FDSEUpLnRoZW4oZnVuY3Rpb24gKGNhY2hlKSB7IGNhY2hlLnB1dChyZXEsIGNvcHkpOyB9KTsKICAgICAgICB9CiAgICAgICAgcmV0dXJuIHJlczsKICAgICAgfSkuY2F0Y2goZnVuY3Rpb24gKCkgewogICAgICAgIHJldHVybiBoaXQgfHwgbmV3IFJlc3BvbnNlKCIiLCB7IHN0YXR1czogNTA0LCBzdGF0dXNUZXh0OiAiR2F0ZXdheSBUaW1lb3V0IiB9KTsKICAgICAgfSk7CiAgICAgIHJldHVybiBoaXQgfHwgbmV0d29yazsKICAgIH0pCiAgKTsKfSk7Cg==", { updateViaCache: "none" }).then(useReg);
+        return navigator.serviceWorker.register("data:application/javascript;base64,LyogS2FtcGlsIOKAlCBzZXJ2aWNlIHdvcmtlcgogICBNZW1idWF0IEthbXBpbCBtZW1lbnVoaSBzeWFyYXQgImRhcGF0IGRpaW5zdGFsIiAoSW5zdGFsbCBhcHApIGRpIENocm9tZSBBbmRyb2lkCiAgIGRhbiBiaXNhIGRpYnVrYSBkYXJpIGlrb24gYXBsaWthc2kgd2FsYXUga29uZWtzaSBzZWRhbmcgYnVydWsuCiAgIEhhbnlhIG1lbmctY2FjaGUgZmlsZSBhcGxpa2FzaSAoaW5kZXgsIG1hbmlmZXN0LCBpa29uKSDigJQgVElEQUsgUEVSTkFIIG1lbmctY2FjaGUKICAgZGF0YSBrYW1waWw7IGRhdGEgdGV0YXAgdGVyZW5rcmlwc2kgZGkgSW5kZXhlZERCIHBlcmFuZ2thdC4KICAgdjM6IGluc3RhbGFzaSBjYWNoZSBkaXRvbGVyYW5zaSBwZXIgZmlsZSAoc2F0dSBmaWxlIGdhZ2FsIHRpZGFrIGxhZ2kgbWVuZ2dhZ2Fsa2FuCiAgIGFrdGl2YXNpIHNlcnZpY2Ugd29ya2VyKSBkYW4gbmF2aWdhc2kgamFyaW5nYW4tZHVsdSBkZW5nYW4gY2FkYW5nYW4gaW5kZXggZGFyaQogICBjYWNoZSwgYWdhciBzdGFydF91cmwgc2VsYWx1IGJpc2EgZGlidWthIHNlcnZpY2Ugd29ya2VyLiAqLwp2YXIgQ0FDSEUgPSAia2FtcGlsLXY1IjsKdmFyIEFQUF9GSUxFUyA9IFsKICAiLi4vaW5kZXguaHRtbCIsCiAgIi4vbWFuaWZlc3Qud2VibWFuaWZlc3QiLAogICIuL2ljb24tMTkyLnBuZyIsCiAgIi4vaWNvbi01MTIucG5nIiwKICAiLi9pY29uLW1hc2thYmxlLTUxMi5wbmciLAogICIuL2FwcGxlLXRvdWNoLWljb24ucG5nIgpdOwp2YXIgSU5ERVhfVVJMID0gbmV3IFVSTCgiLi4vaW5kZXguaHRtbCIsIHNlbGYucmVnaXN0cmF0aW9uLnNjb3BlKS5ocmVmOwoKc2VsZi5hZGRFdmVudExpc3RlbmVyKCJpbnN0YWxsIiwgZnVuY3Rpb24gKGV2ZW50KSB7CiAgZXZlbnQud2FpdFVudGlsKAogICAgY2FjaGVzLm9wZW4oQ0FDSEUpLnRoZW4oZnVuY3Rpb24gKGNhY2hlKSB7CiAgICAgIC8qIGNhY2hlLmFkZEFsbCBiZXJzaWZhdCBhdG9taWs6IFNBVFUgZmlsZSBnYWdhbCAoNDA0L3JlZGlyZWN0KSBtZW5nZ2FnYWxrYW4KICAgICAgICAgU0VMVVJVSCBpbnN0YWxhc2kgc2VydmljZSB3b3JrZXIg4oCUIGRhbiB0YW5wYSBTVyBha3RpZiBDaHJvbWUgbWVub2xhawogICAgICAgICBpbnN0YWwgYXBsaWthc2kuIEthcmVuYSBpdHU6IGNvYmEgYWRkQWxsLCBsYWx1IGxlbmdrYXBpIHBlciBmaWxlIGRlbmdhbgogICAgICAgICBrZWdhZ2FsYW4gcGVyIGZpbGUgZGl0b2xlcmFuc2kuIEFrdGl2YXNpIFNXIHRpZGFrIGJvbGVoIGRpdmV0byBjYWNoZS4gKi8KICAgICAgcmV0dXJuIGNhY2hlLmFkZEFsbChBUFBfRklMRVMpLmNhdGNoKGZ1bmN0aW9uICgpIHsKICAgICAgICByZXR1cm4gUHJvbWlzZS5hbGwoQVBQX0ZJTEVTLm1hcChmdW5jdGlvbiAodSkgewogICAgICAgICAgcmV0dXJuIGNhY2hlLmFkZCh1KS5jYXRjaChmdW5jdGlvbiAoKSB7IHJldHVybiBudWxsOyB9KTsKICAgICAgICB9KSk7CiAgICAgIH0pOwogICAgfSkudGhlbihmdW5jdGlvbiAoKSB7IHJldHVybiBzZWxmLnNraXBXYWl0aW5nKCk7IH0pCiAgKTsKfSk7CgpzZWxmLmFkZEV2ZW50TGlzdGVuZXIoImFjdGl2YXRlIiwgZnVuY3Rpb24gKGV2ZW50KSB7CiAgZXZlbnQud2FpdFVudGlsKAogICAgY2FjaGVzLmtleXMoKS50aGVuKGZ1bmN0aW9uIChrZXlzKSB7CiAgICAgIHJldHVybiBQcm9taXNlLmFsbChrZXlzLm1hcChmdW5jdGlvbiAoaykgewogICAgICAgIHJldHVybiBrID09PSBDQUNIRSA/IG51bGwgOiBjYWNoZXMuZGVsZXRlKGspOwogICAgICB9KSk7CiAgICB9KS50aGVuKGZ1bmN0aW9uICgpIHsgcmV0dXJuIHNlbGYuY2xpZW50cy5jbGFpbSgpOyB9KQogICk7Cn0pOwoKc2VsZi5hZGRFdmVudExpc3RlbmVyKCJmZXRjaCIsIGZ1bmN0aW9uIChldmVudCkgewogIHZhciByZXEgPSBldmVudC5yZXF1ZXN0OwogIGlmIChyZXEubWV0aG9kICE9PSAiR0VUIikgcmV0dXJuOwogIHZhciB1cmwgPSBuZXcgVVJMKHJlcS51cmwpOwogIGlmICh1cmwub3JpZ2luICE9PSBuZXcgVVJMKHNlbGYucmVnaXN0cmF0aW9uLnNjb3BlKS5vcmlnaW4pIHJldHVybjsgLy8gR29vZ2xlIEdTSSAvIERyaXZlIEFQSTogYmlhcmthbiBrZSBqYXJpbmdhbgogIGlmIChyZXEubW9kZSA9PT0gIm5hdmlnYXRlIikgewogICAgLyogTmF2aWdhc2k6IGphcmluZ2FuIGR1bHUgKGhhbGFtYW4gc2VsYWx1IHZlcnNpIHRlcmJhcnUpLCBjYWNoZSBpbmRleAogICAgICAgc2ViYWdhaSBjYWRhbmdhbiBvZmZsaW5lIOKAlCBzdGFydF91cmwgaGFydXMgYmlzYSBkaWxheWFuaSBTVy4gKi8KICAgIGV2ZW50LnJlc3BvbmRXaXRoKAogICAgICBmZXRjaChyZXEpLnRoZW4oZnVuY3Rpb24gKHJlcykgewogICAgICAgIGlmIChyZXMgJiYgcmVzLm9rKSB7CiAgICAgICAgICB2YXIgY29weSA9IHJlcy5jbG9uZSgpOwogICAgICAgICAgY2FjaGVzLm9wZW4oQ0FDSEUpLnRoZW4oZnVuY3Rpb24gKGNhY2hlKSB7IGNhY2hlLnB1dChJTkRFWF9VUkwsIGNvcHkpOyB9KTsKICAgICAgICB9CiAgICAgICAgcmV0dXJuIHJlczsKICAgICAgfSkuY2F0Y2goZnVuY3Rpb24gKCkgewogICAgICAgIHJldHVybiBjYWNoZXMubWF0Y2goSU5ERVhfVVJMLCB7IGlnbm9yZVNlYXJjaDogdHJ1ZSB9KS50aGVuKGZ1bmN0aW9uIChoaXQpIHsKICAgICAgICAgIHJldHVybiBoaXQgfHwgbmV3IFJlc3BvbnNlKCJPZmZsaW5lIiwgeyBzdGF0dXM6IDUwMywgc3RhdHVzVGV4dDogIk9mZmxpbmUiIH0pOwogICAgICAgIH0pOwogICAgICB9KQogICAgKTsKICAgIHJldHVybjsKICB9CiAgZXZlbnQucmVzcG9uZFdpdGgoCiAgICBjYWNoZXMubWF0Y2gocmVxLCB7IGlnbm9yZVNlYXJjaDogdHJ1ZSB9KS50aGVuKGZ1bmN0aW9uIChoaXQpIHsKICAgICAgdmFyIG5ldHdvcmsgPSBmZXRjaChyZXEpLnRoZW4oZnVuY3Rpb24gKHJlcykgewogICAgICAgIGlmIChyZXMgJiYgcmVzLm9rKSB7CiAgICAgICAgICB2YXIgY29weSA9IHJlcy5jbG9uZSgpOwogICAgICAgICAgY2FjaGVzLm9wZW4oQ0FDSEUpLnRoZW4oZnVuY3Rpb24gKGNhY2hlKSB7IGNhY2hlLnB1dChyZXEsIGNvcHkpOyB9KTsKICAgICAgICB9CiAgICAgICAgcmV0dXJuIHJlczsKICAgICAgfSkuY2F0Y2goZnVuY3Rpb24gKCkgewogICAgICAgIHJldHVybiBoaXQgfHwgbmV3IFJlc3BvbnNlKCIiLCB7IHN0YXR1czogNTA0LCBzdGF0dXNUZXh0OiAiR2F0ZXdheSBUaW1lb3V0IiB9KTsKICAgICAgfSk7CiAgICAgIHJldHVybiBoaXQgfHwgbmV0d29yazsKICAgIH0pCiAgKTsKfSk7Cg==", { updateViaCache: "none" }).then(useReg);
       })
       .catch(function(){ /* halaman tetap jalan tanpa SW */ });
   }
@@ -123,7 +123,7 @@ if("serviceWorker" in navigator){
   .pill.bad{color:var(--danger)} .pill.bad .dot{background:var(--danger)}
   .toolbar{display:flex;gap:.5rem;flex-wrap:wrap;margin:.7rem 0}
   .toolbar .search{flex:1 1 200px}
-  .tabs{display:flex;gap:.45rem;flex-wrap:wrap;margin:.4rem 0 1rem}
+  .tabs{display:flex;gap:.45rem;flex-wrap:wrap;margin:.4rem 0 .75rem}
   .tabs button{border-radius:999px;padding:.4rem .95rem}
   .tabs button.active{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
   .tabs .cnt{opacity:.75;font-weight:600;font-size:.85em}
@@ -148,6 +148,16 @@ if("serviceWorker" in navigator){
   .item.selected{outline:2px solid var(--accent);outline-offset:1px}
   .selrow{display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem;font-weight:600;font-size:.9rem;cursor:pointer}
   .selrow input[type="checkbox"]{width:1.25rem;height:1.25rem;min-height:0;accent-color:var(--accent);flex:0 0 auto}
+  .multirow{display:flex;gap:.4rem;align-items:center;margin-bottom:.45rem}
+  .multirow input{flex:1;min-width:0}
+
+  /* Panel kontrol laman utama: folder, label, dan sortir berkelompok dalam satu
+     kartu dengan pemisah yang jelas, supaya halaman terasa lega dan tidak ramai. */
+  .controls{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:.8rem .85rem .3rem;margin-bottom:1.05rem}
+  .controls .folderbar{margin:0 0 .65rem}
+  .controls .labelbar{margin:0 0 .65rem;padding-top:.65rem;border-top:1px solid var(--line)}
+  .controls .sortbar{margin:0 0 .5rem;padding-top:.65rem;border-top:1px solid var(--line)}
+  .controls .bulkbar{margin:.15rem 0 .55rem}
 
   /* Label lintas kategori */
   .labelbar{display:flex;gap:.45rem;flex-wrap:wrap;align-items:center;margin:.1rem 0 .55rem}
@@ -380,6 +390,7 @@ if("serviceWorker" in navigator){
     <button id="btnAddTop">+ Tambah</button>
   </div>
   <div class="tabs" id="tabs"></div>
+  <div class="controls">
   <div class="folderbar" id="folderBar"></div>
   <div class="labelbar" id="labelBar"></div>
   <div class="sortbar">
@@ -398,7 +409,10 @@ if("serviceWorker" in navigator){
     <button id="btnBulkMove" type="button" class="small primary">Tambahkan ke folder</button>
     <select id="bulkLabelSel" aria-label="Label untuk item terpilih"></select>
     <button id="btnBulkLabel" type="button" class="small">Tambahkan label</button>
+    <button id="btnBulkUnlabel" type="button" class="small">Lepaskan label</button>
+    <button id="btnBulkCtxRemove" type="button" class="small hidden">Keluarkan dari folder ini</button>
     <button id="btnBulkDone" type="button" class="small">Selesai</button>
+  </div>
   </div>
   <div id="list"></div>
 </div>
@@ -435,6 +449,7 @@ if("serviceWorker" in navigator){
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="editorTitle">
     <div class="xwrap"><button type="button" class="xbtn" data-xclose="editorOverlay" aria-label="Tutup editor"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg></button></div>
     <h2 id="editorTitle">Tambah isi</h2>
+    <p class="hint hidden" id="editorContext" style="margin:-.35rem 0 .4rem"></p>
     <label for="fCategory">Kategori</label>
     <select id="fCategory">
       <option value="kontak">Kontak</option>
@@ -443,9 +458,9 @@ if("serviceWorker" in navigator){
       <option value="kode">Kode / Skrip</option>
       <option value="catatan">Catatan</option>
     </select>
-    <label for="fFolder">Folder <span class="hint">(opsional — folder di dalam kategori terpilih)</span></label>
+    <label for="fFolder">Folder <span class="hint">(opsional — pilih “Tanpa folder” untuk melepas item dari foldernya)</span></label>
     <select id="fFolder"></select>
-    <label>Label <span class="hint">(opsional — satu item bisa punya beberapa label, lintas kategori)</span></label>
+    <label>Label <span class="hint">(opsional — satu item bisa punya beberapa label, lintas kategori; ketuk chip yang aktif untuk melepas label itu dari item ini)</span></label>
     <div class="labelchecks" id="fLabels"></div>
     <p style="margin:.1rem 0 0"><button type="button" class="small" id="btnNewLabelFromEditor">+ Label baru…</button></p>
     <div id="editorFields"></div>
@@ -768,8 +783,8 @@ var CATS = {
 var FIELDS = {
   kontak: [
     {k:"title", label:"Nama", req:true, ph:"Nama lengkap"},
-    {k:"phone", label:"Nomor HP / Telepon", ph:"08xx…"},
-    {k:"email", label:"Email", ph:"nama@email.com"},
+    {k:"phone", label:"Nomor HP / Telepon", ph:"08xx…", multi:true, listKey:"phones", itype:"tel"},
+    {k:"email", label:"Email", ph:"nama@email.com", multi:true, listKey:"emails", itype:"email"},
     {k:"org", label:"Perusahaan / Instansi", ph:""},
     {k:"note", label:"Catatan", area:true, ph:""}
   ],
@@ -874,6 +889,38 @@ function normalizeLabels(){
   if(!Array.isArray(vault.folders)) vault.folders = [];
   vault.folders.forEach(function(f){ f.labelIds = clean(f.labelIds); });
 }
+/* ================= Kontak: banyak nomor HP & banyak email =================
+   Kontak menyimpan DAFTAR nomor (fields.phones) dan DAFTAR email (fields.emails).
+   Data lama hanya punya fields.phone / fields.email tunggal — fungsi ini
+   mengubahnya menjadi daftar berisi satu tanpa menghilangkan apa pun, dan
+   menjaga fields.phone / fields.email tetap sama dengan entri pertama agar
+   tampilan & pencarian lama tetap konsisten. */
+function cleanStrList(arr){
+  if(!Array.isArray(arr)) return [];
+  var out = [];
+  arr.forEach(function(v){
+    v = String(v == null ? "" : v).trim();
+    if(v && out.indexOf(v) < 0) out.push(v);
+  });
+  return out;
+}
+function normalizeContacts(){
+  if(!vault || !Array.isArray(vault.items)) return;
+  vault.items.forEach(function(it){
+    if(!it || it.cat !== "kontak" || !it.fields) return;
+    it.fields.phones = cleanStrList(it.fields.phones);
+    if(!it.fields.phones.length && it.fields.phone) it.fields.phones = [String(it.fields.phone).trim()];
+    it.fields.emails = cleanStrList(it.fields.emails);
+    if(!it.fields.emails.length && it.fields.email) it.fields.emails = [String(it.fields.email).trim()];
+    it.fields.phone = it.fields.phones[0] || "";
+    it.fields.email = it.fields.emails[0] || "";
+  });
+}
+function itemMultiValues(it, f){
+  var arr = cleanStrList(it.fields ? it.fields[f.listKey] : null);
+  if(!arr.length && it.fields && it.fields[f.k]) arr = [String(it.fields[f.k]).trim()];
+  return arr;
+}
 function labelTextOn(hex){
   var c = validLabelColor(hex).slice(1);
   var r = parseInt(c.substr(0,2),16), g = parseInt(c.substr(2,2),16), b = parseInt(c.substr(4,2),16);
@@ -965,6 +1012,7 @@ function loadVaultData(){
       if(!vault.items) vault.items = [];
       normalizeFolders();
       normalizeLabels();
+      normalizeContacts();
     });
   });
 }
@@ -1266,6 +1314,18 @@ function renderBulkBar(){
     lsel.innerHTML = lhtml;
     if(lcur && labelById(lcur)) lsel.value = lcur;
   }
+  var ctxBtn = $("btnBulkCtxRemove");
+  if(ctxBtn){
+    if(activeFolder !== "all" && activeFolder !== "none" && folderById(activeFolder)){ ctxBtn.textContent = "Keluarkan dari folder ini"; ctxBtn.classList.remove("hidden"); }
+    else if(activeLabel !== "all" && labelById(activeLabel)){ ctxBtn.textContent = "Lepaskan label ini"; ctxBtn.classList.remove("hidden"); }
+    else ctxBtn.classList.add("hidden");
+  }
+}
+function multiFieldRows(it, f){
+  var vals = itemMultiValues(it, f);
+  return vals.map(function(v, i){
+    return '<div class="r"><span class="k">' + (i === 0 ? esc(f.label) : "") + '</span><span class="v">' + esc(v) + '</span><span class="acts"><button class="iconbtn" data-act="copylist" data-id="' + it.id + '" data-k="' + f.listKey + '" data-i="' + i + '">Salin</button></span></div>';
+  }).join("");
 }
 function fieldRow(it, f){
   var val = it.fields[f.k];
@@ -1303,7 +1363,7 @@ function renderList(){
   }
   $("list").innerHTML = items.map(function(it){
     var defs = FIELDS[it.cat];
-    var rows = defs.filter(function(f){ return f.k !== "title" && !f.code && f.k !== "body"; }).map(function(f){ return fieldRow(it, f); }).join("");
+    var rows = defs.filter(function(f){ return f.k !== "title" && !f.code && f.k !== "body"; }).map(function(f){ return f.multi ? multiFieldRows(it, f) : fieldRow(it, f); }).join("");
     var codeHtml = "";
     if(it.cat === "kode" && it.fields.code){
       codeHtml = '<pre class="codeview">'+esc(it.fields.code)+'</pre>';
@@ -1332,11 +1392,13 @@ function renderList(){
       + (it.cat === "kode" || it.cat === "catatan" ? '<button class="small" data-act="copybody" data-id="'+it.id+'">Salin isi</button>' : '')
       + '<button class="small" data-act="edit" data-id="'+it.id+'">Ubah</button>'
       + '<button class="small" data-act="del" data-id="'+it.id+'">Hapus</button>'
+      + (activeFolder !== "all" && activeFolder !== "none" && it.folderId === activeFolder ? '<button class="small" data-act="unfolder" data-id="'+it.id+'">Keluarkan dari folder</button>' : '')
+      + (activeLabel !== "all" && itemDirectLabelIds(it).indexOf(activeLabel) >= 0 ? '<button class="small" data-act="unlabel" data-id="'+it.id+'" data-k="'+activeLabel+'">Lepas label ini</button>' : '')
       + '<span class="hint" style="margin-left:auto">Diubah '+fmtTime(it.updatedAt)+'</span>'
       + '</div></article>';
   }).join("");
   Array.prototype.forEach.call($("list").querySelectorAll("button[data-act]"), function(b){
-    b.addEventListener("click", function(){ onItemAction(b.getAttribute("data-act"), b.getAttribute("data-id"), b.getAttribute("data-k")); });
+    b.addEventListener("click", function(){ onItemAction(b.getAttribute("data-act"), b.getAttribute("data-id"), b.getAttribute("data-k"), b.getAttribute("data-i")); });
   });
   Array.prototype.forEach.call($("list").querySelectorAll("input[data-sel]"), function(cb){
     cb.addEventListener("change", function(){
@@ -1379,7 +1441,7 @@ function fallbackCopy(txt){
   try { document.execCommand("copy"); } catch(e){}
   ta.remove();
 }
-function onItemAction(act, id, k){
+function onItemAction(act, id, k, idx){
   var it = findItem(id); if(!it) return;
   if(act === "gofolder"){ if(it.folderId){ activeCat = it.cat; activeFolder = it.folderId; activeLabel = "all"; clearSelection(); renderAll(); } }
   else if(act === "golabel"){ if(k && labelById(k)){ activeCat = "semua"; activeFolder = "all"; activeLabel = k; clearSelection(); renderAll(); window.scrollTo(0, 0); } }
@@ -1391,6 +1453,17 @@ function onItemAction(act, id, k){
     });
   }
   else if(act === "reveal"){ revealedPw[id] = !revealedPw[id]; renderList(); }
+  else if(act === "copylist"){ var arr = it.fields[k] || []; copyText(arr[parseInt(idx, 10)] || "", "Tersalin"); }
+  else if(act === "unfolder"){
+    var fname = it.folderId && folderById(it.folderId) ? folderById(it.folderId).name : "";
+    it.folderId = null;
+    saveVault().then(function(){ renderAll(); toast("Item dikeluarkan dari folder" + (fname ? " \u201C" + fname + "\u201D" : "") + " — itemnya tetap tersimpan"); });
+  }
+  else if(act === "unlabel"){
+    var lab = k ? labelById(k) : null;
+    it.labelIds = itemDirectLabelIds(it).filter(function(x){ return x !== k; });
+    saveVault().then(function(){ renderAll(); toast("Label" + (lab ? " \u201C" + lab.name + "\u201D" : "") + " dilepas dari item ini — itemnya tetap tersimpan"); });
+  }
   else if(act === "copy"){ copyText(it.fields[k] || "", "Tersalin"); }
   else if(act === "copybody"){ copyText(it.fields.code || it.fields.body || "", "Isi tersalin"); }
 }
@@ -1554,6 +1627,62 @@ function genPassword(){
   for(var i=0;i<arr.length;i++) out += chars[arr[i] % chars.length];
   return out;
 }
+/* ================= Field multi-nilai (nomor HP & email kontak) ================= */
+function multiFieldDef(k){
+  var found = null;
+  Object.keys(FIELDS).forEach(function(c){ FIELDS[c].forEach(function(f){ if(f.k === k && f.multi) found = f; }); });
+  return found;
+}
+function multiRowHtml(f, v){
+  return '<div class="multirow"><input type="' + (f.itype || "text") + '" data-multi="' + f.k + '" value="' + esc(v) + '" placeholder="' + esc(f.ph || "") + '" autocomplete="off" /><button type="button" class="small" data-mremove title="Hapus baris ini">Hapus</button></div>';
+}
+function multiEditorValues(values, f){
+  var arr = values ? values[f.listKey] : null;
+  if(!Array.isArray(arr) || !arr.length) arr = (values && values[f.k]) ? [values[f.k]] : [""];
+  return arr.slice();
+}
+function collectMulti(k){
+  var out = [];
+  Array.prototype.forEach.call(document.querySelectorAll('#editorFields [data-multi="' + k + '"]'), function(inp){
+    var v = inp.value.trim();
+    if(v) out.push(v);
+  });
+  return out;
+}
+function bindMultiRemove(row){
+  var b = row.querySelector("button[data-mremove]");
+  if(!b || b._mb) return;
+  b._mb = true;
+  b.addEventListener("click", function(){
+    var list = row.parentNode;
+    if(list && list.querySelectorAll(".multirow").length <= 1){
+      var inp = row.querySelector("input");
+      if(inp){ inp.value = ""; inp.focus(); }
+      return;
+    }
+    row.remove();
+  });
+}
+function bindMultiEditors(){
+  var scope = $("editorFields");
+  if(!scope) return;
+  Array.prototype.forEach.call(scope.querySelectorAll("button[data-madd]"), function(b){
+    b.addEventListener("click", function(){
+      var k = b.getAttribute("data-madd");
+      var def = multiFieldDef(k);
+      var list = scope.querySelector('[data-multilist="' + k + '"]');
+      if(!def || !list) return;
+      var wrap = document.createElement("div");
+      wrap.innerHTML = multiRowHtml(def, "");
+      var row = wrap.firstChild;
+      list.appendChild(row);
+      bindMultiRemove(row);
+      var inp = row.querySelector("input");
+      if(inp) inp.focus();
+    });
+  });
+  Array.prototype.forEach.call(scope.querySelectorAll(".multirow"), function(row){ bindMultiRemove(row); });
+}
 function buildEditorFields(cat, values){
   values = values || {};
   var html = "";
@@ -1564,6 +1693,11 @@ function buildEditorFields(cat, values){
       html += '<textarea class="code" id="ef-'+f.k+'" rows="10" placeholder="'+esc(f.ph||"")+'">'+v+'</textarea>';
     } else if(f.area){
       html += '<textarea id="ef-'+f.k+'" rows="'+(f.big?7:3)+'" placeholder="'+esc(f.ph||"")+'">'+v+'</textarea>';
+    } else if(f.multi){
+      html += '<div class="multilist" data-multilist="'+f.k+'">'
+        + multiEditorValues(values, f).map(function(mv){ return multiRowHtml(f, mv); }).join("")
+        + '</div>'
+        + '<p style="margin:.15rem 0 0"><button type="button" class="small" data-madd="'+f.k+'">+ Tambah '+(f.k === "phone" ? "nomor HP" : "email")+' lagi</button></p>';
     } else if(f.secret){
       html += '<div style="display:flex;gap:.4rem"><input type="password" id="ef-'+f.k+'" value="'+v+'" placeholder="'+esc(f.ph||"")+'" autocomplete="off" style="flex:1" />'
         + '<button type="button" class="small" data-toggle="ef-'+f.k+'">Lihat</button>'
@@ -1574,6 +1708,7 @@ function buildEditorFields(cat, values){
     }
   });
   $("editorFields").innerHTML = html;
+  bindMultiEditors();
   Array.prototype.forEach.call($("editorFields").querySelectorAll("button[data-toggle]"), function(b){
     b.addEventListener("click", function(){
       var inp = $(b.getAttribute("data-toggle"));
@@ -1737,6 +1872,9 @@ function openFolderDialog(opts){
 function openEditor(item){
   editingId = item ? item.id : null;
   var cat = item ? item.cat : (activeCat !== "semua" ? activeCat : "login");
+  /* Sedang membuka sebuah folder: item baru mengikuti kategori folder itu,
+     supaya langsung masuk ke folder yang sedang dilihat. */
+  if(!item && activeFolder !== "all" && activeFolder !== "none"){ var af0 = folderById(activeFolder); if(af0) cat = af0.cat; }
   $("fCategory").value = cat;
   var defFolder = item ? item.folderId : null;
   if(!item && activeFolder !== "all" && activeFolder !== "none"){ var af = folderById(activeFolder); if(af && af.cat === cat) defFolder = af.id; }
@@ -1746,6 +1884,16 @@ function openEditor(item){
   else if(activeLabel !== "all" && labelById(activeLabel)) editorLabelIds[activeLabel] = true;
   renderEditorLabels();
   $("editorTitle").textContent = item ? "Ubah isi" : "Tambah isi baru";
+  var ctxEl = $("editorContext");
+  if(ctxEl){
+    var ctxParts = [];
+    if(!item){
+      if(activeFolder !== "all" && activeFolder !== "none"){ var afc = folderById(activeFolder); if(afc && afc.cat === cat) ctxParts.push("langsung masuk folder \u201C" + afc.name + "\u201D"); }
+      if(activeLabel !== "all"){ var alc = labelById(activeLabel); if(alc) ctxParts.push("langsung diberi label \u201C" + alc.name + "\u201D"); }
+    }
+    ctxEl.textContent = ctxParts.length ? ("Item baru ini " + ctxParts.join(" dan ") + ". Folder dan label masih bisa diubah atau dilepas di bawah.") : "";
+    ctxEl.classList.toggle("hidden", !ctxParts.length);
+  }
   $("btnDeleteItem").classList.toggle("hidden", !item);
   $("editorErr").classList.add("hidden");
   buildEditorFields(cat, item ? item.fields : {});
@@ -1756,7 +1904,10 @@ $("fCategory").addEventListener("change", function(){
   var vals = {};
   FIELDS[$("fCategory").value].forEach(function(){});
   // keep typed values where field keys overlap
-  Object.keys(FIELDS).forEach(function(c){ FIELDS[c].forEach(function(f){ var el = $("ef-"+f.k); if(el) vals[f.k] = el.value; }); });
+  Object.keys(FIELDS).forEach(function(c){ FIELDS[c].forEach(function(f){
+    if(f.multi){ var marr = collectMulti(f.k); if(marr.length) vals[f.listKey] = marr; }
+    else { var el = $("ef-"+f.k); if(el) vals[f.k] = el.value; }
+  }); });
   buildEditorFields($("fCategory").value, Object.keys(vals).length ? vals : (existing ? existing.fields : {}));
   refreshEditorFolders($("fCategory").value, existing ? existing.folderId : null);
 });
@@ -1774,6 +1925,12 @@ $("btnSaveItem").addEventListener("click", function(){
   var cat = $("fCategory").value;
   var fields = {}, missing = [];
   FIELDS[cat].forEach(function(f){
+    if(f.multi){
+      var marr = collectMulti(f.k);
+      fields[f.listKey] = marr;
+      fields[f.k] = marr[0] || "";
+      return;
+    }
     var el = $("ef-"+f.k);
     var v = el ? el.value.trim() : "";
     fields[f.k] = v;
@@ -2106,6 +2263,7 @@ function applySyncedVault(remoteData, remoteVer, note){
   normalizeSettings();
   normalizeFolders();
   normalizeLabels();
+  normalizeContacts();
   suspendChangeStamp = true;
   return saveVault().then(function(){
     suspendChangeStamp = false;
@@ -2459,6 +2617,7 @@ function applyImported(res, pw){
   if(!vault.items) vault.items = [];
   normalizeFolders();
   normalizeLabels();
+  normalizeContacts();
   /* Meta ditulis ulang dengan skema VEK v2 (dibungkus password file backup ini);
      kode pemulihan belum ada untuk hasil impor — pengguna diarahkan membuatnya. */
   genVEK().then(function(vek){
@@ -2677,6 +2836,40 @@ $("btnBulkLabel").addEventListener("click", function(){
   if(!added){ toast("Semua item terpilih sudah punya label itu"); renderList(); return; }
   saveVault().then(function(){ renderAll(); toast(added + " item diberi label \u201C" + lab.name + "\u201D"); });
 });
+function removeLabelFromItems(ids, lid){
+  var lab = labelById(lid); if(!lab) return;
+  var removed = 0;
+  ids.forEach(function(id){
+    var it = findItem(id); if(!it) return;
+    var before = itemDirectLabelIds(it);
+    var after = before.filter(function(x){ return x !== lid; });
+    if(after.length !== before.length){ it.labelIds = after; removed++; }
+  });
+  selectMode = false;
+  clearSelection();
+  renderSortBar();
+  if(!removed){ toast("Item terpilih tidak memakai label itu secara langsung (mungkin labelnya dari folder) — item tidak diubah"); renderList(); return; }
+  saveVault().then(function(){ renderAll(); toast(removed + " item dilepas dari label \u201C" + lab.name + "\u201D — itemnya tetap tersimpan"); });
+}
+$("btnBulkUnlabel").addEventListener("click", function(){
+  var ids = Object.keys(selectedIds);
+  if(!ids.length){ toast("Belum ada item yang ditandai — centang dulu itemnya"); return; }
+  var lid = $("bulkLabelSel").value;
+  if(!lid || !labelById(lid)){ toast("Pilih dulu labelnya di bilah tandai"); return; }
+  removeLabelFromItems(ids, lid);
+});
+$("btnBulkCtxRemove").addEventListener("click", function(){
+  var ids = Object.keys(selectedIds);
+  if(!ids.length){ toast("Belum ada item yang ditandai — centang dulu itemnya"); return; }
+  if(activeFolder !== "all" && activeFolder !== "none" && folderById(activeFolder)){
+    selectMode = false;
+    clearSelection();
+    renderSortBar();
+    moveItemsToFolder(ids, null);
+    return;
+  }
+  if(activeLabel !== "all" && labelById(activeLabel)) removeLabelFromItems(ids, activeLabel);
+});
 $("btnBulkDone").addEventListener("click", function(){
   selectMode = false; clearSelection(); renderSortBar(); renderList();
 });
@@ -2874,7 +3067,7 @@ if("serviceWorker" in navigator){
     navigator.serviceWorker.register("sw.js", { updateViaCache: "none" })
       .then(useReg)
       .catch(function(){
-        return navigator.serviceWorker.register("data:application/javascript;base64,LyogS2FtcGlsIOKAlCBzZXJ2aWNlIHdvcmtlcgogICBNZW1idWF0IEthbXBpbCBtZW1lbnVoaSBzeWFyYXQgImRhcGF0IGRpaW5zdGFsIiAoSW5zdGFsbCBhcHApIGRpIENocm9tZSBBbmRyb2lkCiAgIGRhbiBiaXNhIGRpYnVrYSBkYXJpIGlrb24gYXBsaWthc2kgd2FsYXUga29uZWtzaSBzZWRhbmcgYnVydWsuCiAgIEhhbnlhIG1lbmctY2FjaGUgZmlsZSBhcGxpa2FzaSAoaW5kZXgsIG1hbmlmZXN0LCBpa29uKSDigJQgVElEQUsgUEVSTkFIIG1lbmctY2FjaGUKICAgZGF0YSBrYW1waWw7IGRhdGEgdGV0YXAgdGVyZW5rcmlwc2kgZGkgSW5kZXhlZERCIHBlcmFuZ2thdC4KICAgdjM6IGluc3RhbGFzaSBjYWNoZSBkaXRvbGVyYW5zaSBwZXIgZmlsZSAoc2F0dSBmaWxlIGdhZ2FsIHRpZGFrIGxhZ2kgbWVuZ2dhZ2Fsa2FuCiAgIGFrdGl2YXNpIHNlcnZpY2Ugd29ya2VyKSBkYW4gbmF2aWdhc2kgamFyaW5nYW4tZHVsdSBkZW5nYW4gY2FkYW5nYW4gaW5kZXggZGFyaQogICBjYWNoZSwgYWdhciBzdGFydF91cmwgc2VsYWx1IGJpc2EgZGlidWthIHNlcnZpY2Ugd29ya2VyLiAqLwp2YXIgQ0FDSEUgPSAia2FtcGlsLXY0IjsKdmFyIEFQUF9GSUxFUyA9IFsKICAiLi4vaW5kZXguaHRtbCIsCiAgIi4vbWFuaWZlc3Qud2VibWFuaWZlc3QiLAogICIuL2ljb24tMTkyLnBuZyIsCiAgIi4vaWNvbi01MTIucG5nIiwKICAiLi9pY29uLW1hc2thYmxlLTUxMi5wbmciLAogICIuL2FwcGxlLXRvdWNoLWljb24ucG5nIgpdOwp2YXIgSU5ERVhfVVJMID0gbmV3IFVSTCgiLi4vaW5kZXguaHRtbCIsIHNlbGYucmVnaXN0cmF0aW9uLnNjb3BlKS5ocmVmOwoKc2VsZi5hZGRFdmVudExpc3RlbmVyKCJpbnN0YWxsIiwgZnVuY3Rpb24gKGV2ZW50KSB7CiAgZXZlbnQud2FpdFVudGlsKAogICAgY2FjaGVzLm9wZW4oQ0FDSEUpLnRoZW4oZnVuY3Rpb24gKGNhY2hlKSB7CiAgICAgIC8qIGNhY2hlLmFkZEFsbCBiZXJzaWZhdCBhdG9taWs6IFNBVFUgZmlsZSBnYWdhbCAoNDA0L3JlZGlyZWN0KSBtZW5nZ2FnYWxrYW4KICAgICAgICAgU0VMVVJVSCBpbnN0YWxhc2kgc2VydmljZSB3b3JrZXIg4oCUIGRhbiB0YW5wYSBTVyBha3RpZiBDaHJvbWUgbWVub2xhawogICAgICAgICBpbnN0YWwgYXBsaWthc2kuIEthcmVuYSBpdHU6IGNvYmEgYWRkQWxsLCBsYWx1IGxlbmdrYXBpIHBlciBmaWxlIGRlbmdhbgogICAgICAgICBrZWdhZ2FsYW4gcGVyIGZpbGUgZGl0b2xlcmFuc2kuIEFrdGl2YXNpIFNXIHRpZGFrIGJvbGVoIGRpdmV0byBjYWNoZS4gKi8KICAgICAgcmV0dXJuIGNhY2hlLmFkZEFsbChBUFBfRklMRVMpLmNhdGNoKGZ1bmN0aW9uICgpIHsKICAgICAgICByZXR1cm4gUHJvbWlzZS5hbGwoQVBQX0ZJTEVTLm1hcChmdW5jdGlvbiAodSkgewogICAgICAgICAgcmV0dXJuIGNhY2hlLmFkZCh1KS5jYXRjaChmdW5jdGlvbiAoKSB7IHJldHVybiBudWxsOyB9KTsKICAgICAgICB9KSk7CiAgICAgIH0pOwogICAgfSkudGhlbihmdW5jdGlvbiAoKSB7IHJldHVybiBzZWxmLnNraXBXYWl0aW5nKCk7IH0pCiAgKTsKfSk7CgpzZWxmLmFkZEV2ZW50TGlzdGVuZXIoImFjdGl2YXRlIiwgZnVuY3Rpb24gKGV2ZW50KSB7CiAgZXZlbnQud2FpdFVudGlsKAogICAgY2FjaGVzLmtleXMoKS50aGVuKGZ1bmN0aW9uIChrZXlzKSB7CiAgICAgIHJldHVybiBQcm9taXNlLmFsbChrZXlzLm1hcChmdW5jdGlvbiAoaykgewogICAgICAgIHJldHVybiBrID09PSBDQUNIRSA/IG51bGwgOiBjYWNoZXMuZGVsZXRlKGspOwogICAgICB9KSk7CiAgICB9KS50aGVuKGZ1bmN0aW9uICgpIHsgcmV0dXJuIHNlbGYuY2xpZW50cy5jbGFpbSgpOyB9KQogICk7Cn0pOwoKc2VsZi5hZGRFdmVudExpc3RlbmVyKCJmZXRjaCIsIGZ1bmN0aW9uIChldmVudCkgewogIHZhciByZXEgPSBldmVudC5yZXF1ZXN0OwogIGlmIChyZXEubWV0aG9kICE9PSAiR0VUIikgcmV0dXJuOwogIHZhciB1cmwgPSBuZXcgVVJMKHJlcS51cmwpOwogIGlmICh1cmwub3JpZ2luICE9PSBuZXcgVVJMKHNlbGYucmVnaXN0cmF0aW9uLnNjb3BlKS5vcmlnaW4pIHJldHVybjsgLy8gR29vZ2xlIEdTSSAvIERyaXZlIEFQSTogYmlhcmthbiBrZSBqYXJpbmdhbgogIGlmIChyZXEubW9kZSA9PT0gIm5hdmlnYXRlIikgewogICAgLyogTmF2aWdhc2k6IGphcmluZ2FuIGR1bHUgKGhhbGFtYW4gc2VsYWx1IHZlcnNpIHRlcmJhcnUpLCBjYWNoZSBpbmRleAogICAgICAgc2ViYWdhaSBjYWRhbmdhbiBvZmZsaW5lIOKAlCBzdGFydF91cmwgaGFydXMgYmlzYSBkaWxheWFuaSBTVy4gKi8KICAgIGV2ZW50LnJlc3BvbmRXaXRoKAogICAgICBmZXRjaChyZXEpLnRoZW4oZnVuY3Rpb24gKHJlcykgewogICAgICAgIGlmIChyZXMgJiYgcmVzLm9rKSB7CiAgICAgICAgICB2YXIgY29weSA9IHJlcy5jbG9uZSgpOwogICAgICAgICAgY2FjaGVzLm9wZW4oQ0FDSEUpLnRoZW4oZnVuY3Rpb24gKGNhY2hlKSB7IGNhY2hlLnB1dChJTkRFWF9VUkwsIGNvcHkpOyB9KTsKICAgICAgICB9CiAgICAgICAgcmV0dXJuIHJlczsKICAgICAgfSkuY2F0Y2goZnVuY3Rpb24gKCkgewogICAgICAgIHJldHVybiBjYWNoZXMubWF0Y2goSU5ERVhfVVJMLCB7IGlnbm9yZVNlYXJjaDogdHJ1ZSB9KS50aGVuKGZ1bmN0aW9uIChoaXQpIHsKICAgICAgICAgIHJldHVybiBoaXQgfHwgbmV3IFJlc3BvbnNlKCJPZmZsaW5lIiwgeyBzdGF0dXM6IDUwMywgc3RhdHVzVGV4dDogIk9mZmxpbmUiIH0pOwogICAgICAgIH0pOwogICAgICB9KQogICAgKTsKICAgIHJldHVybjsKICB9CiAgZXZlbnQucmVzcG9uZFdpdGgoCiAgICBjYWNoZXMubWF0Y2gocmVxLCB7IGlnbm9yZVNlYXJjaDogdHJ1ZSB9KS50aGVuKGZ1bmN0aW9uIChoaXQpIHsKICAgICAgdmFyIG5ldHdvcmsgPSBmZXRjaChyZXEpLnRoZW4oZnVuY3Rpb24gKHJlcykgewogICAgICAgIGlmIChyZXMgJiYgcmVzLm9rKSB7CiAgICAgICAgICB2YXIgY29weSA9IHJlcy5jbG9uZSgpOwogICAgICAgICAgY2FjaGVzLm9wZW4oQ0FDSEUpLnRoZW4oZnVuY3Rpb24gKGNhY2hlKSB7IGNhY2hlLnB1dChyZXEsIGNvcHkpOyB9KTsKICAgICAgICB9CiAgICAgICAgcmV0dXJuIHJlczsKICAgICAgfSkuY2F0Y2goZnVuY3Rpb24gKCkgewogICAgICAgIHJldHVybiBoaXQgfHwgbmV3IFJlc3BvbnNlKCIiLCB7IHN0YXR1czogNTA0LCBzdGF0dXNUZXh0OiAiR2F0ZXdheSBUaW1lb3V0IiB9KTsKICAgICAgfSk7CiAgICAgIHJldHVybiBoaXQgfHwgbmV0d29yazsKICAgIH0pCiAgKTsKfSk7Cg==", { updateViaCache: "none" }).then(useReg);
+        return navigator.serviceWorker.register("data:application/javascript;base64,LyogS2FtcGlsIOKAlCBzZXJ2aWNlIHdvcmtlcgogICBNZW1idWF0IEthbXBpbCBtZW1lbnVoaSBzeWFyYXQgImRhcGF0IGRpaW5zdGFsIiAoSW5zdGFsbCBhcHApIGRpIENocm9tZSBBbmRyb2lkCiAgIGRhbiBiaXNhIGRpYnVrYSBkYXJpIGlrb24gYXBsaWthc2kgd2FsYXUga29uZWtzaSBzZWRhbmcgYnVydWsuCiAgIEhhbnlhIG1lbmctY2FjaGUgZmlsZSBhcGxpa2FzaSAoaW5kZXgsIG1hbmlmZXN0LCBpa29uKSDigJQgVElEQUsgUEVSTkFIIG1lbmctY2FjaGUKICAgZGF0YSBrYW1waWw7IGRhdGEgdGV0YXAgdGVyZW5rcmlwc2kgZGkgSW5kZXhlZERCIHBlcmFuZ2thdC4KICAgdjM6IGluc3RhbGFzaSBjYWNoZSBkaXRvbGVyYW5zaSBwZXIgZmlsZSAoc2F0dSBmaWxlIGdhZ2FsIHRpZGFrIGxhZ2kgbWVuZ2dhZ2Fsa2FuCiAgIGFrdGl2YXNpIHNlcnZpY2Ugd29ya2VyKSBkYW4gbmF2aWdhc2kgamFyaW5nYW4tZHVsdSBkZW5nYW4gY2FkYW5nYW4gaW5kZXggZGFyaQogICBjYWNoZSwgYWdhciBzdGFydF91cmwgc2VsYWx1IGJpc2EgZGlidWthIHNlcnZpY2Ugd29ya2VyLiAqLwp2YXIgQ0FDSEUgPSAia2FtcGlsLXY1IjsKdmFyIEFQUF9GSUxFUyA9IFsKICAiLi4vaW5kZXguaHRtbCIsCiAgIi4vbWFuaWZlc3Qud2VibWFuaWZlc3QiLAogICIuL2ljb24tMTkyLnBuZyIsCiAgIi4vaWNvbi01MTIucG5nIiwKICAiLi9pY29uLW1hc2thYmxlLTUxMi5wbmciLAogICIuL2FwcGxlLXRvdWNoLWljb24ucG5nIgpdOwp2YXIgSU5ERVhfVVJMID0gbmV3IFVSTCgiLi4vaW5kZXguaHRtbCIsIHNlbGYucmVnaXN0cmF0aW9uLnNjb3BlKS5ocmVmOwoKc2VsZi5hZGRFdmVudExpc3RlbmVyKCJpbnN0YWxsIiwgZnVuY3Rpb24gKGV2ZW50KSB7CiAgZXZlbnQud2FpdFVudGlsKAogICAgY2FjaGVzLm9wZW4oQ0FDSEUpLnRoZW4oZnVuY3Rpb24gKGNhY2hlKSB7CiAgICAgIC8qIGNhY2hlLmFkZEFsbCBiZXJzaWZhdCBhdG9taWs6IFNBVFUgZmlsZSBnYWdhbCAoNDA0L3JlZGlyZWN0KSBtZW5nZ2FnYWxrYW4KICAgICAgICAgU0VMVVJVSCBpbnN0YWxhc2kgc2VydmljZSB3b3JrZXIg4oCUIGRhbiB0YW5wYSBTVyBha3RpZiBDaHJvbWUgbWVub2xhawogICAgICAgICBpbnN0YWwgYXBsaWthc2kuIEthcmVuYSBpdHU6IGNvYmEgYWRkQWxsLCBsYWx1IGxlbmdrYXBpIHBlciBmaWxlIGRlbmdhbgogICAgICAgICBrZWdhZ2FsYW4gcGVyIGZpbGUgZGl0b2xlcmFuc2kuIEFrdGl2YXNpIFNXIHRpZGFrIGJvbGVoIGRpdmV0byBjYWNoZS4gKi8KICAgICAgcmV0dXJuIGNhY2hlLmFkZEFsbChBUFBfRklMRVMpLmNhdGNoKGZ1bmN0aW9uICgpIHsKICAgICAgICByZXR1cm4gUHJvbWlzZS5hbGwoQVBQX0ZJTEVTLm1hcChmdW5jdGlvbiAodSkgewogICAgICAgICAgcmV0dXJuIGNhY2hlLmFkZCh1KS5jYXRjaChmdW5jdGlvbiAoKSB7IHJldHVybiBudWxsOyB9KTsKICAgICAgICB9KSk7CiAgICAgIH0pOwogICAgfSkudGhlbihmdW5jdGlvbiAoKSB7IHJldHVybiBzZWxmLnNraXBXYWl0aW5nKCk7IH0pCiAgKTsKfSk7CgpzZWxmLmFkZEV2ZW50TGlzdGVuZXIoImFjdGl2YXRlIiwgZnVuY3Rpb24gKGV2ZW50KSB7CiAgZXZlbnQud2FpdFVudGlsKAogICAgY2FjaGVzLmtleXMoKS50aGVuKGZ1bmN0aW9uIChrZXlzKSB7CiAgICAgIHJldHVybiBQcm9taXNlLmFsbChrZXlzLm1hcChmdW5jdGlvbiAoaykgewogICAgICAgIHJldHVybiBrID09PSBDQUNIRSA/IG51bGwgOiBjYWNoZXMuZGVsZXRlKGspOwogICAgICB9KSk7CiAgICB9KS50aGVuKGZ1bmN0aW9uICgpIHsgcmV0dXJuIHNlbGYuY2xpZW50cy5jbGFpbSgpOyB9KQogICk7Cn0pOwoKc2VsZi5hZGRFdmVudExpc3RlbmVyKCJmZXRjaCIsIGZ1bmN0aW9uIChldmVudCkgewogIHZhciByZXEgPSBldmVudC5yZXF1ZXN0OwogIGlmIChyZXEubWV0aG9kICE9PSAiR0VUIikgcmV0dXJuOwogIHZhciB1cmwgPSBuZXcgVVJMKHJlcS51cmwpOwogIGlmICh1cmwub3JpZ2luICE9PSBuZXcgVVJMKHNlbGYucmVnaXN0cmF0aW9uLnNjb3BlKS5vcmlnaW4pIHJldHVybjsgLy8gR29vZ2xlIEdTSSAvIERyaXZlIEFQSTogYmlhcmthbiBrZSBqYXJpbmdhbgogIGlmIChyZXEubW9kZSA9PT0gIm5hdmlnYXRlIikgewogICAgLyogTmF2aWdhc2k6IGphcmluZ2FuIGR1bHUgKGhhbGFtYW4gc2VsYWx1IHZlcnNpIHRlcmJhcnUpLCBjYWNoZSBpbmRleAogICAgICAgc2ViYWdhaSBjYWRhbmdhbiBvZmZsaW5lIOKAlCBzdGFydF91cmwgaGFydXMgYmlzYSBkaWxheWFuaSBTVy4gKi8KICAgIGV2ZW50LnJlc3BvbmRXaXRoKAogICAgICBmZXRjaChyZXEpLnRoZW4oZnVuY3Rpb24gKHJlcykgewogICAgICAgIGlmIChyZXMgJiYgcmVzLm9rKSB7CiAgICAgICAgICB2YXIgY29weSA9IHJlcy5jbG9uZSgpOwogICAgICAgICAgY2FjaGVzLm9wZW4oQ0FDSEUpLnRoZW4oZnVuY3Rpb24gKGNhY2hlKSB7IGNhY2hlLnB1dChJTkRFWF9VUkwsIGNvcHkpOyB9KTsKICAgICAgICB9CiAgICAgICAgcmV0dXJuIHJlczsKICAgICAgfSkuY2F0Y2goZnVuY3Rpb24gKCkgewogICAgICAgIHJldHVybiBjYWNoZXMubWF0Y2goSU5ERVhfVVJMLCB7IGlnbm9yZVNlYXJjaDogdHJ1ZSB9KS50aGVuKGZ1bmN0aW9uIChoaXQpIHsKICAgICAgICAgIHJldHVybiBoaXQgfHwgbmV3IFJlc3BvbnNlKCJPZmZsaW5lIiwgeyBzdGF0dXM6IDUwMywgc3RhdHVzVGV4dDogIk9mZmxpbmUiIH0pOwogICAgICAgIH0pOwogICAgICB9KQogICAgKTsKICAgIHJldHVybjsKICB9CiAgZXZlbnQucmVzcG9uZFdpdGgoCiAgICBjYWNoZXMubWF0Y2gocmVxLCB7IGlnbm9yZVNlYXJjaDogdHJ1ZSB9KS50aGVuKGZ1bmN0aW9uIChoaXQpIHsKICAgICAgdmFyIG5ldHdvcmsgPSBmZXRjaChyZXEpLnRoZW4oZnVuY3Rpb24gKHJlcykgewogICAgICAgIGlmIChyZXMgJiYgcmVzLm9rKSB7CiAgICAgICAgICB2YXIgY29weSA9IHJlcy5jbG9uZSgpOwogICAgICAgICAgY2FjaGVzLm9wZW4oQ0FDSEUpLnRoZW4oZnVuY3Rpb24gKGNhY2hlKSB7IGNhY2hlLnB1dChyZXEsIGNvcHkpOyB9KTsKICAgICAgICB9CiAgICAgICAgcmV0dXJuIHJlczsKICAgICAgfSkuY2F0Y2goZnVuY3Rpb24gKCkgewogICAgICAgIHJldHVybiBoaXQgfHwgbmV3IFJlc3BvbnNlKCIiLCB7IHN0YXR1czogNTA0LCBzdGF0dXNUZXh0OiAiR2F0ZXdheSBUaW1lb3V0IiB9KTsKICAgICAgfSk7CiAgICAgIHJldHVybiBoaXQgfHwgbmV0d29yazsKICAgIH0pCiAgKTsKfSk7Cg==", { updateViaCache: "none" }).then(useReg);
       })
       .catch(function(){ /* halaman tetap jalan tanpa SW */ });
   }
@@ -2950,7 +3143,7 @@ if("serviceWorker" in navigator){
   .pill.bad{color:var(--danger)} .pill.bad .dot{background:var(--danger)}
   .toolbar{display:flex;gap:.5rem;flex-wrap:wrap;margin:.7rem 0}
   .toolbar .search{flex:1 1 200px}
-  .tabs{display:flex;gap:.45rem;flex-wrap:wrap;margin:.4rem 0 1rem}
+  .tabs{display:flex;gap:.45rem;flex-wrap:wrap;margin:.4rem 0 .75rem}
   .tabs button{border-radius:999px;padding:.4rem .95rem}
   .tabs button.active{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
   .tabs .cnt{opacity:.75;font-weight:600;font-size:.85em}
@@ -2975,6 +3168,16 @@ if("serviceWorker" in navigator){
   .item.selected{outline:2px solid var(--accent);outline-offset:1px}
   .selrow{display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem;font-weight:600;font-size:.9rem;cursor:pointer}
   .selrow input[type="checkbox"]{width:1.25rem;height:1.25rem;min-height:0;accent-color:var(--accent);flex:0 0 auto}
+  .multirow{display:flex;gap:.4rem;align-items:center;margin-bottom:.45rem}
+  .multirow input{flex:1;min-width:0}
+
+  /* Panel kontrol laman utama: folder, label, dan sortir berkelompok dalam satu
+     kartu dengan pemisah yang jelas, supaya halaman terasa lega dan tidak ramai. */
+  .controls{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:.8rem .85rem .3rem;margin-bottom:1.05rem}
+  .controls .folderbar{margin:0 0 .65rem}
+  .controls .labelbar{margin:0 0 .65rem;padding-top:.65rem;border-top:1px solid var(--line)}
+  .controls .sortbar{margin:0 0 .5rem;padding-top:.65rem;border-top:1px solid var(--line)}
+  .controls .bulkbar{margin:.15rem 0 .55rem}
 
   /* Label lintas kategori */
   .labelbar{display:flex;gap:.45rem;flex-wrap:wrap;align-items:center;margin:.1rem 0 .55rem}
@@ -3207,6 +3410,7 @@ if("serviceWorker" in navigator){
     <button id="btnAddTop">+ Tambah</button>
   </div>
   <div class="tabs" id="tabs"></div>
+  <div class="controls">
   <div class="folderbar" id="folderBar"></div>
   <div class="labelbar" id="labelBar"></div>
   <div class="sortbar">
@@ -3225,7 +3429,10 @@ if("serviceWorker" in navigator){
     <button id="btnBulkMove" type="button" class="small primary">Tambahkan ke folder</button>
     <select id="bulkLabelSel" aria-label="Label untuk item terpilih"></select>
     <button id="btnBulkLabel" type="button" class="small">Tambahkan label</button>
+    <button id="btnBulkUnlabel" type="button" class="small">Lepaskan label</button>
+    <button id="btnBulkCtxRemove" type="button" class="small hidden">Keluarkan dari folder ini</button>
     <button id="btnBulkDone" type="button" class="small">Selesai</button>
+  </div>
   </div>
   <div id="list"></div>
 </div>
@@ -3262,6 +3469,7 @@ if("serviceWorker" in navigator){
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="editorTitle">
     <div class="xwrap"><button type="button" class="xbtn" data-xclose="editorOverlay" aria-label="Tutup editor"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg></button></div>
     <h2 id="editorTitle">Tambah isi</h2>
+    <p class="hint hidden" id="editorContext" style="margin:-.35rem 0 .4rem"></p>
     <label for="fCategory">Kategori</label>
     <select id="fCategory">
       <option value="kontak">Kontak</option>
@@ -3270,9 +3478,9 @@ if("serviceWorker" in navigator){
       <option value="kode">Kode / Skrip</option>
       <option value="catatan">Catatan</option>
     </select>
-    <label for="fFolder">Folder <span class="hint">(opsional — folder di dalam kategori terpilih)</span></label>
+    <label for="fFolder">Folder <span class="hint">(opsional — pilih “Tanpa folder” untuk melepas item dari foldernya)</span></label>
     <select id="fFolder"></select>
-    <label>Label <span class="hint">(opsional — satu item bisa punya beberapa label, lintas kategori)</span></label>
+    <label>Label <span class="hint">(opsional — satu item bisa punya beberapa label, lintas kategori; ketuk chip yang aktif untuk melepas label itu dari item ini)</span></label>
     <div class="labelchecks" id="fLabels"></div>
     <p style="margin:.1rem 0 0"><button type="button" class="small" id="btnNewLabelFromEditor">+ Label baru…</button></p>
     <div id="editorFields"></div>
@@ -3595,8 +3803,8 @@ var CATS = {
 var FIELDS = {
   kontak: [
     {k:"title", label:"Nama", req:true, ph:"Nama lengkap"},
-    {k:"phone", label:"Nomor HP / Telepon", ph:"08xx…"},
-    {k:"email", label:"Email", ph:"nama@email.com"},
+    {k:"phone", label:"Nomor HP / Telepon", ph:"08xx…", multi:true, listKey:"phones", itype:"tel"},
+    {k:"email", label:"Email", ph:"nama@email.com", multi:true, listKey:"emails", itype:"email"},
     {k:"org", label:"Perusahaan / Instansi", ph:""},
     {k:"note", label:"Catatan", area:true, ph:""}
   ],
@@ -3701,6 +3909,38 @@ function normalizeLabels(){
   if(!Array.isArray(vault.folders)) vault.folders = [];
   vault.folders.forEach(function(f){ f.labelIds = clean(f.labelIds); });
 }
+/* ================= Kontak: banyak nomor HP & banyak email =================
+   Kontak menyimpan DAFTAR nomor (fields.phones) dan DAFTAR email (fields.emails).
+   Data lama hanya punya fields.phone / fields.email tunggal — fungsi ini
+   mengubahnya menjadi daftar berisi satu tanpa menghilangkan apa pun, dan
+   menjaga fields.phone / fields.email tetap sama dengan entri pertama agar
+   tampilan & pencarian lama tetap konsisten. */
+function cleanStrList(arr){
+  if(!Array.isArray(arr)) return [];
+  var out = [];
+  arr.forEach(function(v){
+    v = String(v == null ? "" : v).trim();
+    if(v && out.indexOf(v) < 0) out.push(v);
+  });
+  return out;
+}
+function normalizeContacts(){
+  if(!vault || !Array.isArray(vault.items)) return;
+  vault.items.forEach(function(it){
+    if(!it || it.cat !== "kontak" || !it.fields) return;
+    it.fields.phones = cleanStrList(it.fields.phones);
+    if(!it.fields.phones.length && it.fields.phone) it.fields.phones = [String(it.fields.phone).trim()];
+    it.fields.emails = cleanStrList(it.fields.emails);
+    if(!it.fields.emails.length && it.fields.email) it.fields.emails = [String(it.fields.email).trim()];
+    it.fields.phone = it.fields.phones[0] || "";
+    it.fields.email = it.fields.emails[0] || "";
+  });
+}
+function itemMultiValues(it, f){
+  var arr = cleanStrList(it.fields ? it.fields[f.listKey] : null);
+  if(!arr.length && it.fields && it.fields[f.k]) arr = [String(it.fields[f.k]).trim()];
+  return arr;
+}
 function labelTextOn(hex){
   var c = validLabelColor(hex).slice(1);
   var r = parseInt(c.substr(0,2),16), g = parseInt(c.substr(2,2),16), b = parseInt(c.substr(4,2),16);
@@ -3792,6 +4032,7 @@ function loadVaultData(){
       if(!vault.items) vault.items = [];
       normalizeFolders();
       normalizeLabels();
+      normalizeContacts();
     });
   });
 }
@@ -4093,6 +4334,18 @@ function renderBulkBar(){
     lsel.innerHTML = lhtml;
     if(lcur && labelById(lcur)) lsel.value = lcur;
   }
+  var ctxBtn = $("btnBulkCtxRemove");
+  if(ctxBtn){
+    if(activeFolder !== "all" && activeFolder !== "none" && folderById(activeFolder)){ ctxBtn.textContent = "Keluarkan dari folder ini"; ctxBtn.classList.remove("hidden"); }
+    else if(activeLabel !== "all" && labelById(activeLabel)){ ctxBtn.textContent = "Lepaskan label ini"; ctxBtn.classList.remove("hidden"); }
+    else ctxBtn.classList.add("hidden");
+  }
+}
+function multiFieldRows(it, f){
+  var vals = itemMultiValues(it, f);
+  return vals.map(function(v, i){
+    return '<div class="r"><span class="k">' + (i === 0 ? esc(f.label) : "") + '</span><span class="v">' + esc(v) + '</span><span class="acts"><button class="iconbtn" data-act="copylist" data-id="' + it.id + '" data-k="' + f.listKey + '" data-i="' + i + '">Salin</button></span></div>';
+  }).join("");
 }
 function fieldRow(it, f){
   var val = it.fields[f.k];
@@ -4130,7 +4383,7 @@ function renderList(){
   }
   $("list").innerHTML = items.map(function(it){
     var defs = FIELDS[it.cat];
-    var rows = defs.filter(function(f){ return f.k !== "title" && !f.code && f.k !== "body"; }).map(function(f){ return fieldRow(it, f); }).join("");
+    var rows = defs.filter(function(f){ return f.k !== "title" && !f.code && f.k !== "body"; }).map(function(f){ return f.multi ? multiFieldRows(it, f) : fieldRow(it, f); }).join("");
     var codeHtml = "";
     if(it.cat === "kode" && it.fields.code){
       codeHtml = '<pre class="codeview">'+esc(it.fields.code)+'</pre>';
@@ -4159,11 +4412,13 @@ function renderList(){
       + (it.cat === "kode" || it.cat === "catatan" ? '<button class="small" data-act="copybody" data-id="'+it.id+'">Salin isi</button>' : '')
       + '<button class="small" data-act="edit" data-id="'+it.id+'">Ubah</button>'
       + '<button class="small" data-act="del" data-id="'+it.id+'">Hapus</button>'
+      + (activeFolder !== "all" && activeFolder !== "none" && it.folderId === activeFolder ? '<button class="small" data-act="unfolder" data-id="'+it.id+'">Keluarkan dari folder</button>' : '')
+      + (activeLabel !== "all" && itemDirectLabelIds(it).indexOf(activeLabel) >= 0 ? '<button class="small" data-act="unlabel" data-id="'+it.id+'" data-k="'+activeLabel+'">Lepas label ini</button>' : '')
       + '<span class="hint" style="margin-left:auto">Diubah '+fmtTime(it.updatedAt)+'</span>'
       + '</div></article>';
   }).join("");
   Array.prototype.forEach.call($("list").querySelectorAll("button[data-act]"), function(b){
-    b.addEventListener("click", function(){ onItemAction(b.getAttribute("data-act"), b.getAttribute("data-id"), b.getAttribute("data-k")); });
+    b.addEventListener("click", function(){ onItemAction(b.getAttribute("data-act"), b.getAttribute("data-id"), b.getAttribute("data-k"), b.getAttribute("data-i")); });
   });
   Array.prototype.forEach.call($("list").querySelectorAll("input[data-sel]"), function(cb){
     cb.addEventListener("change", function(){
@@ -4206,7 +4461,7 @@ function fallbackCopy(txt){
   try { document.execCommand("copy"); } catch(e){}
   ta.remove();
 }
-function onItemAction(act, id, k){
+function onItemAction(act, id, k, idx){
   var it = findItem(id); if(!it) return;
   if(act === "gofolder"){ if(it.folderId){ activeCat = it.cat; activeFolder = it.folderId; activeLabel = "all"; clearSelection(); renderAll(); } }
   else if(act === "golabel"){ if(k && labelById(k)){ activeCat = "semua"; activeFolder = "all"; activeLabel = k; clearSelection(); renderAll(); window.scrollTo(0, 0); } }
@@ -4218,6 +4473,17 @@ function onItemAction(act, id, k){
     });
   }
   else if(act === "reveal"){ revealedPw[id] = !revealedPw[id]; renderList(); }
+  else if(act === "copylist"){ var arr = it.fields[k] || []; copyText(arr[parseInt(idx, 10)] || "", "Tersalin"); }
+  else if(act === "unfolder"){
+    var fname = it.folderId && folderById(it.folderId) ? folderById(it.folderId).name : "";
+    it.folderId = null;
+    saveVault().then(function(){ renderAll(); toast("Item dikeluarkan dari folder" + (fname ? " \u201C" + fname + "\u201D" : "") + " — itemnya tetap tersimpan"); });
+  }
+  else if(act === "unlabel"){
+    var lab = k ? labelById(k) : null;
+    it.labelIds = itemDirectLabelIds(it).filter(function(x){ return x !== k; });
+    saveVault().then(function(){ renderAll(); toast("Label" + (lab ? " \u201C" + lab.name + "\u201D" : "") + " dilepas dari item ini — itemnya tetap tersimpan"); });
+  }
   else if(act === "copy"){ copyText(it.fields[k] || "", "Tersalin"); }
   else if(act === "copybody"){ copyText(it.fields.code || it.fields.body || "", "Isi tersalin"); }
 }
@@ -4381,6 +4647,62 @@ function genPassword(){
   for(var i=0;i<arr.length;i++) out += chars[arr[i] % chars.length];
   return out;
 }
+/* ================= Field multi-nilai (nomor HP & email kontak) ================= */
+function multiFieldDef(k){
+  var found = null;
+  Object.keys(FIELDS).forEach(function(c){ FIELDS[c].forEach(function(f){ if(f.k === k && f.multi) found = f; }); });
+  return found;
+}
+function multiRowHtml(f, v){
+  return '<div class="multirow"><input type="' + (f.itype || "text") + '" data-multi="' + f.k + '" value="' + esc(v) + '" placeholder="' + esc(f.ph || "") + '" autocomplete="off" /><button type="button" class="small" data-mremove title="Hapus baris ini">Hapus</button></div>';
+}
+function multiEditorValues(values, f){
+  var arr = values ? values[f.listKey] : null;
+  if(!Array.isArray(arr) || !arr.length) arr = (values && values[f.k]) ? [values[f.k]] : [""];
+  return arr.slice();
+}
+function collectMulti(k){
+  var out = [];
+  Array.prototype.forEach.call(document.querySelectorAll('#editorFields [data-multi="' + k + '"]'), function(inp){
+    var v = inp.value.trim();
+    if(v) out.push(v);
+  });
+  return out;
+}
+function bindMultiRemove(row){
+  var b = row.querySelector("button[data-mremove]");
+  if(!b || b._mb) return;
+  b._mb = true;
+  b.addEventListener("click", function(){
+    var list = row.parentNode;
+    if(list && list.querySelectorAll(".multirow").length <= 1){
+      var inp = row.querySelector("input");
+      if(inp){ inp.value = ""; inp.focus(); }
+      return;
+    }
+    row.remove();
+  });
+}
+function bindMultiEditors(){
+  var scope = $("editorFields");
+  if(!scope) return;
+  Array.prototype.forEach.call(scope.querySelectorAll("button[data-madd]"), function(b){
+    b.addEventListener("click", function(){
+      var k = b.getAttribute("data-madd");
+      var def = multiFieldDef(k);
+      var list = scope.querySelector('[data-multilist="' + k + '"]');
+      if(!def || !list) return;
+      var wrap = document.createElement("div");
+      wrap.innerHTML = multiRowHtml(def, "");
+      var row = wrap.firstChild;
+      list.appendChild(row);
+      bindMultiRemove(row);
+      var inp = row.querySelector("input");
+      if(inp) inp.focus();
+    });
+  });
+  Array.prototype.forEach.call(scope.querySelectorAll(".multirow"), function(row){ bindMultiRemove(row); });
+}
 function buildEditorFields(cat, values){
   values = values || {};
   var html = "";
@@ -4391,6 +4713,11 @@ function buildEditorFields(cat, values){
       html += '<textarea class="code" id="ef-'+f.k+'" rows="10" placeholder="'+esc(f.ph||"")+'">'+v+'</textarea>';
     } else if(f.area){
       html += '<textarea id="ef-'+f.k+'" rows="'+(f.big?7:3)+'" placeholder="'+esc(f.ph||"")+'">'+v+'</textarea>';
+    } else if(f.multi){
+      html += '<div class="multilist" data-multilist="'+f.k+'">'
+        + multiEditorValues(values, f).map(function(mv){ return multiRowHtml(f, mv); }).join("")
+        + '</div>'
+        + '<p style="margin:.15rem 0 0"><button type="button" class="small" data-madd="'+f.k+'">+ Tambah '+(f.k === "phone" ? "nomor HP" : "email")+' lagi</button></p>';
     } else if(f.secret){
       html += '<div style="display:flex;gap:.4rem"><input type="password" id="ef-'+f.k+'" value="'+v+'" placeholder="'+esc(f.ph||"")+'" autocomplete="off" style="flex:1" />'
         + '<button type="button" class="small" data-toggle="ef-'+f.k+'">Lihat</button>'
@@ -4401,6 +4728,7 @@ function buildEditorFields(cat, values){
     }
   });
   $("editorFields").innerHTML = html;
+  bindMultiEditors();
   Array.prototype.forEach.call($("editorFields").querySelectorAll("button[data-toggle]"), function(b){
     b.addEventListener("click", function(){
       var inp = $(b.getAttribute("data-toggle"));
@@ -4564,6 +4892,9 @@ function openFolderDialog(opts){
 function openEditor(item){
   editingId = item ? item.id : null;
   var cat = item ? item.cat : (activeCat !== "semua" ? activeCat : "login");
+  /* Sedang membuka sebuah folder: item baru mengikuti kategori folder itu,
+     supaya langsung masuk ke folder yang sedang dilihat. */
+  if(!item && activeFolder !== "all" && activeFolder !== "none"){ var af0 = folderById(activeFolder); if(af0) cat = af0.cat; }
   $("fCategory").value = cat;
   var defFolder = item ? item.folderId : null;
   if(!item && activeFolder !== "all" && activeFolder !== "none"){ var af = folderById(activeFolder); if(af && af.cat === cat) defFolder = af.id; }
@@ -4573,6 +4904,16 @@ function openEditor(item){
   else if(activeLabel !== "all" && labelById(activeLabel)) editorLabelIds[activeLabel] = true;
   renderEditorLabels();
   $("editorTitle").textContent = item ? "Ubah isi" : "Tambah isi baru";
+  var ctxEl = $("editorContext");
+  if(ctxEl){
+    var ctxParts = [];
+    if(!item){
+      if(activeFolder !== "all" && activeFolder !== "none"){ var afc = folderById(activeFolder); if(afc && afc.cat === cat) ctxParts.push("langsung masuk folder \u201C" + afc.name + "\u201D"); }
+      if(activeLabel !== "all"){ var alc = labelById(activeLabel); if(alc) ctxParts.push("langsung diberi label \u201C" + alc.name + "\u201D"); }
+    }
+    ctxEl.textContent = ctxParts.length ? ("Item baru ini " + ctxParts.join(" dan ") + ". Folder dan label masih bisa diubah atau dilepas di bawah.") : "";
+    ctxEl.classList.toggle("hidden", !ctxParts.length);
+  }
   $("btnDeleteItem").classList.toggle("hidden", !item);
   $("editorErr").classList.add("hidden");
   buildEditorFields(cat, item ? item.fields : {});
@@ -4583,7 +4924,10 @@ $("fCategory").addEventListener("change", function(){
   var vals = {};
   FIELDS[$("fCategory").value].forEach(function(){});
   // keep typed values where field keys overlap
-  Object.keys(FIELDS).forEach(function(c){ FIELDS[c].forEach(function(f){ var el = $("ef-"+f.k); if(el) vals[f.k] = el.value; }); });
+  Object.keys(FIELDS).forEach(function(c){ FIELDS[c].forEach(function(f){
+    if(f.multi){ var marr = collectMulti(f.k); if(marr.length) vals[f.listKey] = marr; }
+    else { var el = $("ef-"+f.k); if(el) vals[f.k] = el.value; }
+  }); });
   buildEditorFields($("fCategory").value, Object.keys(vals).length ? vals : (existing ? existing.fields : {}));
   refreshEditorFolders($("fCategory").value, existing ? existing.folderId : null);
 });
@@ -4601,6 +4945,12 @@ $("btnSaveItem").addEventListener("click", function(){
   var cat = $("fCategory").value;
   var fields = {}, missing = [];
   FIELDS[cat].forEach(function(f){
+    if(f.multi){
+      var marr = collectMulti(f.k);
+      fields[f.listKey] = marr;
+      fields[f.k] = marr[0] || "";
+      return;
+    }
     var el = $("ef-"+f.k);
     var v = el ? el.value.trim() : "";
     fields[f.k] = v;
@@ -4933,6 +5283,7 @@ function applySyncedVault(remoteData, remoteVer, note){
   normalizeSettings();
   normalizeFolders();
   normalizeLabels();
+  normalizeContacts();
   suspendChangeStamp = true;
   return saveVault().then(function(){
     suspendChangeStamp = false;
@@ -5286,6 +5637,7 @@ function applyImported(res, pw){
   if(!vault.items) vault.items = [];
   normalizeFolders();
   normalizeLabels();
+  normalizeContacts();
   /* Meta ditulis ulang dengan skema VEK v2 (dibungkus password file backup ini);
      kode pemulihan belum ada untuk hasil impor — pengguna diarahkan membuatnya. */
   genVEK().then(function(vek){
@@ -5504,6 +5856,40 @@ $("btnBulkLabel").addEventListener("click", function(){
   if(!added){ toast("Semua item terpilih sudah punya label itu"); renderList(); return; }
   saveVault().then(function(){ renderAll(); toast(added + " item diberi label \u201C" + lab.name + "\u201D"); });
 });
+function removeLabelFromItems(ids, lid){
+  var lab = labelById(lid); if(!lab) return;
+  var removed = 0;
+  ids.forEach(function(id){
+    var it = findItem(id); if(!it) return;
+    var before = itemDirectLabelIds(it);
+    var after = before.filter(function(x){ return x !== lid; });
+    if(after.length !== before.length){ it.labelIds = after; removed++; }
+  });
+  selectMode = false;
+  clearSelection();
+  renderSortBar();
+  if(!removed){ toast("Item terpilih tidak memakai label itu secara langsung (mungkin labelnya dari folder) — item tidak diubah"); renderList(); return; }
+  saveVault().then(function(){ renderAll(); toast(removed + " item dilepas dari label \u201C" + lab.name + "\u201D — itemnya tetap tersimpan"); });
+}
+$("btnBulkUnlabel").addEventListener("click", function(){
+  var ids = Object.keys(selectedIds);
+  if(!ids.length){ toast("Belum ada item yang ditandai — centang dulu itemnya"); return; }
+  var lid = $("bulkLabelSel").value;
+  if(!lid || !labelById(lid)){ toast("Pilih dulu labelnya di bilah tandai"); return; }
+  removeLabelFromItems(ids, lid);
+});
+$("btnBulkCtxRemove").addEventListener("click", function(){
+  var ids = Object.keys(selectedIds);
+  if(!ids.length){ toast("Belum ada item yang ditandai — centang dulu itemnya"); return; }
+  if(activeFolder !== "all" && activeFolder !== "none" && folderById(activeFolder)){
+    selectMode = false;
+    clearSelection();
+    renderSortBar();
+    moveItemsToFolder(ids, null);
+    return;
+  }
+  if(activeLabel !== "all" && labelById(activeLabel)) removeLabelFromItems(ids, activeLabel);
+});
 $("btnBulkDone").addEventListener("click", function(){
   selectMode = false; clearSelection(); renderSortBar(); renderList();
 });
@@ -5664,7 +6050,7 @@ refreshLockScreen();
    v3: instalasi cache ditoleransi per file (satu file gagal tidak lagi
    menggagalkan aktivasi service worker) dan navigasi jaringan-dulu dengan
    cadangan index dari cache, agar start_url selalu bisa dibuka SW. */
-var CACHE = "kampil-github-v4";
+var CACHE = "kampil-github-v5";
 var APP_FILES = [
   "./",
   "index.html",
@@ -5749,6 +6135,7 @@ Nama folder backup di Google Drive juga bernama **Kampil** dan selalu privat.
 ## Fitur utama
 
 - **5 kategori:** Kontak, Rekening / Akun Bank, Akun Login, Kode / Skrip, dan Catatan.
+- **Kontak multi-nomor & multi-email:** satu kontak bisa menyimpan banyak nomor HP dan banyak email — tambah/hapus per baris di formulir, dan tiap nomor/email punya tombol **Salin** sendiri di kartunya. Kontak lama yang hanya punya satu nomor/email otomatis terbaca sebagai daftar berisi satu, jadi data lama tetap aman.
 - **Akun Login** dilengkapi tombol tampil/sembunyi, salin, dan generator password acak.
 - **Kode / Skrip** tampil seperti notepad kode (JavaScript, HTML, Apps Script, dan lain-lain) dan bisa disalin utuh.
 - **Pencarian** di semua kategori dan penguncian otomatis setelah 5 menit tanpa aktivitas.
@@ -5870,6 +6257,9 @@ iOS tidak memakai tombol Instal dari manifest seperti Android. Buka alamat `gith
 - **Ubah / hapus folder:** buka foldernya lewat chip, lalu ketuk **Ubah / hapus folder ini**. Kategori folder tidak bisa diubah. Menghapus folder **tidak menghapus item** — semua isinya keluar menjadi Tanpa folder.
 - Folder tersimpan terenkripsi di dalam brankas, jadi ikut terbawa di backup .kampil dan sinkronisasi Drive.
 
+- **Menambah item langsung dari folder yang sedang dibuka:** saat sebuah folder sedang tampil, tombol **+ Tambah** / **+ Tambah isi** membuat item baru yang otomatis masuk ke folder itu (kategori mengikuti foldernya).
+- **Melepas item dari folder:** pada tampilan folder, ketuk **Keluarkan dari folder** di kartu item, atau tandai beberapa item lalu ketuk **Keluarkan dari folder ini** di bilah tandai. Bisa juga lewat formulir Ubah item → kolom **Folder** → **Tanpa folder**, atau memilih **Tanpa folder** sebagai tujuan di bilah tandai. Item tidak terhapus — hanya keluar dari folder.
+
 ### Sortir
 
 - Baris **Urutkan** di atas daftar mengatur urutan item yang tampil:
@@ -5887,6 +6277,9 @@ iOS tidak memakai tombol Instal dari manifest seperti Android. Buka alamat `gith
 - **Melihat isi satu label:** ketuk chip label di baris Label, chip label berwarna di kartu item, atau nama label di menu samping. Semua item berlabel itu tampil dari semua kategori, lengkap dengan jumlahnya di chip label.
 - **Menghapus label tidak menghapus item/folder** — label hanya dilepas dari semua yang memakainya.
 - Label dan warnanya tersimpan terenkripsi di dalam brankas, jadi ikut terbawa di backup .kampil dan sinkronisasi Drive, sama seperti folder.
+
+- **Menambah item langsung dari label yang sedang dibuka:** saat sebuah label sedang tampil, tombol **+ Tambah** membuat item baru yang otomatis diberi label itu.
+- **Melepas label dari item:** buka item lewat **Ubah** lalu ketuk chip label yang aktif untuk melepasnya, atau tandai beberapa item, pilih labelnya di bilah tandai, lalu ketuk **Lepaskan label**. Pada tampilan sebuah label, ada juga tombol **Lepas label ini** di kartu item dan **Lepaskan label ini** di bilah tandai. Label yang menempel lewat folder hanya bisa dilepas dari foldernya. Item tidak terhapus.
 
 ## Backup dan pemulihan
 
@@ -6319,7 +6712,7 @@ Kampil dibuat untuk pemakaian pribadi menyimpan info akses milik sendiri. Simpan
    v3: instalasi cache ditoleransi per file (satu file gagal tidak lagi
    menggagalkan aktivasi service worker) dan navigasi jaringan-dulu dengan
    cadangan index dari cache, agar start_url selalu bisa dibuka SW. */
-var CACHE = "kampil-github-v4";
+var CACHE = "kampil-github-v5";
 var APP_FILES = [
   "./",
   "index.html",
@@ -6404,6 +6797,7 @@ Nama folder backup di Google Drive juga bernama **Kampil** dan selalu privat.
 ## Fitur utama
 
 - **5 kategori:** Kontak, Rekening / Akun Bank, Akun Login, Kode / Skrip, dan Catatan.
+- **Kontak multi-nomor & multi-email:** satu kontak bisa menyimpan banyak nomor HP dan banyak email — tambah/hapus per baris di formulir, dan tiap nomor/email punya tombol **Salin** sendiri di kartunya. Kontak lama yang hanya punya satu nomor/email otomatis terbaca sebagai daftar berisi satu, jadi data lama tetap aman.
 - **Akun Login** dilengkapi tombol tampil/sembunyi, salin, dan generator password acak.
 - **Kode / Skrip** tampil seperti notepad kode (JavaScript, HTML, Apps Script, dan lain-lain) dan bisa disalin utuh.
 - **Pencarian** di semua kategori dan penguncian otomatis setelah 5 menit tanpa aktivitas.
@@ -6525,6 +6919,9 @@ iOS tidak memakai tombol Instal dari manifest seperti Android. Buka alamat `gith
 - **Ubah / hapus folder:** buka foldernya lewat chip, lalu ketuk **Ubah / hapus folder ini**. Kategori folder tidak bisa diubah. Menghapus folder **tidak menghapus item** — semua isinya keluar menjadi Tanpa folder.
 - Folder tersimpan terenkripsi di dalam brankas, jadi ikut terbawa di backup .kampil dan sinkronisasi Drive.
 
+- **Menambah item langsung dari folder yang sedang dibuka:** saat sebuah folder sedang tampil, tombol **+ Tambah** / **+ Tambah isi** membuat item baru yang otomatis masuk ke folder itu (kategori mengikuti foldernya).
+- **Melepas item dari folder:** pada tampilan folder, ketuk **Keluarkan dari folder** di kartu item, atau tandai beberapa item lalu ketuk **Keluarkan dari folder ini** di bilah tandai. Bisa juga lewat formulir Ubah item → kolom **Folder** → **Tanpa folder**, atau memilih **Tanpa folder** sebagai tujuan di bilah tandai. Item tidak terhapus — hanya keluar dari folder.
+
 ### Sortir
 
 - Baris **Urutkan** di atas daftar mengatur urutan item yang tampil:
@@ -6542,6 +6939,9 @@ iOS tidak memakai tombol Instal dari manifest seperti Android. Buka alamat `gith
 - **Melihat isi satu label:** ketuk chip label di baris Label, chip label berwarna di kartu item, atau nama label di menu samping. Semua item berlabel itu tampil dari semua kategori, lengkap dengan jumlahnya di chip label.
 - **Menghapus label tidak menghapus item/folder** — label hanya dilepas dari semua yang memakainya.
 - Label dan warnanya tersimpan terenkripsi di dalam brankas, jadi ikut terbawa di backup .kampil dan sinkronisasi Drive, sama seperti folder.
+
+- **Menambah item langsung dari label yang sedang dibuka:** saat sebuah label sedang tampil, tombol **+ Tambah** membuat item baru yang otomatis diberi label itu.
+- **Melepas label dari item:** buka item lewat **Ubah** lalu ketuk chip label yang aktif untuk melepasnya, atau tandai beberapa item, pilih labelnya di bilah tandai, lalu ketuk **Lepaskan label**. Pada tampilan sebuah label, ada juga tombol **Lepas label ini** di kartu item dan **Lepaskan label ini** di bilah tandai. Label yang menempel lewat folder hanya bisa dilepas dari foldernya. Item tidak terhapus.
 
 ## Backup dan pemulihan
 

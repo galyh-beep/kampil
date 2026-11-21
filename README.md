@@ -48,7 +48,7 @@ Kampil ditujukan untuk pemakaian pribadi, bukan untuk berbagi akses dengan tim. 
 
 | Kategori | Isi yang disimpan | Contoh |
 |---|---|---|
-| Kontak | Nama, nomor HP, email, dan keterangan kontak penting | Kontak keluarga, rekan kerja, kontak darurat |
+| Kontak | Nama, nomor HP dan email (masing-masing bisa lebih dari satu), dan keterangan kontak penting | Kontak keluarga, rekan kerja, kontak darurat |
 | Rekening | Nomor rekening dan info akun bank | Nama bank, nomor rekening, nama pemilik, cabang |
 | Akun Login | Username, email, password, dan alamat layanan | Email, media sosial, akses admin web, layanan Google |
 | Kode | Potongan kode dan skrip, seperti di notepad untuk programmer | JavaScript, HTML, CSS, Apps Script, konfigurasi |
@@ -61,9 +61,13 @@ Kampil ditujukan untuk pemakaian pribadi, bukan untuk berbagi akses dengan tim. 
 - **Enkripsi AES-256-GCM** — isi brankas tersimpan dalam keadaan terenkripsi, bukan teks biasa.
 - **Kunci otomatis setelah 5 menit** tidak dipakai, sehingga brankas tidak tertinggal dalam keadaan terbuka.
 - **Generator password** di kategori Akun Login, untuk membuat password baru yang kuat langsung di dalam aplikasi.
+- **Kontak dengan banyak nomor dan email** — satu kontak bisa menyimpan nomor HP dan email lebih dari satu, masing-masing sebagai baris sendiri yang bisa ditambah, dihapus, dan disalin satu per satu.
 - **Folder di dalam tiap kategori** — kelompokkan item di Kontak, Rekening, Akun Login, Kode/Skrip, dan Catatan ke dalam folder buatanmu sendiri.
 - **Label lintas kategori dengan warna custom** — tandai item dari kategori berbeda dengan satu label yang sama, misalnya label untuk akun medsos, rekening bank, dan kode sekaligus. Label juga bisa ditempel ke folder.
 - **Sortir daftar yang fleksibel** — urutkan item berdasarkan Judul (A–Z / Z–A) atau Waktu diubah (Terbaru / Terlama), dengan arah urutan yang bisa dibalik.
+- **Laman utama yang lebih rapi** — pilihan Folder, Label, dan Urutkan kini berkelompok dalam satu kartu panel, sehingga laman utama lebih lega dan mudah dibaca, terutama di HP.
+- **Tambah langsung dari folder atau label** — saat sebuah folder atau label sedang dibuka, tombol Tambah membuat item baru yang otomatis masuk ke folder itu atau otomatis diberi label itu.
+- **Lepas folder dan label tanpa menghapus item** — folder dan label bisa dilepas per item maupun massal, itemnya sendiri tetap ada.
 - **Penyimpanan lokal saja** — data berada di perangkatmu, bukan di server pihak ketiga.
 - **Backup file terenkripsi `.kampil`** yang bisa diunduh, disimpan, dan diimpor kembali.
 - **Backup otomatis berkala ke Google Drive** ke folder khusus bernama **Kampil** yang bersifat private.
@@ -245,6 +249,13 @@ Tidak ada jalan lain, dan ini memang disengaja:
 
 Tambahkan kontak yang berkaitan dengan akses dan urusan penting: nomor yang dipakai untuk verifikasi, kontak admin, atau kontak darurat. Isi nama, nomor HP, email bila ada, dan keterangan singkat tentang peran kontak tersebut.
 
+Satu kontak kini bisa menyimpan **nomor HP dan email lebih dari satu**:
+
+- Tiap nomor HP dan tiap email disimpan sebagai **baris sendiri** di dalam kontak yang sama — misalnya nomor utama dan nomor cadangan, atau email pribadi dan email kerja.
+- Di editor kontak, tiap baris nomor/email bisa **ditambah dan dihapus** sesuai kebutuhan.
+- Di kartu kontak, tiap nomor/email tampil terpisah dan bisa **disalin masing-masing** dengan tombol Salin di barisnya, tanpa perlu menyalin seluruh kontak.
+- **Kontak lama tetap terbaca seperti sebelumnya** — kontak yang dulu hanya punya satu nomor HP dan satu email otomatis tampil sebagai kontak dengan satu baris nomor dan satu baris email, tanpa perlu diubah manual.
+
 ### Rekening
 
 Simpan setiap rekening sebagai satu item terpisah. Isi nama bank, nomor rekening, dan nama pemilik sesuai data bank. Saat membutuhkan nomor rekening, buka itemnya di Kampil dan salin dari sana, bukan dari tangkapan layar atau chat lama.
@@ -266,6 +277,8 @@ Gunakan untuk info akses pendukung yang tidak masuk ke empat kategori lain: petu
 ## Folder dan sortir
 
 Seiring isi brankas bertambah, daftar item di tiap kategori bisa menjadi panjang. Folder dan sortir membantu menjaga daftar tetap rapi dan mudah dicari, tanpa mengubah lima kategori utama Kampil.
+
+Di laman utama, pilihan **Folder**, **Label**, dan **Urutkan** kini **berkelompok dalam satu kartu panel** yang rapi, bukan lagi berderet terpisah memenuhi layar. Laman utama jadi lebih bersih dan lega — kategori, pencarian, dan daftar item lebih mudah dibaca, terutama di HP.
 
 ### Folder di dalam tiap kategori
 
@@ -290,6 +303,20 @@ Ada tiga cara memindahkan item, pilih yang paling mudah untukmu:
 1. **Drag and drop** — seret item dan jatuhkan ke chip folder tujuan.
 2. **Tandai beberapa item sekaligus** — pilih beberapa item, lalu gunakan perintah **Tambahkan ke folder** untuk memindahkan semuanya dalam sekali tindakan, tanpa perlu memindah satu per satu.
 3. **Lewat editor item** — saat menambah atau menyunting item, pilih folder tujuannya langsung dari editor.
+
+### Menambah item dari tampilan folder
+
+Saat kamu sedang membuka tampilan sebuah folder, tombol **Tambah** di tampilan itu membuat item baru yang **otomatis masuk ke folder yang sedang dibuka** — tidak perlu memilih foldernya lagi di editor. Cara yang sama berlaku di tampilan label: item baru dari sana otomatis diberi label yang sedang dibuka (lihat bagian [Label (lintas kategori)](#label-lintas-kategori)).
+
+### Melepas item dari folder
+
+Item bisa dikeluarkan lagi dari foldernya tanpa menghapus item itu sendiri:
+
+- **Per item dari kartu** — di tampilan folder yang sedang dibuka, gunakan perintah lepas pada kartu item untuk mengeluarkannya dari folder tersebut.
+- **Per item dari editor** — saat menyunting item, ubah foldernya menjadi tanpa folder.
+- **Massal lewat Tandai beberapa** — tandai beberapa item sekaligus, lalu lepas semuanya dari folder dalam sekali tindakan.
+
+Item yang dilepas kembali menjadi item **Tanpa folder** di kategori yang sama, dengan isi yang tetap utuh.
 
 ### Sortir daftar item
 
@@ -337,6 +364,20 @@ Label bisa diberikan dengan tiga cara:
 1. **Lewat editor item** — saat menambah atau menyunting item, pilih label yang ingin ditempelkan ke item tersebut.
 2. **Lewat editor folder** — saat membuat atau menyunting folder, pilih label untuk folder itu; semua item di dalamnya otomatis ikut terhitung.
 3. **Massal lewat Tandai beberapa** — tandai beberapa item sekaligus, lalu tempelkan label yang sama ke semuanya dalam sekali tindakan.
+
+### Menambah item dari tampilan label
+
+Saat kamu sedang membuka tampilan sebuah label, tombol **Tambah** di tampilan itu membuat item baru yang **otomatis diberi label yang sedang dibuka** — tidak perlu memilih labelnya lagi di editor. Cara yang sama berlaku di tampilan folder: item baru dari sana otomatis masuk ke folder yang sedang dibuka (lihat bagian [Folder dan sortir](#folder-dan-sortir)).
+
+### Melepas label dari item dan folder
+
+Label bisa dilepas tanpa menghapus item atau folder yang ditandainya:
+
+- **Per item dari kartu** — di tampilan label yang sedang dibuka, gunakan perintah lepas pada kartu item untuk mencabut label itu dari item tersebut.
+- **Per item dari editor** — saat menyunting item atau folder, hilangkan label yang ingin dilepas dari pilihannya.
+- **Massal lewat Tandai beberapa** — tandai beberapa item sekaligus, lalu lepas label yang sama dari semuanya dalam sekali tindakan.
+
+Item dan foldernya tetap ada dengan isi yang utuh — yang hilang hanya tanda labelnya.
 
 ### Penyimpanan label
 
