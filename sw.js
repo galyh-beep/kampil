@@ -4,7 +4,7 @@
    "Instal aplikasi", bukan hanya "Buat pintasan".
    Hanya meng-cache file aplikasi — TIDAK PERNAH meng-cache data kampil;
    data tetap terenkripsi di IndexedDB perangkat. */
-var CACHE = "kampil-github-v1";
+var CACHE = "kampil-github-v2";
 var APP_FILES = [
   "./",
   "index.html",
