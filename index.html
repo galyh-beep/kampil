@@ -65,7 +65,7 @@ if("serviceWorker" in navigator){
     --bg:#F2F5F4; --surface:#FFFFFF; --surface2:#EAF0EE; --ink:#14201D; --muted:#5A6B66;
     --line:#D8E1DE; --accent:#0F766E; --accent-ink:#FFFFFF; --accent-soft:#D9EDE9;
     --danger:#B3261E; --danger-soft:#F9E3E1; --warn:#8A5A00; --warn-soft:#F7ECD2;
-    --ok:#177245; --ok-soft:#DCF0E4; --code-bg:#0E1B18; --code-ink:#D7F0E6;
+    --ok:#177245; --ok-soft:#DCF0E4; --code-bg:#0E1B18; --code-ink:#D7F0E6; --code-ln:#71917F; --tk-kw:#82AAFF; --tk-str:#C3E88D; --tk-com:#8CA89B; --tk-num:#F78C6C; --tk-tag:#4EC9B0; --tk-attr:#FFCB6B;
     --radius:14px; --shadow:0 6px 24px rgba(16,42,36,.10);
   }
   @media (prefers-color-scheme: dark){
@@ -73,7 +73,7 @@ if("serviceWorker" in navigator){
       --bg:#0C1210; --surface:#151D1A; --surface2:#1C2622; --ink:#E7EFEC; --muted:#9DB0A8;
       --line:#2A3833; --accent:#2DBFA8; --accent-ink:#06231D; --accent-soft:#173B34;
       --danger:#F08A84; --danger-soft:#3B201E; --warn:#E8BC63; --warn-soft:#38300F;
-      --ok:#6FD598; --ok-soft:#173527; --code-bg:#08100D; --code-ink:#CDEEDF;
+      --ok:#6FD598; --ok-soft:#173527; --code-bg:#08100D; --code-ink:#CDEEDF; --code-ln:#71917F; --tk-kw:#8FB4FF; --tk-str:#CDEFA0; --tk-com:#8CA89B; --tk-num:#FF9E7A; --tk-tag:#5ED3B3; --tk-attr:#FFD67A;
       --shadow:0 6px 24px rgba(0,0,0,.45);
     }
   }
@@ -210,6 +210,14 @@ if("serviceWorker" in navigator){
   .rows .acts{flex:0 0 auto;display:flex;gap:.3rem}
   .iconbtn{min-height:2.25rem;min-width:2.25rem;padding:.3rem .5rem;font-size:.85rem}
   pre.codeview{background:var(--code-bg);color:var(--code-ink);border-radius:10px;padding:.8rem;overflow-x:auto;font-size:.85rem;margin:.5rem 0 0;white-space:pre-wrap;word-break:break-word}
+  .codeblock{background:var(--code-bg);color:var(--code-ink);border-radius:10px;margin:.5rem 0 0;overflow:auto;max-height:70vh;font-size:.85rem;font-family:ui-monospace,"Cascadia Code",Consolas,Menlo,monospace}
+  .codetable{border-collapse:collapse}
+  .codetable td{padding:0;vertical-align:top;line-height:1.55}
+  .codetable td.ln{width:1%;white-space:nowrap;text-align:right;padding-left:.8rem;padding-right:.75rem;color:var(--code-ln);user-select:none;-webkit-user-select:none;position:sticky;left:0;background:var(--code-bg)}
+  .codetable td.lc{white-space:pre;padding-right:.9rem}
+  .codetable tr:first-child td{padding-top:.6rem}
+  .codetable tr:last-child td{padding-bottom:.6rem}
+  .tk-kw{color:var(--tk-kw)} .tk-str{color:var(--tk-str)} .tk-com{color:var(--tk-com);font-style:italic} .tk-num{color:var(--tk-num)} .tk-tag{color:var(--tk-tag)} .tk-attr{color:var(--tk-attr)}
   .item .foot{display:flex;gap:.45rem;flex-wrap:wrap;margin-top:.7rem}
   .empty{text-align:center;color:var(--muted);padding:2.4rem 1rem;border:1px dashed var(--line);border-radius:var(--radius);background:var(--surface)}
   .fab{position:fixed;right:1rem;bottom:calc(1rem + env(safe-area-inset-bottom));z-index:32;background:var(--accent);color:var(--accent-ink);border:none;border-radius:999px;padding:.85rem 1.4rem;font-size:1rem;box-shadow:var(--shadow);min-height:3.2rem;display:inline-flex;align-items:center;justify-content:center;gap:.5rem}
@@ -1453,6 +1461,97 @@ function fieldRow(it, f){
   }
   return '<div class="r"><span class="k">'+esc(f.label)+'</span><span class="v">'+shown+'</span>'+acts+'</div>';
 }
+/* ===== Tampilan kode: nomor baris + pewarnaan sintaks =====
+   Tokenizer ringan untuk bahasa umum (JavaScript, Apps Script, HTML, CSS,
+   Python/Shell dasar, SQL dasar). Hasilnya dirender sebagai tabel — satu
+   baris tabel per baris kode — dengan kolom nomor baris sticky di kiri,
+   jadi nomor tetap selaras dengan baris kodenya saat blok digulir. */
+var CODE_KEYWORDS = {};
+("var let const function return if else for while do switch case break continue new delete typeof instanceof in of class extends super this self null undefined true false True False None try catch finally throw throws async await yield static get set import export from default void def lambda pass global nonlocal with as except raise print echo public private protected package interface implements enum namespace using include require select insert update table values into where order by group limit offset join inner left right on primary key create alter drop index view trigger begin commit rollback and or not is").split(" ").forEach(function(w){ CODE_KEYWORDS[w] = true; });
+function codeTokens(src, lang){
+  var s = String(src == null ? "" : src).replace(/\r\n?/g, "\n");
+  if(s.length > 120000) return [{ c:"", t:s }];
+  var hashCom = /python|shell|bash|zsh|yaml|yml|ruby|perl|powershell|makefile|dockerfile/.test(String(lang || "").toLowerCase());
+  var toks = [];
+  function push(c, t){ if(t) toks.push({ c:c, t:t }); }
+  var i = 0, n = s.length, ch, two, rest, m, e, j;
+  while(i < n){
+    ch = s.charAt(i); two = s.substr(i, 2); rest = s.slice(i);
+    if(!hashCom && ch === "#" && (m = /^#[0-9a-fA-F]{3,8}\b/.exec(rest))){ push("tk-num", m[0]); i += m[0].length; continue; }
+    if(two === "/*"){ e = s.indexOf("*/", i + 2); e = e < 0 ? n : e + 2; push("tk-com", s.slice(i, e)); i = e; continue; }
+    if(two === "//"){ e = s.indexOf("\n", i); if(e < 0) e = n; push("tk-com", s.slice(i, e)); i = e; continue; }
+    if(s.substr(i, 4) === "<!--"){ e = s.indexOf("-->", i + 4); e = e < 0 ? n : e + 3; push("tk-com", s.slice(i, e)); i = e; continue; }
+    if(hashCom && ch === "#"){ e = s.indexOf("\n", i); if(e < 0) e = n; push("tk-com", s.slice(i, e)); i = e; continue; }
+    if(ch === '"' || ch === "'" || ch === "`"){
+      j = i + 1;
+      while(j < n){
+        if(s.charAt(j) === "\\"){ j += 2; continue; }
+        if(s.charAt(j) === ch){ j++; break; }
+        if(ch !== "`" && s.charAt(j) === "\n") break;
+        j++;
+      }
+      push("tk-str", s.slice(i, j)); i = j; continue;
+    }
+    if(ch === "<" && /[A-Za-z\/!]/.test(s.charAt(i + 1))){
+      var tj = i + 1, isClose = false, isBang = false;
+      if(s.charAt(tj) === "/"){ isClose = true; tj++; }
+      if(s.charAt(tj) === "!"){ isBang = true; tj++; }
+      var nm = /^[A-Za-z][\w-]*/.exec(s.slice(tj));
+      var after = nm ? s.charAt(tj + nm[0].length) : " ";
+      if(nm && /[\s\/>]/.test(after)){
+        push("", "<" + (isClose ? "/" : "") + (isBang ? "!" : ""));
+        push("tk-tag", nm[0]);
+        j = tj + nm[0].length;
+        while(j < n && s.charAt(j) !== ">"){
+          var c = s.charAt(j);
+          if(c === '"' || c === "'"){
+            var k = j + 1;
+            while(k < n && s.charAt(k) !== c && s.charAt(k) !== "\n") k++;
+            if(k < n && s.charAt(k) === c) k++;
+            push("tk-str", s.slice(j, k)); j = k;
+          } else if(/[A-Za-z_:]/.test(c)){
+            m = /^[A-Za-z_:][\w:.-]*/.exec(s.slice(j)); push("tk-attr", m[0]); j += m[0].length;
+          } else if(/[0-9]/.test(c)){
+            m = /^[0-9][\w.%]*/.exec(s.slice(j)); push("tk-num", m[0]); j += m[0].length;
+          } else { push("", c); j++; }
+        }
+        if(j < n){ push("", ">"); j++; }
+        i = j; continue;
+      }
+    }
+    if(/[0-9]/.test(ch) || (ch === "." && /[0-9]/.test(s.charAt(i + 1)))){
+      m = /^0[xX][0-9a-fA-F]+|^[0-9][0-9_]*(?:\.[0-9]+)?(?:[eE][+-]?[0-9]+)?[a-zA-Z%]*|^\.[0-9]+[a-zA-Z%]*/.exec(rest);
+      push("tk-num", m[0]); i += m[0].length; continue;
+    }
+    if(/[A-Za-z_$]/.test(ch)){
+      m = /^[A-Za-z_$][\w$-]*/.exec(rest);
+      var w = m[0], k2 = i + w.length;
+      while(k2 < n && (s.charAt(k2) === " " || s.charAt(k2) === "\t")) k2++;
+      if(CODE_KEYWORDS[w]) push("tk-kw", w);
+      else if(s.charAt(k2) === ":") push("tk-attr", w);
+      else push("", w);
+      i += w.length; continue;
+    }
+    push("", ch); i++;
+  }
+  return toks;
+}
+function codeBlockHtml(src, lang){
+  var toks = codeTokens(src, lang);
+  var lines = [""];
+  toks.forEach(function(tk){
+    var parts = tk.t.split("\n");
+    for(var p = 0; p < parts.length; p++){
+      if(p > 0) lines.push("");
+      if(parts[p]) lines[lines.length - 1] += tk.c ? '<span class="' + tk.c + '">' + esc(parts[p]) + "</span>" : esc(parts[p]);
+    }
+  });
+  var rows = "";
+  for(var li = 0; li < lines.length; li++){
+    rows += '<tr><td class="ln">' + (li + 1) + '</td><td class="lc">' + (lines[li] || " ") + "</td></tr>";
+  }
+  return '<div class="codeblock"><table class="codetable"><tbody>' + rows + "</tbody></table></div>";
+}
 function renderList(){
   renderBulkBar();
   renderControlsSummary();
@@ -1493,7 +1592,7 @@ function renderList(){
     var rows = defs.filter(function(f){ return f.k !== "title" && !f.code && f.k !== "body"; }).map(function(f){ return f.multi ? multiFieldRows(it, f) : fieldRow(it, f); }).join("");
     var codeHtml = "";
     if(it.cat === "kode" && it.fields.code){
-      codeHtml = '<pre class="codeview">'+esc(it.fields.code)+'</pre>';
+      codeHtml = codeBlockHtml(it.fields.code, it.fields.lang);
     }
     if(it.cat === "catatan" && it.fields.body){
       codeHtml = '<pre class="codeview" style="background:var(--surface2);color:var(--ink)">'+esc(it.fields.body)+'</pre>';
@@ -3397,7 +3496,7 @@ if("serviceWorker" in navigator){
     --bg:#F2F5F4; --surface:#FFFFFF; --surface2:#EAF0EE; --ink:#14201D; --muted:#5A6B66;
     --line:#D8E1DE; --accent:#0F766E; --accent-ink:#FFFFFF; --accent-soft:#D9EDE9;
     --danger:#B3261E; --danger-soft:#F9E3E1; --warn:#8A5A00; --warn-soft:#F7ECD2;
-    --ok:#177245; --ok-soft:#DCF0E4; --code-bg:#0E1B18; --code-ink:#D7F0E6;
+    --ok:#177245; --ok-soft:#DCF0E4; --code-bg:#0E1B18; --code-ink:#D7F0E6; --code-ln:#71917F; --tk-kw:#82AAFF; --tk-str:#C3E88D; --tk-com:#8CA89B; --tk-num:#F78C6C; --tk-tag:#4EC9B0; --tk-attr:#FFCB6B;
     --radius:14px; --shadow:0 6px 24px rgba(16,42,36,.10);
   }
   @media (prefers-color-scheme: dark){
@@ -3405,7 +3504,7 @@ if("serviceWorker" in navigator){
       --bg:#0C1210; --surface:#151D1A; --surface2:#1C2622; --ink:#E7EFEC; --muted:#9DB0A8;
       --line:#2A3833; --accent:#2DBFA8; --accent-ink:#06231D; --accent-soft:#173B34;
       --danger:#F08A84; --danger-soft:#3B201E; --warn:#E8BC63; --warn-soft:#38300F;
-      --ok:#6FD598; --ok-soft:#173527; --code-bg:#08100D; --code-ink:#CDEEDF;
+      --ok:#6FD598; --ok-soft:#173527; --code-bg:#08100D; --code-ink:#CDEEDF; --code-ln:#71917F; --tk-kw:#8FB4FF; --tk-str:#CDEFA0; --tk-com:#8CA89B; --tk-num:#FF9E7A; --tk-tag:#5ED3B3; --tk-attr:#FFD67A;
       --shadow:0 6px 24px rgba(0,0,0,.45);
     }
   }
@@ -3542,6 +3641,14 @@ if("serviceWorker" in navigator){
   .rows .acts{flex:0 0 auto;display:flex;gap:.3rem}
   .iconbtn{min-height:2.25rem;min-width:2.25rem;padding:.3rem .5rem;font-size:.85rem}
   pre.codeview{background:var(--code-bg);color:var(--code-ink);border-radius:10px;padding:.8rem;overflow-x:auto;font-size:.85rem;margin:.5rem 0 0;white-space:pre-wrap;word-break:break-word}
+  .codeblock{background:var(--code-bg);color:var(--code-ink);border-radius:10px;margin:.5rem 0 0;overflow:auto;max-height:70vh;font-size:.85rem;font-family:ui-monospace,"Cascadia Code",Consolas,Menlo,monospace}
+  .codetable{border-collapse:collapse}
+  .codetable td{padding:0;vertical-align:top;line-height:1.55}
+  .codetable td.ln{width:1%;white-space:nowrap;text-align:right;padding-left:.8rem;padding-right:.75rem;color:var(--code-ln);user-select:none;-webkit-user-select:none;position:sticky;left:0;background:var(--code-bg)}
+  .codetable td.lc{white-space:pre;padding-right:.9rem}
+  .codetable tr:first-child td{padding-top:.6rem}
+  .codetable tr:last-child td{padding-bottom:.6rem}
+  .tk-kw{color:var(--tk-kw)} .tk-str{color:var(--tk-str)} .tk-com{color:var(--tk-com);font-style:italic} .tk-num{color:var(--tk-num)} .tk-tag{color:var(--tk-tag)} .tk-attr{color:var(--tk-attr)}
   .item .foot{display:flex;gap:.45rem;flex-wrap:wrap;margin-top:.7rem}
   .empty{text-align:center;color:var(--muted);padding:2.4rem 1rem;border:1px dashed var(--line);border-radius:var(--radius);background:var(--surface)}
   .fab{position:fixed;right:1rem;bottom:calc(1rem + env(safe-area-inset-bottom));z-index:32;background:var(--accent);color:var(--accent-ink);border:none;border-radius:999px;padding:.85rem 1.4rem;font-size:1rem;box-shadow:var(--shadow);min-height:3.2rem;display:inline-flex;align-items:center;justify-content:center;gap:.5rem}
@@ -4785,6 +4892,97 @@ function fieldRow(it, f){
   }
   return '<div class="r"><span class="k">'+esc(f.label)+'</span><span class="v">'+shown+'</span>'+acts+'</div>';
 }
+/* ===== Tampilan kode: nomor baris + pewarnaan sintaks =====
+   Tokenizer ringan untuk bahasa umum (JavaScript, Apps Script, HTML, CSS,
+   Python/Shell dasar, SQL dasar). Hasilnya dirender sebagai tabel — satu
+   baris tabel per baris kode — dengan kolom nomor baris sticky di kiri,
+   jadi nomor tetap selaras dengan baris kodenya saat blok digulir. */
+var CODE_KEYWORDS = {};
+("var let const function return if else for while do switch case break continue new delete typeof instanceof in of class extends super this self null undefined true false True False None try catch finally throw throws async await yield static get set import export from default void def lambda pass global nonlocal with as except raise print echo public private protected package interface implements enum namespace using include require select insert update table values into where order by group limit offset join inner left right on primary key create alter drop index view trigger begin commit rollback and or not is").split(" ").forEach(function(w){ CODE_KEYWORDS[w] = true; });
+function codeTokens(src, lang){
+  var s = String(src == null ? "" : src).replace(/\r\n?/g, "\n");
+  if(s.length > 120000) return [{ c:"", t:s }];
+  var hashCom = /python|shell|bash|zsh|yaml|yml|ruby|perl|powershell|makefile|dockerfile/.test(String(lang || "").toLowerCase());
+  var toks = [];
+  function push(c, t){ if(t) toks.push({ c:c, t:t }); }
+  var i = 0, n = s.length, ch, two, rest, m, e, j;
+  while(i < n){
+    ch = s.charAt(i); two = s.substr(i, 2); rest = s.slice(i);
+    if(!hashCom && ch === "#" && (m = /^#[0-9a-fA-F]{3,8}\b/.exec(rest))){ push("tk-num", m[0]); i += m[0].length; continue; }
+    if(two === "/*"){ e = s.indexOf("*/", i + 2); e = e < 0 ? n : e + 2; push("tk-com", s.slice(i, e)); i = e; continue; }
+    if(two === "//"){ e = s.indexOf("\n", i); if(e < 0) e = n; push("tk-com", s.slice(i, e)); i = e; continue; }
+    if(s.substr(i, 4) === "<!--"){ e = s.indexOf("-->", i + 4); e = e < 0 ? n : e + 3; push("tk-com", s.slice(i, e)); i = e; continue; }
+    if(hashCom && ch === "#"){ e = s.indexOf("\n", i); if(e < 0) e = n; push("tk-com", s.slice(i, e)); i = e; continue; }
+    if(ch === '"' || ch === "'" || ch === "`"){
+      j = i + 1;
+      while(j < n){
+        if(s.charAt(j) === "\\"){ j += 2; continue; }
+        if(s.charAt(j) === ch){ j++; break; }
+        if(ch !== "`" && s.charAt(j) === "\n") break;
+        j++;
+      }
+      push("tk-str", s.slice(i, j)); i = j; continue;
+    }
+    if(ch === "<" && /[A-Za-z\/!]/.test(s.charAt(i + 1))){
+      var tj = i + 1, isClose = false, isBang = false;
+      if(s.charAt(tj) === "/"){ isClose = true; tj++; }
+      if(s.charAt(tj) === "!"){ isBang = true; tj++; }
+      var nm = /^[A-Za-z][\w-]*/.exec(s.slice(tj));
+      var after = nm ? s.charAt(tj + nm[0].length) : " ";
+      if(nm && /[\s\/>]/.test(after)){
+        push("", "<" + (isClose ? "/" : "") + (isBang ? "!" : ""));
+        push("tk-tag", nm[0]);
+        j = tj + nm[0].length;
+        while(j < n && s.charAt(j) !== ">"){
+          var c = s.charAt(j);
+          if(c === '"' || c === "'"){
+            var k = j + 1;
+            while(k < n && s.charAt(k) !== c && s.charAt(k) !== "\n") k++;
+            if(k < n && s.charAt(k) === c) k++;
+            push("tk-str", s.slice(j, k)); j = k;
+          } else if(/[A-Za-z_:]/.test(c)){
+            m = /^[A-Za-z_:][\w:.-]*/.exec(s.slice(j)); push("tk-attr", m[0]); j += m[0].length;
+          } else if(/[0-9]/.test(c)){
+            m = /^[0-9][\w.%]*/.exec(s.slice(j)); push("tk-num", m[0]); j += m[0].length;
+          } else { push("", c); j++; }
+        }
+        if(j < n){ push("", ">"); j++; }
+        i = j; continue;
+      }
+    }
+    if(/[0-9]/.test(ch) || (ch === "." && /[0-9]/.test(s.charAt(i + 1)))){
+      m = /^0[xX][0-9a-fA-F]+|^[0-9][0-9_]*(?:\.[0-9]+)?(?:[eE][+-]?[0-9]+)?[a-zA-Z%]*|^\.[0-9]+[a-zA-Z%]*/.exec(rest);
+      push("tk-num", m[0]); i += m[0].length; continue;
+    }
+    if(/[A-Za-z_$]/.test(ch)){
+      m = /^[A-Za-z_$][\w$-]*/.exec(rest);
+      var w = m[0], k2 = i + w.length;
+      while(k2 < n && (s.charAt(k2) === " " || s.charAt(k2) === "\t")) k2++;
+      if(CODE_KEYWORDS[w]) push("tk-kw", w);
+      else if(s.charAt(k2) === ":") push("tk-attr", w);
+      else push("", w);
+      i += w.length; continue;
+    }
+    push("", ch); i++;
+  }
+  return toks;
+}
+function codeBlockHtml(src, lang){
+  var toks = codeTokens(src, lang);
+  var lines = [""];
+  toks.forEach(function(tk){
+    var parts = tk.t.split("\n");
+    for(var p = 0; p < parts.length; p++){
+      if(p > 0) lines.push("");
+      if(parts[p]) lines[lines.length - 1] += tk.c ? '<span class="' + tk.c + '">' + esc(parts[p]) + "</span>" : esc(parts[p]);
+    }
+  });
+  var rows = "";
+  for(var li = 0; li < lines.length; li++){
+    rows += '<tr><td class="ln">' + (li + 1) + '</td><td class="lc">' + (lines[li] || " ") + "</td></tr>";
+  }
+  return '<div class="codeblock"><table class="codetable"><tbody>' + rows + "</tbody></table></div>";
+}
 function renderList(){
   renderBulkBar();
   renderControlsSummary();
@@ -4825,7 +5023,7 @@ function renderList(){
     var rows = defs.filter(function(f){ return f.k !== "title" && !f.code && f.k !== "body"; }).map(function(f){ return f.multi ? multiFieldRows(it, f) : fieldRow(it, f); }).join("");
     var codeHtml = "";
     if(it.cat === "kode" && it.fields.code){
-      codeHtml = '<pre class="codeview">'+esc(it.fields.code)+'</pre>';
+      codeHtml = codeBlockHtml(it.fields.code, it.fields.lang);
     }
     if(it.cat === "catatan" && it.fields.body){
       codeHtml = '<pre class="codeview" style="background:var(--surface2);color:var(--ink)">'+esc(it.fields.body)+'</pre>';

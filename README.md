@@ -61,6 +61,7 @@ Kampil ditujukan untuk pemakaian pribadi, bukan untuk berbagi akses dengan tim. 
 - **Enkripsi AES-256-GCM** — isi brankas tersimpan dalam keadaan terenkripsi, bukan teks biasa.
 - **Kunci otomatis setelah 5 menit** tidak dipakai, sehingga brankas tidak tertinggal dalam keadaan terbuka.
 - **Generator password** di kategori Akun Login, untuk membuat password baru yang kuat langsung di dalam aplikasi.
+- **Tampilan kode dengan nomor baris dan font berwarna** — script/kode yang disimpan di kategori Kode tampil dengan nomor baris di sisi kiri setiap baris dan syntax highlighting, sehingga kata kunci, string, komentar, angka, tag/atribut HTML, properti CSS, dan warna hex tampil dengan warna berbeda dan mudah dibaca.
 - **Kontak dengan banyak nomor dan email** — satu kontak bisa menyimpan nomor HP dan email lebih dari satu, masing-masing sebagai baris sendiri yang bisa ditambah, dihapus, dan disalin satu per satu.
 - **Folder di dalam tiap kategori** — kelompokkan item di Kontak, Rekening, Akun Login, Kode/Skrip, dan Catatan ke dalam folder buatanmu sendiri.
 - **Label lintas kategori dengan warna custom** — tandai item dari kategori berbeda dengan satu label yang sama, misalnya label untuk akun medsos, rekening bank, dan kode sekaligus. Label juga bisa ditempel ke folder.
@@ -269,6 +270,14 @@ Simpan satu item untuk setiap layanan: email, media sosial, akses admin web, lay
 ### Kode
 
 Simpan potongan JavaScript, HTML, CSS, Apps Script, dan kode lain yang sering dipakai ulang. Beri judul yang menjelaskan fungsi kodenya, bukan hanya tanggal, supaya mudah dicari kembali.
+
+Tampilan script/kode di kategori ini kini dilengkapi:
+
+- **Nomor baris** di sisi kiri setiap baris, sehingga posisi baris tertentu mudah dirujuk dan dicari kembali. Nomor baris tetap selaras dengan baris kodenya saat tampilan digulir.
+- **Font berwarna (syntax highlighting)** — kata kunci, string, komentar, angka, tag/atribut HTML, properti CSS, dan warna hex tampil dengan warna berbeda, sehingga struktur kode lebih cepat dibaca dan kesalahan lebih mudah terlihat.
+- **Pewarnaan mengikuti bahasa** dari kolom **Bahasa/Jenis** item — JavaScript, Apps Script, HTML, CSS, Python/Shell, dan SQL dasar masing-masing diwarnai sesuai aturan bahasanya.
+- **Tetap terbaca di mode terang maupun gelap** — palet warnanya menyesuaikan mode tampilan yang sedang dipakai.
+- **Tombol Salin tetap menyalin teks kode asli** — yang disalin adalah kode mentahnya tanpa nomor baris dan tanpa pewarnaan, persis seperti yang disimpan, siap ditempel dan dijalankan di tempat lain.
 
 ### Catatan
 
