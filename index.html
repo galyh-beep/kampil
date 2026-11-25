@@ -218,6 +218,26 @@ if("serviceWorker" in navigator){
   .codetable tr:first-child td{padding-top:.6rem}
   .codetable tr:last-child td{padding-bottom:.6rem}
   .tk-kw{color:var(--tk-kw)} .tk-str{color:var(--tk-str)} .tk-com{color:var(--tk-com);font-style:italic} .tk-num{color:var(--tk-num)} .tk-tag{color:var(--tk-tag)} .tk-attr{color:var(--tk-attr)}
+  /* Blok khusus di Catatan: paragraf biasa, blok kode berlabel, dan tabel */
+  .notetext{margin:.55rem 0 0;line-height:1.65;word-break:break-word}
+  .notecode{background:var(--code-bg);border-radius:10px;margin:.6rem 0 0;overflow:hidden}
+  .notecode .nchead{display:flex;align-items:center;gap:.5rem;padding:.4rem .55rem .4rem .85rem;border-bottom:1px solid rgba(140,168,155,.35)}
+  .notecode .nclang{font-size:.76rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--code-ln)}
+  .notecode .nccopy{margin-left:auto;display:inline-flex;align-items:center;gap:.35rem;background:rgba(255,255,255,.13);color:var(--code-ink);border:none;border-radius:999px;padding:.32rem .75rem;min-height:2.05rem;font-size:.78rem;font-weight:700;cursor:pointer}
+  .notecode .nccopy svg{width:14px;height:14px;stroke:currentColor;flex:0 0 auto}
+  .notecode .nccopy:active{background:rgba(255,255,255,.28)}
+  .notecode .codeblock{margin:0;border-radius:0;background:transparent;max-height:55vh}
+  .notetablewrap{margin:.6rem 0 0;border:1px solid var(--line);border-radius:10px;overflow:auto;max-height:60vh;background:var(--surface)}
+  .notetable{border-collapse:collapse;font-size:.88rem}
+  .notetable th,.notetable td{padding:.45rem .75rem;border-bottom:1px solid var(--line);border-right:1px solid var(--line);text-align:left;vertical-align:top;white-space:nowrap}
+  .notetable th{position:sticky;top:0;background:var(--surface2);font-weight:700;z-index:1}
+  .notetable th:last-child,.notetable td:last-child{border-right:none}
+  .notetable tbody tr:last-child td{border-bottom:none}
+  .noteguide{border:1px solid var(--line);border-radius:10px;background:var(--surface2);padding:.75rem .85rem;margin:.4rem 0 .2rem;font-size:.88rem}
+  .noteguide h4{margin:0 0 .3rem;font-size:.93rem}
+  .noteguide p{margin:.35rem 0;line-height:1.55}
+  .noteguide code{background:var(--surface);border:1px solid var(--line);border-radius:5px;padding:.05rem .35rem;font-family:ui-monospace,Consolas,Menlo,monospace;font-size:.85em}
+  .noteguide pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:.6rem .7rem;overflow-x:auto;font-size:.8rem;line-height:1.5;margin:.35rem 0;white-space:pre;font-family:ui-monospace,Consolas,Menlo,monospace}
   .item .foot{display:flex;gap:.45rem;flex-wrap:wrap;margin-top:.7rem}
   .empty{text-align:center;color:var(--muted);padding:2.4rem 1rem;border:1px dashed var(--line);border-radius:var(--radius);background:var(--surface)}
   .fab{position:fixed;right:1rem;bottom:calc(1rem + env(safe-area-inset-bottom));z-index:32;background:var(--accent);color:var(--accent-ink);border:none;border-radius:999px;padding:.85rem 1.4rem;font-size:1rem;box-shadow:var(--shadow);min-height:3.2rem;display:inline-flex;align-items:center;justify-content:center;gap:.5rem}
@@ -873,7 +893,7 @@ var FIELDS = {
   ],
   catatan: [
     {k:"title", label:"Judul", req:true, ph:""},
-    {k:"body", label:"Isi catatan", area:true, big:true, req:true, ph:"Tulis catatan…"}
+    {k:"body", label:"Isi catatan", area:true, big:true, req:true, ph:"Tulis catatan… (blok kode & tabel bisa — panduan ada di bawah kolom ini)"}
   ]
 };
 var INTERVALS = { "6h": 6*3600*1000, "daily": 24*3600*1000, "weekly": 7*24*3600*1000 };
@@ -1552,6 +1572,101 @@ function codeBlockHtml(src, lang){
   }
   return '<div class="codeblock"><table class="codetable"><tbody>' + rows + "</tbody></table></div>";
 }
+/* ===== Blok khusus di Catatan: blok kode & tabel dari teks biasa =====
+   Isi catatan tetap teks biasa; dua pola tulisan dirender sebagai blok
+   khusus saat catatan ditampilkan:
+   1) Blok kode — teks diapit tiga backtick di baris sendiri, boleh diikuti
+      nama bahasa setelah backtick pembuka (```js, ```html, ...). Tampil
+      sebagai kolom khusus: label bahasa + tombol Salin di kepala kolom,
+      lalu isi dirender dengan codeBlockHtml (nomor baris + warna sintaks).
+      Teks asli tiap blok disimpan di noteRawBlocks agar tombol Salin di
+      kepala kolom menyalin isi blok itu saja, apa adanya.
+   2) Tabel — baris judul dengan sel dipisah "|", baris pemisah |---|---|
+      (":" opsional untuk rata tengah/kanan), lalu baris-baris data.
+      Tampil sebagai tabel sungguhan di kotak yang bisa digulir horizontal
+      dan vertikal, dengan baris judul sticky di atas.
+   Teks lain dirender sebagai paragraf (baris kosong = paragraf baru). */
+var NOTE_COPY_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+var noteRawBlocks = {};
+var NOTE_EXAMPLE_CODE = "```js\nfunction sapa(nama){\n  return \"Halo, \" + nama + \"!\";\n}\n```";
+var NOTE_EXAMPLE_TABLE = "| Nama | Kota | Nilai |\n|---|---|---|\n| Andi | Jakarta | 90 |\n| Sari | Bandung | 85 |";
+function splitNoteRow(line){
+  var s = String(line).trim().replace(/\\\|/g, "\u0001");
+  if(s.charAt(0) === "|") s = s.slice(1);
+  if(s.charAt(s.length - 1) === "|") s = s.slice(0, -1);
+  return s.split("|").map(function(c){ return c.replace(/\u0001/g, "|").trim(); });
+}
+function isNoteTableSep(line){
+  var s = String(line).trim();
+  if(s.indexOf("-") < 0 || s.indexOf("|") < 0) return false;
+  var cells = splitNoteRow(s);
+  if(!cells.length) return false;
+  for(var i = 0; i < cells.length; i++){ if(!/^:?-{1,}:?$/.test(cells[i])) return false; }
+  return true;
+}
+function noteBodyHtml(it){
+  var lines = String(it.fields.body || "").replace(/\r\n?/g, "\n").split("\n");
+  var out = [], para = [], blocks = [];
+  function flushPara(){
+    if(!para.length) return;
+    out.push('<p class="notetext">' + para.map(esc).join("<br>") + "</p>");
+    para = [];
+  }
+  var i = 0, line, fence, lang, buf, code, idx, head, aligns, rowsHtml, headHtml;
+  while(i < lines.length){
+    line = lines[i];
+    fence = /^\s*```\s*([^\s`]*)\s*$/.exec(line);
+    if(fence){
+      flushPara();
+      lang = fence[1] || "";
+      buf = []; i++;
+      while(i < lines.length && !/^\s*```\s*$/.test(lines[i])){ buf.push(lines[i]); i++; }
+      if(i < lines.length) i++;
+      code = buf.join("\n");
+      idx = blocks.length;
+      blocks.push(code);
+      out.push('<div class="notecode"><div class="nchead"><span class="nclang">' + esc(lang || "Text") + '</span><button type="button" class="nccopy" data-act="copynote" data-id="' + it.id + '" data-i="' + idx + '">' + NOTE_COPY_SVG + "Salin</button></div>" + codeBlockHtml(code, lang) + "</div>");
+      continue;
+    }
+    if(line.trim() !== "" && line.indexOf("|") >= 0 && i + 1 < lines.length && isNoteTableSep(lines[i + 1])){
+      flushPara();
+      head = splitNoteRow(line);
+      aligns = splitNoteRow(lines[i + 1]).map(function(c){
+        var l = c.charAt(0) === ":", r = c.charAt(c.length - 1) === ":";
+        return l && r ? "center" : (r ? "right" : "left");
+      });
+      i += 2;
+      headHtml = head.map(function(c, ci){
+        return "<th" + (aligns[ci] && aligns[ci] !== "left" ? ' style="text-align:' + aligns[ci] + '"' : "") + ">" + esc(c) + "</th>";
+      }).join("");
+      rowsHtml = "";
+      while(i < lines.length && lines[i].trim() !== "" && lines[i].indexOf("|") >= 0){
+        var cells = splitNoteRow(lines[i]);
+        rowsHtml += "<tr>" + head.map(function(_, ci){
+          return "<td" + (aligns[ci] && aligns[ci] !== "left" ? ' style="text-align:' + aligns[ci] + '"' : "") + ">" + esc(cells[ci] || "") + "</td>";
+        }).join("") + "</tr>";
+        i++;
+      }
+      out.push('<div class="notetablewrap"><table class="notetable"><thead><tr>' + headHtml + "</tr></thead><tbody>" + rowsHtml + "</tbody></table></div>");
+      continue;
+    }
+    if(line.trim() === ""){ flushPara(); i++; continue; }
+    para.push(line); i++;
+  }
+  flushPara();
+  noteRawBlocks[it.id] = blocks;
+  return out.join("");
+}
+function noteGuideHtml(){
+  return '<div class="noteguide"><h4>Blok khusus di catatan: kode &amp; tabel</h4>'
+    + '<p><b>Blok kode</b> — apit teks dengan tiga backtick (<code>```</code>) yang masing-masing berdiri di baris sendiri. Nama bahasa boleh ditulis setelah backtick pembuka, mis. <code>```js</code> atau <code>```html</code>. Isinya tampil dalam kolom khusus: ada label bahasa dan tombol <b>Salin</b> di kepala kolom, nomor baris di sisi kiri, dan font berwarna mengikuti aturan kode bila isinya kode.</p>'
+    + '<pre>' + esc(NOTE_EXAMPLE_CODE) + '</pre>'
+    + '<p style="margin-bottom:.55rem"><button type="button" class="small" data-copyex="code">Salin contoh blok kode</button></p>'
+    + '<p><b>Tabel</b> — tulis baris judul kolom dengan sel dipisah tanda <code>|</code>, lalu baris pemisah <code>|---|---|</code>, lalu baris-baris data dengan <code>|</code> yang sama. Tabelnya tampil sebagai tabel sungguhan yang bisa digulir ke samping maupun ke bawah bila isinya panjang.</p>'
+    + '<pre>' + esc(NOTE_EXAMPLE_TABLE) + '</pre>'
+    + '<p style="margin-bottom:.55rem"><button type="button" class="small" data-copyex="table">Salin contoh tabel</button></p>'
+    + '<p class="hint" style="margin-bottom:0">Teks biasa di luar blok kode dan tabel tetap tampil sebagai paragraf biasa. Tombol <b>Salin isi</b> di kartu catatan tetap menyalin seluruh teks asli catatan apa adanya.</p></div>';
+}
 function renderList(){
   renderBulkBar();
   renderControlsSummary();
@@ -1595,7 +1710,7 @@ function renderList(){
       codeHtml = codeBlockHtml(it.fields.code, it.fields.lang);
     }
     if(it.cat === "catatan" && it.fields.body){
-      codeHtml = '<pre class="codeview" style="background:var(--surface2);color:var(--ink)">'+esc(it.fields.body)+'</pre>';
+      codeHtml = noteBodyHtml(it);
     }
     var folder = it.folderId ? folderById(it.folderId) : null;
     var selBox = selectMode ? '<label class="selrow"><input type="checkbox" data-sel="' + it.id + '"' + (selectedIds[it.id] ? " checked" : "") + ' /> Pilih item ini</label>' : '';
@@ -1691,6 +1806,7 @@ function onItemAction(act, id, k, idx){
     saveVault().then(function(){ renderAll(); toast("Label" + (lab ? " \u201C" + lab.name + "\u201D" : "") + " dilepas dari item ini — itemnya tetap tersimpan"); });
   }
   else if(act === "copy"){ copyText(it.fields[k] || "", "Tersalin"); }
+  else if(act === "copynote"){ var nb = noteRawBlocks[id] || []; copyText(nb[parseInt(idx, 10)] || "", "Blok kode tersalin"); }
   else if(act === "copybody"){ copyText(it.fields.code || it.fields.body || "", "Isi tersalin"); }
 }
 function renderAll(){ renderTabs(); renderFolders(); renderLabels(); renderSortBar(); renderList(); renderBackupStatus(); renderRecoveryBanner(); renderDrawer(); }
@@ -1934,9 +2050,15 @@ function buildEditorFields(cat, values){
     } else {
       html += '<input type="text" id="ef-'+f.k+'" value="'+v+'" placeholder="'+esc(f.ph||"")+'" autocomplete="off" />';
     }
+    if(cat === "catatan" && f.k === "body") html += noteGuideHtml();
   });
   $("editorFields").innerHTML = html;
   bindMultiEditors();
+  Array.prototype.forEach.call($("editorFields").querySelectorAll("button[data-copyex]"), function(b){
+    b.addEventListener("click", function(){
+      copyText(b.getAttribute("data-copyex") === "table" ? NOTE_EXAMPLE_TABLE : NOTE_EXAMPLE_CODE, "Contoh tersalin — tempel di kolom Isi catatan lalu sesuaikan isinya");
+    });
+  });
   Array.prototype.forEach.call($("editorFields").querySelectorAll("button[data-toggle]"), function(b){
     b.addEventListener("click", function(){
       var inp = $(b.getAttribute("data-toggle"));
@@ -3649,6 +3771,26 @@ if("serviceWorker" in navigator){
   .codetable tr:first-child td{padding-top:.6rem}
   .codetable tr:last-child td{padding-bottom:.6rem}
   .tk-kw{color:var(--tk-kw)} .tk-str{color:var(--tk-str)} .tk-com{color:var(--tk-com);font-style:italic} .tk-num{color:var(--tk-num)} .tk-tag{color:var(--tk-tag)} .tk-attr{color:var(--tk-attr)}
+  /* Blok khusus di Catatan: paragraf biasa, blok kode berlabel, dan tabel */
+  .notetext{margin:.55rem 0 0;line-height:1.65;word-break:break-word}
+  .notecode{background:var(--code-bg);border-radius:10px;margin:.6rem 0 0;overflow:hidden}
+  .notecode .nchead{display:flex;align-items:center;gap:.5rem;padding:.4rem .55rem .4rem .85rem;border-bottom:1px solid rgba(140,168,155,.35)}
+  .notecode .nclang{font-size:.76rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--code-ln)}
+  .notecode .nccopy{margin-left:auto;display:inline-flex;align-items:center;gap:.35rem;background:rgba(255,255,255,.13);color:var(--code-ink);border:none;border-radius:999px;padding:.32rem .75rem;min-height:2.05rem;font-size:.78rem;font-weight:700;cursor:pointer}
+  .notecode .nccopy svg{width:14px;height:14px;stroke:currentColor;flex:0 0 auto}
+  .notecode .nccopy:active{background:rgba(255,255,255,.28)}
+  .notecode .codeblock{margin:0;border-radius:0;background:transparent;max-height:55vh}
+  .notetablewrap{margin:.6rem 0 0;border:1px solid var(--line);border-radius:10px;overflow:auto;max-height:60vh;background:var(--surface)}
+  .notetable{border-collapse:collapse;font-size:.88rem}
+  .notetable th,.notetable td{padding:.45rem .75rem;border-bottom:1px solid var(--line);border-right:1px solid var(--line);text-align:left;vertical-align:top;white-space:nowrap}
+  .notetable th{position:sticky;top:0;background:var(--surface2);font-weight:700;z-index:1}
+  .notetable th:last-child,.notetable td:last-child{border-right:none}
+  .notetable tbody tr:last-child td{border-bottom:none}
+  .noteguide{border:1px solid var(--line);border-radius:10px;background:var(--surface2);padding:.75rem .85rem;margin:.4rem 0 .2rem;font-size:.88rem}
+  .noteguide h4{margin:0 0 .3rem;font-size:.93rem}
+  .noteguide p{margin:.35rem 0;line-height:1.55}
+  .noteguide code{background:var(--surface);border:1px solid var(--line);border-radius:5px;padding:.05rem .35rem;font-family:ui-monospace,Consolas,Menlo,monospace;font-size:.85em}
+  .noteguide pre{background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:.6rem .7rem;overflow-x:auto;font-size:.8rem;line-height:1.5;margin:.35rem 0;white-space:pre;font-family:ui-monospace,Consolas,Menlo,monospace}
   .item .foot{display:flex;gap:.45rem;flex-wrap:wrap;margin-top:.7rem}
   .empty{text-align:center;color:var(--muted);padding:2.4rem 1rem;border:1px dashed var(--line);border-radius:var(--radius);background:var(--surface)}
   .fab{position:fixed;right:1rem;bottom:calc(1rem + env(safe-area-inset-bottom));z-index:32;background:var(--accent);color:var(--accent-ink);border:none;border-radius:999px;padding:.85rem 1.4rem;font-size:1rem;box-shadow:var(--shadow);min-height:3.2rem;display:inline-flex;align-items:center;justify-content:center;gap:.5rem}
@@ -4304,7 +4446,7 @@ var FIELDS = {
   ],
   catatan: [
     {k:"title", label:"Judul", req:true, ph:""},
-    {k:"body", label:"Isi catatan", area:true, big:true, req:true, ph:"Tulis catatan…"}
+    {k:"body", label:"Isi catatan", area:true, big:true, req:true, ph:"Tulis catatan… (blok kode & tabel bisa — panduan ada di bawah kolom ini)"}
   ]
 };
 var INTERVALS = { "6h": 6*3600*1000, "daily": 24*3600*1000, "weekly": 7*24*3600*1000 };
@@ -4911,7 +5053,7 @@ function codeTokens(src, lang){
     if(!hashCom && ch === "#" && (m = /^#[0-9a-fA-F]{3,8}\b/.exec(rest))){ push("tk-num", m[0]); i += m[0].length; continue; }
     if(two === "/*"){ e = s.indexOf("*/", i + 2); e = e < 0 ? n : e + 2; push("tk-com", s.slice(i, e)); i = e; continue; }
     if(two === "//"){ e = s.indexOf("\n", i); if(e < 0) e = n; push("tk-com", s.slice(i, e)); i = e; continue; }
-    if(s.substr(i, 4) === "<!--"){ e = s.indexOf("-->", i + 4); e = e < 0 ? n : e + 3; push("tk-com", s.slice(i, e)); i = e; continue; }
+    if(s.substr(i, 4) === "<\!--"){ e = s.indexOf("-->", i + 4); e = e < 0 ? n : e + 3; push("tk-com", s.slice(i, e)); i = e; continue; }
     if(hashCom && ch === "#"){ e = s.indexOf("\n", i); if(e < 0) e = n; push("tk-com", s.slice(i, e)); i = e; continue; }
     if(ch === '"' || ch === "'" || ch === "`"){
       j = i + 1;
@@ -4983,6 +5125,101 @@ function codeBlockHtml(src, lang){
   }
   return '<div class="codeblock"><table class="codetable"><tbody>' + rows + "</tbody></table></div>";
 }
+/* ===== Blok khusus di Catatan: blok kode & tabel dari teks biasa =====
+   Isi catatan tetap teks biasa; dua pola tulisan dirender sebagai blok
+   khusus saat catatan ditampilkan:
+   1) Blok kode — teks diapit tiga backtick di baris sendiri, boleh diikuti
+      nama bahasa setelah backtick pembuka (```js, ```html, ...). Tampil
+      sebagai kolom khusus: label bahasa + tombol Salin di kepala kolom,
+      lalu isi dirender dengan codeBlockHtml (nomor baris + warna sintaks).
+      Teks asli tiap blok disimpan di noteRawBlocks agar tombol Salin di
+      kepala kolom menyalin isi blok itu saja, apa adanya.
+   2) Tabel — baris judul dengan sel dipisah "|", baris pemisah |---|---|
+      (":" opsional untuk rata tengah/kanan), lalu baris-baris data.
+      Tampil sebagai tabel sungguhan di kotak yang bisa digulir horizontal
+      dan vertikal, dengan baris judul sticky di atas.
+   Teks lain dirender sebagai paragraf (baris kosong = paragraf baru). */
+var NOTE_COPY_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+var noteRawBlocks = {};
+var NOTE_EXAMPLE_CODE = "```js\nfunction sapa(nama){\n  return \"Halo, \" + nama + \"!\";\n}\n```";
+var NOTE_EXAMPLE_TABLE = "| Nama | Kota | Nilai |\n|---|---|---|\n| Andi | Jakarta | 90 |\n| Sari | Bandung | 85 |";
+function splitNoteRow(line){
+  var s = String(line).trim().replace(/\\\|/g, "\u0001");
+  if(s.charAt(0) === "|") s = s.slice(1);
+  if(s.charAt(s.length - 1) === "|") s = s.slice(0, -1);
+  return s.split("|").map(function(c){ return c.replace(/\u0001/g, "|").trim(); });
+}
+function isNoteTableSep(line){
+  var s = String(line).trim();
+  if(s.indexOf("-") < 0 || s.indexOf("|") < 0) return false;
+  var cells = splitNoteRow(s);
+  if(!cells.length) return false;
+  for(var i = 0; i < cells.length; i++){ if(!/^:?-{1,}:?$/.test(cells[i])) return false; }
+  return true;
+}
+function noteBodyHtml(it){
+  var lines = String(it.fields.body || "").replace(/\r\n?/g, "\n").split("\n");
+  var out = [], para = [], blocks = [];
+  function flushPara(){
+    if(!para.length) return;
+    out.push('<p class="notetext">' + para.map(esc).join("<br>") + "</p>");
+    para = [];
+  }
+  var i = 0, line, fence, lang, buf, code, idx, head, aligns, rowsHtml, headHtml;
+  while(i < lines.length){
+    line = lines[i];
+    fence = /^\s*```\s*([^\s`]*)\s*$/.exec(line);
+    if(fence){
+      flushPara();
+      lang = fence[1] || "";
+      buf = []; i++;
+      while(i < lines.length && !/^\s*```\s*$/.test(lines[i])){ buf.push(lines[i]); i++; }
+      if(i < lines.length) i++;
+      code = buf.join("\n");
+      idx = blocks.length;
+      blocks.push(code);
+      out.push('<div class="notecode"><div class="nchead"><span class="nclang">' + esc(lang || "Text") + '</span><button type="button" class="nccopy" data-act="copynote" data-id="' + it.id + '" data-i="' + idx + '">' + NOTE_COPY_SVG + "Salin</button></div>" + codeBlockHtml(code, lang) + "</div>");
+      continue;
+    }
+    if(line.trim() !== "" && line.indexOf("|") >= 0 && i + 1 < lines.length && isNoteTableSep(lines[i + 1])){
+      flushPara();
+      head = splitNoteRow(line);
+      aligns = splitNoteRow(lines[i + 1]).map(function(c){
+        var l = c.charAt(0) === ":", r = c.charAt(c.length - 1) === ":";
+        return l && r ? "center" : (r ? "right" : "left");
+      });
+      i += 2;
+      headHtml = head.map(function(c, ci){
+        return "<th" + (aligns[ci] && aligns[ci] !== "left" ? ' style="text-align:' + aligns[ci] + '"' : "") + ">" + esc(c) + "</th>";
+      }).join("");
+      rowsHtml = "";
+      while(i < lines.length && lines[i].trim() !== "" && lines[i].indexOf("|") >= 0){
+        var cells = splitNoteRow(lines[i]);
+        rowsHtml += "<tr>" + head.map(function(_, ci){
+          return "<td" + (aligns[ci] && aligns[ci] !== "left" ? ' style="text-align:' + aligns[ci] + '"' : "") + ">" + esc(cells[ci] || "") + "</td>";
+        }).join("") + "</tr>";
+        i++;
+      }
+      out.push('<div class="notetablewrap"><table class="notetable"><thead><tr>' + headHtml + "</tr></thead><tbody>" + rowsHtml + "</tbody></table></div>");
+      continue;
+    }
+    if(line.trim() === ""){ flushPara(); i++; continue; }
+    para.push(line); i++;
+  }
+  flushPara();
+  noteRawBlocks[it.id] = blocks;
+  return out.join("");
+}
+function noteGuideHtml(){
+  return '<div class="noteguide"><h4>Blok khusus di catatan: kode &amp; tabel</h4>'
+    + '<p><b>Blok kode</b> — apit teks dengan tiga backtick (<code>```</code>) yang masing-masing berdiri di baris sendiri. Nama bahasa boleh ditulis setelah backtick pembuka, mis. <code>```js</code> atau <code>```html</code>. Isinya tampil dalam kolom khusus: ada label bahasa dan tombol <b>Salin</b> di kepala kolom, nomor baris di sisi kiri, dan font berwarna mengikuti aturan kode bila isinya kode.</p>'
+    + '<pre>' + esc(NOTE_EXAMPLE_CODE) + '</pre>'
+    + '<p style="margin-bottom:.55rem"><button type="button" class="small" data-copyex="code">Salin contoh blok kode</button></p>'
+    + '<p><b>Tabel</b> — tulis baris judul kolom dengan sel dipisah tanda <code>|</code>, lalu baris pemisah <code>|---|---|</code>, lalu baris-baris data dengan <code>|</code> yang sama. Tabelnya tampil sebagai tabel sungguhan yang bisa digulir ke samping maupun ke bawah bila isinya panjang.</p>'
+    + '<pre>' + esc(NOTE_EXAMPLE_TABLE) + '</pre>'
+    + '<p style="margin-bottom:.55rem"><button type="button" class="small" data-copyex="table">Salin contoh tabel</button></p>'
+    + '<p class="hint" style="margin-bottom:0">Teks biasa di luar blok kode dan tabel tetap tampil sebagai paragraf biasa. Tombol <b>Salin isi</b> di kartu catatan tetap menyalin seluruh teks asli catatan apa adanya.</p></div>';
+}
 function renderList(){
   renderBulkBar();
   renderControlsSummary();
@@ -5026,7 +5263,7 @@ function renderList(){
       codeHtml = codeBlockHtml(it.fields.code, it.fields.lang);
     }
     if(it.cat === "catatan" && it.fields.body){
-      codeHtml = '<pre class="codeview" style="background:var(--surface2);color:var(--ink)">'+esc(it.fields.body)+'</pre>';
+      codeHtml = noteBodyHtml(it);
     }
     var folder = it.folderId ? folderById(it.folderId) : null;
     var selBox = selectMode ? '<label class="selrow"><input type="checkbox" data-sel="' + it.id + '"' + (selectedIds[it.id] ? " checked" : "") + ' /> Pilih item ini</label>' : '';
@@ -5122,6 +5359,7 @@ function onItemAction(act, id, k, idx){
     saveVault().then(function(){ renderAll(); toast("Label" + (lab ? " \u201C" + lab.name + "\u201D" : "") + " dilepas dari item ini — itemnya tetap tersimpan"); });
   }
   else if(act === "copy"){ copyText(it.fields[k] || "", "Tersalin"); }
+  else if(act === "copynote"){ var nb = noteRawBlocks[id] || []; copyText(nb[parseInt(idx, 10)] || "", "Blok kode tersalin"); }
   else if(act === "copybody"){ copyText(it.fields.code || it.fields.body || "", "Isi tersalin"); }
 }
 function renderAll(){ renderTabs(); renderFolders(); renderLabels(); renderSortBar(); renderList(); renderBackupStatus(); renderRecoveryBanner(); renderDrawer(); }
@@ -5365,9 +5603,15 @@ function buildEditorFields(cat, values){
     } else {
       html += '<input type="text" id="ef-'+f.k+'" value="'+v+'" placeholder="'+esc(f.ph||"")+'" autocomplete="off" />';
     }
+    if(cat === "catatan" && f.k === "body") html += noteGuideHtml();
   });
   $("editorFields").innerHTML = html;
   bindMultiEditors();
+  Array.prototype.forEach.call($("editorFields").querySelectorAll("button[data-copyex]"), function(b){
+    b.addEventListener("click", function(){
+      copyText(b.getAttribute("data-copyex") === "table" ? NOTE_EXAMPLE_TABLE : NOTE_EXAMPLE_CODE, "Contoh tersalin — tempel di kolom Isi catatan lalu sesuaikan isinya");
+    });
+  });
   Array.prototype.forEach.call($("editorFields").querySelectorAll("button[data-toggle]"), function(b){
     b.addEventListener("click", function(){
       var inp = $(b.getAttribute("data-toggle"));
@@ -6960,6 +7204,7 @@ Nama folder backup di Google Drive juga bernama **Kampil** dan selalu privat.
 - **Kontak multi-nomor & multi-email:** satu kontak bisa menyimpan banyak nomor HP dan banyak email — tambah/hapus per baris di formulir, dan tiap nomor/email punya tombol **Salin** sendiri di kartunya. Kontak lama yang hanya punya satu nomor/email otomatis terbaca sebagai daftar berisi satu, jadi data lama tetap aman.
 - **Akun Login** dilengkapi tombol tampil/sembunyi, salin, dan generator password acak.
 - **Kode / Skrip** tampil seperti notepad kode (JavaScript, HTML, Apps Script, dan lain-lain) dan bisa disalin utuh.
+- **Blok kode & tabel di Catatan:** isi catatan bisa memuat blok kode (diapit tiga backtick, tampil sebagai kolom khusus berlabel bahasa dengan tombol Salin, nomor baris, dan warna sintaks) dan tabel markdown (kolom dipisah `|`, tampil sebagai tabel sungguhan yang bisa digulir dua arah). Aturan penulisannya lengkap di bagian **Blok kode dan tabel di Catatan** di bawah, dan ringkasnya juga tampil sebagai panduan di editor catatan.
 - **Pencarian** di semua kategori dan penguncian otomatis setelah 5 menit tanpa aktivitas.
 - **Folder di dalam kategori:** kelompokkan isi tiap kategori ke folder buatanmu sendiri (mis. Akun Login → Sosmed, Kerja, Bank). Satu item masuk ke satu folder; folder bisa dibuat, diubah namanya, dan dihapus — menghapus folder tidak menghapus isinya, item hanya keluar menjadi Tanpa folder. Pindahkan isi dengan menyeret kartu item ke chip folder (drag & drop), atau tandai beberapa item sekaligus lalu pilih **Tambahkan ke folder**. Chip folder di atas daftar (Semua / Tanpa folder / nama folder) menyaring tampilan — cara lengkapnya di bagian Folder dan sortir di bawah.
 - **Label lintas kategori dengan warna custom:** tandai item dari kategori berbeda-beda dengan label yang sama (mis. satu label berisi akun login media sosial, rekening bank, dan kode sekaligus). Satu item bisa punya beberapa label, dan label juga bisa menandai folder. Warna label bebas dipilih, termasuk warna custom. Cara lengkapnya di bagian Label (lintas kategori) di bawah.
@@ -7107,6 +7352,42 @@ iOS tidak memakai tombol Instal dari manifest seperti Android. Buka alamat `gith
 - **Menambah item langsung dari label yang sedang dibuka:** saat sebuah label sedang tampil, tombol **+ Tambah** membuat item baru yang otomatis diberi label itu.
 - **Kelola isi label (panel centang):** ketuk **Kelola isi label** di bilah label (atau di kotak kosong label) untuk membuka panel berisi daftar folder dan daftar item dari semua kategori beserta info kategorinya. Centang untuk memberi label, lepas centang untuk melepasnya. Item yang sudah berlabel lewat foldernya ditandai khusus — lepas labelnya dari baris folder di panel yang sama.
 - **Melepas label dari item:** buka item lewat **Ubah** lalu ketuk chip label yang aktif untuk melepasnya, atau tandai beberapa item, pilih labelnya di bilah tandai, lalu ketuk **Lepaskan label**. Pada tampilan sebuah label, ada juga tombol **Lepas label ini** di kartu item dan **Lepaskan label ini** di bilah tandai. Label yang menempel lewat folder hanya bisa dilepas dari foldernya. Item tidak terhapus.
+
+## Blok kode dan tabel di Catatan
+
+Isi catatan pada dasarnya teks biasa, tetapi dua pola tulisan khusus tampil sebagai blok khusus di kartu catatan. Panduan ringkas yang sama juga tampil di dalam editor catatan, lengkap dengan contoh yang bisa disalin.
+
+### Blok kode
+
+Apit teks dengan **tiga backtick** (`` ``` ``) yang masing-masing berdiri di baris sendiri. Nama bahasa boleh ditulis menempel setelah backtick pembuka:
+
+        ```js
+        function sapa(nama) {
+          return "Halo, " + nama + "!";
+        }
+        ```
+
+- Blok tampil dalam **kolom khusus** berwarna gelap seperti notepad kode: ada **label bahasa** di kiri atas (atau **Text** bila bahasa tidak ditulis) dan tombol **Salin** di kanan atas yang menyalin isi blok itu saja.
+- Bila isinya kode, tampilannya mengikuti aturan kode Kampil: **nomor baris** di sisi kiri dan **font berwarna** (pewarnaan sintaks) sesuai bahasa yang ditulis — sama seperti tampilan kategori Kode.
+- Blok yang panjang bisa digulir ke samping dan ke bawah di dalam kolomnya.
+- Backtick penutup sebaiknya selalu ditulis; tanpa penutup, blok dianggap berlanjut sampai akhir catatan.
+
+### Tabel
+
+Tulis baris judul kolom dengan sel dipisah tanda `|`, lalu baris pemisah yang isinya hanya `-` dan `|` (boleh ditambah `:` — `:---:` rata tengah, `---:` rata kanan), lalu baris-baris data dengan `|` yang sama:
+
+        | Nama | Kota | Nilai |
+        |---|---|---|
+        | Andi | Jakarta | 90 |
+        | Sari | Bandung | 85 |
+
+- Tabel tampil sebagai **tabel sungguhan** dengan baris judul yang tetap terlihat saat digulir; tabel yang lebar atau panjang bisa **digulir horizontal maupun vertikal** di dalam kotaknya.
+- Jumlah sel tiap baris data mengikuti jumlah kolom judul; sel yang dikosongkan tampil kosong.
+- Tanda `\|` di dalam sel dibaca sebagai tanda `|` biasa, bukan pemisah kolom.
+
+### Teks biasa
+
+Teks di luar blok kode dan tabel tampil sebagai paragraf biasa (baris kosong memulai paragraf baru). Tombol **Salin isi** di kartu catatan tetap menyalin seluruh teks asli catatan apa adanya — termasuk tanda backtick dan `|`-nya — jadi catatan lama tanpa pola khusus tampil dan tersalin seperti sebelumnya.
 
 ## Backup dan pemulihan
 
@@ -7627,6 +7908,7 @@ Nama folder backup di Google Drive juga bernama **Kampil** dan selalu privat.
 - **Kontak multi-nomor & multi-email:** satu kontak bisa menyimpan banyak nomor HP dan banyak email — tambah/hapus per baris di formulir, dan tiap nomor/email punya tombol **Salin** sendiri di kartunya. Kontak lama yang hanya punya satu nomor/email otomatis terbaca sebagai daftar berisi satu, jadi data lama tetap aman.
 - **Akun Login** dilengkapi tombol tampil/sembunyi, salin, dan generator password acak.
 - **Kode / Skrip** tampil seperti notepad kode (JavaScript, HTML, Apps Script, dan lain-lain) dan bisa disalin utuh.
+- **Blok kode & tabel di Catatan:** isi catatan bisa memuat blok kode (diapit tiga backtick, tampil sebagai kolom khusus berlabel bahasa dengan tombol Salin, nomor baris, dan warna sintaks) dan tabel markdown (kolom dipisah `|`, tampil sebagai tabel sungguhan yang bisa digulir dua arah). Aturan penulisannya lengkap di bagian **Blok kode dan tabel di Catatan** di bawah, dan ringkasnya juga tampil sebagai panduan di editor catatan.
 - **Pencarian** di semua kategori dan penguncian otomatis setelah 5 menit tanpa aktivitas.
 - **Folder di dalam kategori:** kelompokkan isi tiap kategori ke folder buatanmu sendiri (mis. Akun Login → Sosmed, Kerja, Bank). Satu item masuk ke satu folder; folder bisa dibuat, diubah namanya, dan dihapus — menghapus folder tidak menghapus isinya, item hanya keluar menjadi Tanpa folder. Pindahkan isi dengan menyeret kartu item ke chip folder (drag & drop), atau tandai beberapa item sekaligus lalu pilih **Tambahkan ke folder**. Chip folder di atas daftar (Semua / Tanpa folder / nama folder) menyaring tampilan — cara lengkapnya di bagian Folder dan sortir di bawah.
 - **Label lintas kategori dengan warna custom:** tandai item dari kategori berbeda-beda dengan label yang sama (mis. satu label berisi akun login media sosial, rekening bank, dan kode sekaligus). Satu item bisa punya beberapa label, dan label juga bisa menandai folder. Warna label bebas dipilih, termasuk warna custom. Cara lengkapnya di bagian Label (lintas kategori) di bawah.
@@ -7774,6 +8056,42 @@ iOS tidak memakai tombol Instal dari manifest seperti Android. Buka alamat `gith
 - **Menambah item langsung dari label yang sedang dibuka:** saat sebuah label sedang tampil, tombol **+ Tambah** membuat item baru yang otomatis diberi label itu.
 - **Kelola isi label (panel centang):** ketuk **Kelola isi label** di bilah label (atau di kotak kosong label) untuk membuka panel berisi daftar folder dan daftar item dari semua kategori beserta info kategorinya. Centang untuk memberi label, lepas centang untuk melepasnya. Item yang sudah berlabel lewat foldernya ditandai khusus — lepas labelnya dari baris folder di panel yang sama.
 - **Melepas label dari item:** buka item lewat **Ubah** lalu ketuk chip label yang aktif untuk melepasnya, atau tandai beberapa item, pilih labelnya di bilah tandai, lalu ketuk **Lepaskan label**. Pada tampilan sebuah label, ada juga tombol **Lepas label ini** di kartu item dan **Lepaskan label ini** di bilah tandai. Label yang menempel lewat folder hanya bisa dilepas dari foldernya. Item tidak terhapus.
+
+## Blok kode dan tabel di Catatan
+
+Isi catatan pada dasarnya teks biasa, tetapi dua pola tulisan khusus tampil sebagai blok khusus di kartu catatan. Panduan ringkas yang sama juga tampil di dalam editor catatan, lengkap dengan contoh yang bisa disalin.
+
+### Blok kode
+
+Apit teks dengan **tiga backtick** (`` ``` ``) yang masing-masing berdiri di baris sendiri. Nama bahasa boleh ditulis menempel setelah backtick pembuka:
+
+        ```js
+        function sapa(nama) {
+          return "Halo, " + nama + "!";
+        }
+        ```
+
+- Blok tampil dalam **kolom khusus** berwarna gelap seperti notepad kode: ada **label bahasa** di kiri atas (atau **Text** bila bahasa tidak ditulis) dan tombol **Salin** di kanan atas yang menyalin isi blok itu saja.
+- Bila isinya kode, tampilannya mengikuti aturan kode Kampil: **nomor baris** di sisi kiri dan **font berwarna** (pewarnaan sintaks) sesuai bahasa yang ditulis — sama seperti tampilan kategori Kode.
+- Blok yang panjang bisa digulir ke samping dan ke bawah di dalam kolomnya.
+- Backtick penutup sebaiknya selalu ditulis; tanpa penutup, blok dianggap berlanjut sampai akhir catatan.
+
+### Tabel
+
+Tulis baris judul kolom dengan sel dipisah tanda `|`, lalu baris pemisah yang isinya hanya `-` dan `|` (boleh ditambah `:` — `:---:` rata tengah, `---:` rata kanan), lalu baris-baris data dengan `|` yang sama:
+
+        | Nama | Kota | Nilai |
+        |---|---|---|
+        | Andi | Jakarta | 90 |
+        | Sari | Bandung | 85 |
+
+- Tabel tampil sebagai **tabel sungguhan** dengan baris judul yang tetap terlihat saat digulir; tabel yang lebar atau panjang bisa **digulir horizontal maupun vertikal** di dalam kotaknya.
+- Jumlah sel tiap baris data mengikuti jumlah kolom judul; sel yang dikosongkan tampil kosong.
+- Tanda `\|` di dalam sel dibaca sebagai tanda `|` biasa, bukan pemisah kolom.
+
+### Teks biasa
+
+Teks di luar blok kode dan tabel tampil sebagai paragraf biasa (baris kosong memulai paragraf baru). Tombol **Salin isi** di kartu catatan tetap menyalin seluruh teks asli catatan apa adanya — termasuk tanda backtick dan `|`-nya — jadi catatan lama tanpa pola khusus tampil dan tersalin seperti sebelumnya.
 
 ## Backup dan pemulihan
 

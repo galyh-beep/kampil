@@ -62,6 +62,7 @@ Kampil ditujukan untuk pemakaian pribadi, bukan untuk berbagi akses dengan tim. 
 - **Kunci otomatis setelah 5 menit** tidak dipakai, sehingga brankas tidak tertinggal dalam keadaan terbuka.
 - **Generator password** di kategori Akun Login, untuk membuat password baru yang kuat langsung di dalam aplikasi.
 - **Tampilan kode dengan nomor baris dan font berwarna** — script/kode yang disimpan di kategori Kode tampil dengan nomor baris di sisi kiri setiap baris dan syntax highlighting, sehingga kata kunci, string, komentar, angka, tag/atribut HTML, properti CSS, dan warna hex tampil dengan warna berbeda dan mudah dibaca.
+- **Blok kode dan tabel di dalam Catatan** — isi catatan kini mendukung blok kode dan tabel. Teks yang diapit tiga backtick tampil sebagai kolom khusus dengan label bahasa, tombol Salin, nomor baris, dan font berwarna; teks yang ditulis sebagai tabel dengan pemisah `|` tampil sebagai tabel sungguhan yang bisa digulir. Teks biasa di luar keduanya tetap tampil sebagai paragraf biasa.
 - **Kontak dengan banyak nomor dan email** — satu kontak bisa menyimpan nomor HP dan email lebih dari satu, masing-masing sebagai baris sendiri yang bisa ditambah, dihapus, dan disalin satu per satu.
 - **Folder di dalam tiap kategori** — kelompokkan item di Kontak, Rekening, Akun Login, Kode/Skrip, dan Catatan ke dalam folder buatanmu sendiri.
 - **Label lintas kategori dengan warna custom** — tandai item dari kategori berbeda dengan satu label yang sama, misalnya label untuk akun medsos, rekening bank, dan kode sekaligus. Label juga bisa ditempel ke folder.
@@ -282,6 +283,58 @@ Tampilan script/kode di kategori ini kini dilengkapi:
 ### Catatan
 
 Gunakan untuk info akses pendukung yang tidak masuk ke empat kategori lain: petunjuk pemulihan akun, lokasi penyimpanan dokumen penting, atau urutan langkah masuk ke layanan tertentu.
+
+Isi catatan kini mendukung **blok kode** dan **tabel** di dalam teks yang sama. Teks biasa di luar blok kode dan tabel tetap tampil sebagai paragraf biasa. Panduan aturan ini juga tampil di dalam editor catatan sebagai contoh singkat yang bisa disalin.
+
+#### Blok kode di dalam catatan
+
+Jika ada bagian catatan yang berupa kode, perintah, atau teks yang perlu tampil persis seperti aslinya, apit teks itu dengan **tiga backtick** (`` ``` ``) di baris sendiri — backtick pembuka di baris sebelum isi, dan backtick penutup di baris setelah isi. Boleh ditambah nama bahasa setelah backtick pembuka, misalnya `js`, `html`, `css`, atau `text`.
+
+Contoh penulisan:
+
+````
+```js
+const halo = "Halo Kampil";
+console.log(halo);
+```
+````
+
+Hasil tampilannya:
+
+- Isi di dalam backtick tampil sebagai **kolom khusus** yang terpisah dari paragraf biasa.
+- Di bagian atas kolom ada **label bahasa** sesuai yang kamu tulis setelah backtick pembuka (misalnya `js` atau `html`; jika tidak ditulis, tampil sebagai teks biasa).
+- Ada **tombol Salin** di kolom tersebut untuk menyalin isi blok kode saja, tanpa ikut menyalin teks catatan di luarnya.
+- Ada **nomor baris** di sisi kiri setiap baris.
+- **Font berwarna sesuai aturan kode** (syntax highlighting) — kata kunci, string, komentar, dan angka tampil dengan warna berbeda, mengikuti bahasa yang ditulis.
+
+Blok kode juga cocok untuk teks selain kode program, misalnya urutan perintah, contoh format, atau cuplikan teks yang tidak boleh berubah formatnya — cukup apit dengan tiga backtick tanpa nama bahasa.
+
+#### Tabel di dalam catatan
+
+Jika isi catatan berupa data berkolom, tulis sebagai tabel dengan karakter pipa `|` sebagai pemisah kolom. Polanya ada tiga bagian:
+
+1. **Baris header** — nama-nama kolom dipisah `|`.
+2. **Baris pemisah** — tulis `|---|---|` tepat di bawah header, dengan jumlah kolom yang sama seperti header.
+3. **Baris-baris data** — tiap baris data ditulis dengan `|` yang sama seperti header.
+
+Contoh penulisan:
+
+```text
+| Layanan | Username | Keterangan |
+|---|---|---|
+| Email utama | nama@contoh.id | Untuk verifikasi |
+| Admin web | admin | Akses pengelola |
+```
+
+Hasil tampilannya:
+
+- Tabel tampil sebagai **tabel sungguhan** dengan header dan baris data, bukan teks biasa.
+- Jika isi tabel panjang atau lebar, tabel bisa **digulir horizontal maupun vertikal** di dalam tampilannya, sehingga tidak merusak lebar catatan dan tetap mudah dibaca di HP maupun desktop.
+- Jumlah kolom di baris data sebaiknya sama dengan jumlah kolom di header agar tabel tampil rapi.
+
+#### Menggabungkan teks, blok kode, dan tabel
+
+Dalam satu catatan, kamu bebas mencampur ketiganya secara berurutan: tulis paragraf biasa untuk penjelasan, sisipkan blok kode untuk cuplikan yang perlu disalin persis, lalu tambahkan tabel untuk data berkolom. Kampil mengenali tiap bagian dari aturan penulisannya — backtick untuk blok kode dan pola `|` + baris pemisah untuk tabel — dan menampilkan sisanya sebagai paragraf biasa.
 
 ---
 
