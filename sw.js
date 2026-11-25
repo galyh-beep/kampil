@@ -8,7 +8,7 @@
    v3: instalasi cache ditoleransi per file (satu file gagal tidak lagi
    menggagalkan aktivasi service worker) dan navigasi jaringan-dulu dengan
    cadangan index dari cache, agar start_url selalu bisa dibuka SW. */
-var CACHE = "kampil-github-v8";
+var CACHE = "kampil-github-v9";
 var APP_FILES = [
   "./",
   "index.html",
