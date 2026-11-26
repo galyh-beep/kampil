@@ -8,7 +8,7 @@
    v3: instalasi cache ditoleransi per file (satu file gagal tidak lagi
    menggagalkan aktivasi service worker) dan navigasi jaringan-dulu dengan
    cadangan index dari cache, agar start_url selalu bisa dibuka SW. */
-var CACHE = "kampil-github-v9";
+var CACHE = "kampil-github-v10";
 var APP_FILES = [
   "./",
   "index.html",
@@ -56,8 +56,15 @@ self.addEventListener("fetch", function (event) {
         if (res && res.ok) {
           var copy = res.clone();
           caches.open(CACHE).then(function (cache) { cache.put(INDEX_URL, copy); });
+          return res;
         }
-        return res;
+        /* Respons jaringan tidak OK (404/500, mis. halaman 404 GitHub):
+           jangan teruskan halaman galat itu ke jendela aplikasi — layani
+           index.html dari cache sebagai gantinya. Hanya bila cache kosong
+           sama sekali barulah respons jaringan dikembalikan apa adanya. */
+        return caches.match(INDEX_URL, { ignoreSearch: true }).then(function (hit) {
+          return hit || res;
+        });
       }).catch(function () {
         return caches.match(INDEX_URL, { ignoreSearch: true }).then(function (hit) {
           return hit || new Response("Offline", { status: 503, statusText: "Offline" });
